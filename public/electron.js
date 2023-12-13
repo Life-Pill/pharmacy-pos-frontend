@@ -15,6 +15,8 @@ function createWindow() {
     },
   });
 
+  mainWindow.setFullScreen(true);
+
   // In production, set the initial browser path to the local bundle generated
   // by the Create React App build process.
   // In development, set it to localhost to allow live/hot-reloading.

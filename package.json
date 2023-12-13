@@ -1,21 +1,25 @@
 {
   "name": "pharmacy-pos-frontend",
   "version": "0.1.0",
+  "private": true,
   "author": "LifePill",
   "description": "pharmacy-pos-frontend is the frontend application for a modern Pharmacy Point of Sale (POS) system, developed by LifePill. This user-friendly desktop application provides an intuitive interface for managing pharmacy sales, inventory, and customer interactions. Empower your pharmacy staff with efficient tools for processing transactions, tracking product availability, and enhancing customer service. Built with the latest web technologies, our frontend ensures a seamless and responsive experience, making it an essential component of a comprehensive Pharmacy POS solution.",
-  "private": true,
   "homepage": "./",
   "main": "./public/electron.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^18.2.43",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.68",
+    "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -47,8 +51,8 @@
     ]
   },
   "build": {
-    "appId": "com.electron.myapp",
-    "productName": "My Electron App",
+    "appId": "com.electron.lifepill",
+    "productName": "LifePillPos",
     "files": [
       "build/**/*",
       "node_modules/**/*"
