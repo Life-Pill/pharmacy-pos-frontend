@@ -18,7 +18,7 @@ module.exports = {
         blueLight: '#31B5F8',
         blue: '#2FABF7',
         blueDark: '#2A8DF5',
-        blueDarker: '#277CF4',
+        blueDarker: '#277CF4', //button
         black: '#19191C',
         grayLight: '#828487',
         gray: '#C2C2C2',

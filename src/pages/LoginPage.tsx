@@ -1,14 +1,14 @@
 import React from 'react';
-import LogInCard from '../components/cards/LogInCard.tsx';
+import LogInCard from '../components/login/LogInCard';
+import RecentLogBar from '../components/login/RecentLogBar';
 
-const LoginPage = () => {
+const LogInPage = () => {
   return (
-    <div>
-      {/* login page card */}
+    <div className='flex justify-evenly items-center min-h-screen'>
       <LogInCard />
-      {/* recent log outs */}
+      <RecentLogBar />
     </div>
   );
 };
 
-export default LoginPage;
+export default LogInPage;
