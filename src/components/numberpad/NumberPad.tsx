@@ -13,7 +13,7 @@ const NumberPad: FC<NumberPadProps> = ({ onKeyPress }) => {
   const renderButton = (value: string) => (
     <button
       key={value}
-      className='flex items-center justify-center text-lg border border-gray-300 rounded'
+      className='flex items-center justify-center text-xl border-none rounded-full w-28 h-20 bg-zinc-400 font-bold text-white'
       onClick={() => handleKeyPress(value)}
     >
       {value}
@@ -28,10 +28,10 @@ const NumberPad: FC<NumberPadProps> = ({ onKeyPress }) => {
   ];
 
   return (
-    <div className='w-96 mx-auto mt-8'>
-      <div className='grid grid-cols-3 gap-2'>
+    <div className='mx-auto mt-8'>
+      <div className='grid grid-rows-3 gap-3'>
         {numberPadRows.map((row, rowIndex) => (
-          <div key={rowIndex} className='flex flex-col'>
+          <div key={rowIndex} className='flex flex-row gap-3'>
             {row.map((key) => renderButton(key))}
           </div>
         ))}

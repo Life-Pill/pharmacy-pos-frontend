@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RecentLogBar from '../components/login/RecentLogBar';
 import NumberPad from '../components/numberpad/NumberPad';
 
 const LogInCashierPasswordPage = () => {
+  const [pin, setPin] = useState('');
   const handleKeyPress = (key: string) => {
-    // Handle the key press in your component
-    console.log(`Key pressed: ${key}`);
+    // Handle the key press and update the pin
+    if (key === 'C') {
+      setPin(''); // Clear the pin if 'C' is pressed
+    } else if (key === '=') {
+      // Handle the logic when '=' is pressed (if needed)
+    } else {
+      setPin((prevPin) => prevPin + key);
+    }
   };
   return (
-    <div>
+    <div className='flex items-center justify-center flex-col h-screen space-y-4'>
       <RecentLogBar />
-      <p>Enter your pin</p>
+      <input
+        type='password'
+        id='pinInput'
+        value={pin}
+        readOnly
+        placeholder='Enter Your Pin'
+        className='border-b border-gray-500 focus:border-blue-500 outline-none mt-8 pt-8 w-[200 px] text-lg font-bold placeholder-gray-700 text-center'
+      />
       <div>
         {/* numpad goes here */}
         <NumberPad onKeyPress={handleKeyPress} />
       </div>
-      <button>Unlock</button>
-      <p>LogIn/LogOut</p>
+      <button className='signup_button w-64 border border-solid border-blueDarker rounded-full'>
+        Unlock
+      </button>
+      <button className='login_button text-center w-64'>LogIn / LogOut</button>
     </div>
   );
 };

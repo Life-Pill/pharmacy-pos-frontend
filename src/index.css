@@ -9,7 +9,7 @@
 
 @layer components {
   .signup_button {
-    @apply py-2 px-4 rounded-md focus:outline-none bg-blueDarker w-[400px] text-white;
+    @apply py-2 px-4 rounded-md focus:outline-none bg-blueDarker w-[400px] text-white font-bold;
   }
   .login_button {
     @apply py-2 px-4 rounded-full bg-white w-[400px] text-blueDark outline outline-blueDarker font-bold;
