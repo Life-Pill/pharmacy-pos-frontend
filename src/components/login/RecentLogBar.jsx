@@ -32,9 +32,6 @@ const RecentLogBar = () => {
           </div>
         ))}
       </div>
-      <div>
-        <button className='login_button'>Log In</button>
-      </div>
     </div>
   );
 };
