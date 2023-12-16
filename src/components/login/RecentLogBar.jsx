@@ -16,9 +16,7 @@ const RecentLogBar = () => {
           <div
             key={index}
             className={`w-[120px] h-[120px] rounded-full overflow-hidden relative ${
-              index === 0
-                ? 'ring-2 ring-blueDarker'
-                : 'opacity-60 filter brightness-75'
+              index === 0 ? '' : 'opacity-60 filter brightness-75'
             }`}
           >
             {index === 0 && (
@@ -31,9 +29,6 @@ const RecentLogBar = () => {
             />
           </div>
         ))}
-      </div>
-      <div>
-        <button className='login_button'>Log In</button>
       </div>
     </div>
   );
