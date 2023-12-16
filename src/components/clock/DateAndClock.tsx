@@ -5,7 +5,7 @@ type Props = {};
 
 const DateAndClock = (props: Props) => {
   return (
-    <div className='flex items-center justify-center m-4 flex-col space-y-4'>
+    <div className='flex items-center justify-center m-8 flex-col space-y-4 p-8'>
       <Clock
         format={'HH:mm:ss'}
         ticking={true}
