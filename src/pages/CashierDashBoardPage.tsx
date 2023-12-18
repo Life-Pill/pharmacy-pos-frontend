@@ -13,6 +13,7 @@ function CashierDashBoardPage({}: Props) {
       <div className='flex flex-row items-center justify-center'>
         <CashierSideBar />
         <MedicineGrid />
+        {/* Order details side bar */}
         <OrderDetailsSideBar />
       </div>
     </div>
