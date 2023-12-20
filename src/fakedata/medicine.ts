@@ -11,7 +11,7 @@ const fakeMedicines: Medicine[] = [];
 
 for (let i = 0; i < 100; i++) {
   fakeMedicines.push({
-    image: `https://example.com/medicine${i}.jpg`,
+    image: `https://picsum.photos/seed/medicine${i}/200`,
     id: `med-${i + 1}`,
     name: `Medicine ${i + 1}`,
     price: Math.floor(Math.random() * 100) + 10, // Random price between 10 and 110
