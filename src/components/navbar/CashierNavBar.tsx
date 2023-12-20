@@ -18,7 +18,9 @@ const CashierNavBar = (props: Props) => {
   return (
     <div className='flex items-center justify-between w-full p-2 mx-4 my-2 font-poppins shadow-md'>
       {/* Back Button */}
-      <IoArrowBackCircleOutline size={40} style={{ color: 'gray' }} />
+      <div className='ml-2'>
+        <IoArrowBackCircleOutline size={40} style={{ color: 'gray' }} />
+      </div>
 
       <Divider />
 
