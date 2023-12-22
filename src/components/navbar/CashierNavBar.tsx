@@ -16,7 +16,7 @@ type Props = {};
 const CashierNavBar = (props: Props) => {
   const handleClick = () => {};
   return (
-    <div className='flex items-center justify-between w-full p-2 mx-4 my-2 font-poppins shadow-md fixed top-0'>
+    <div className='flex items-center justify-between w-full p-2 font-poppins shadow-md'>
       {/* Back Button */}
       <div className='ml-2'>
         <IoArrowBackCircleOutline size={40} style={{ color: 'gray' }} />

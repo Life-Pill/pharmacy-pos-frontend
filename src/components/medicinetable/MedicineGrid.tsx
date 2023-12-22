@@ -7,7 +7,7 @@ type Props = {};
 
 const MedicineGrid = (props: Props) => {
   return (
-    <div className='container mx-auto py-10'>
+    <div className='font-poppins w-full'>
       <MedicineTable columns={columns} data={fakeMedicines} />
     </div>
   );

@@ -30,7 +30,7 @@ export function MedicineTable<TData, TValue>({
   });
 
   return (
-    <div className='rounded-md border'>
+    <div className='rounded-md'>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -50,7 +50,7 @@ export function MedicineTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className='overflow-x-hidden'>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -66,7 +66,7 @@ export function MedicineTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
+              <TableCell colSpan={columns.length} className='h-16 text-center'>
                 No results.
               </TableCell>
             </TableRow>

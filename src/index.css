@@ -88,3 +88,9 @@
     @apply py-2 px-4 rounded-full bg-white w-[400px] text-blueDark outline outline-blueDarker font-bold;
   }
 }
+
+@layer utilities {
+  .shadow-right {
+    box-shadow: 5px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  }
+}

@@ -12,7 +12,7 @@ type Props = {};
 const CashierSideBar = (props: Props) => {
   const handleClick = () => {};
   return (
-    <div className='fixed left-0 max-w-24 p-4 shadow-md h-screen font-poppins'>
+    <div className='left-0 max-w-24 p-4 font-poppins flex flex-col h-auto'>
       <ButtonWithIconAndTextVertical
         icon={<PiSyringeLight size={25} />}
         text='Medical Devices'
