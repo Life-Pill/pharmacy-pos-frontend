@@ -17,11 +17,11 @@ function CashierDashBoardPage({}: Props) {
       <section>
         <div className='flex flex-row'>
           <CashierSideBar />
+
           <Divider />
-          <div className='overflow-x-auto max-h-[700px]'>
-            <MedicineGrid />
-          </div>
-          {/* Order details side bar */}
+
+          <MedicineGrid />
+
           <OrderDetailsSideBar />
         </div>
       </section>
