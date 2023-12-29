@@ -30,6 +30,7 @@ module.exports = {
         grayLight: '#828487',
         gray: '#C2C2C2',
         red: '#D70015',
+        numberpadbutton: '#F8F9FD',
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
