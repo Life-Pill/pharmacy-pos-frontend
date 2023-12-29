@@ -4,6 +4,7 @@ import CashierSideBar from '../components/sidebar/CashierSideBar';
 import MedicineGrid from '../components/medicinetable/MedicineGrid';
 import OrderDetailsSideBar from '../components/cashierOrderDetailsSideBar/OrderDetailsSideBar';
 import Divider from '../components/divider/Divider';
+import PaymentDrawer from '../components/paymentComponents/PaymentDrawer';
 
 type Props = {};
 
@@ -16,12 +17,13 @@ function CashierDashBoardPage({}: Props) {
 
       <div className='flex flex-row flex-grow'>
         <CashierSideBar />
-
         <Divider />
-
         <MedicineGrid />
-
-        <OrderDetailsSideBar />
+        {/* 
+        ! Here i used the payment method for just development there should be a way to switch between these two
+         */}
+        {/* <OrderDetailsSideBar /> */}
+        <PaymentDrawer />
       </div>
     </div>
   );
