@@ -5,7 +5,7 @@ import MedicineGrid from '../components/medicinetable/MedicineGrid';
 import OrderDetailsSideBar from '../components/cashierOrderDetailsSideBar/OrderDetailsSideBar';
 import Divider from '../components/divider/Divider';
 import PaymentDrawer from '../components/paymentComponents/PaymentDrawer';
-import ConfirmPaymentPopUp from '../components/paymentComponents/ConfirmPaymentPopUp';
+import ConfirmPaymentPopUp from '../components/paymentComponents/confirmPaymentPopUp/ConfirmPaymentPopUp';
 
 type Props = {};
 
