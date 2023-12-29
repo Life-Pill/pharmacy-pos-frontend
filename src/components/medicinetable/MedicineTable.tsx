@@ -66,7 +66,7 @@ export function MedicineTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-16 text-center'>
+              <TableCell colSpan={columns.length} className='h-12 text-center'>
                 No results.
               </TableCell>
             </TableRow>

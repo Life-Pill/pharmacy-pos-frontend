@@ -9,7 +9,7 @@ type FooterButtonProps = {
 const FooterButton = ({ icon, text, onClick }: FooterButtonProps) => {
   return (
     <button
-      className='p-2 text-white rounded-xl bg-blueDarker flex flex-col items-center px-8 mx-2'
+      className='p-2 text-white rounded-xl bg-blue flex flex-col items-center px-8 mx-2'
       onClick={onClick}
     >
       {React.cloneElement(icon as React.ReactElement, { size: 50 })}

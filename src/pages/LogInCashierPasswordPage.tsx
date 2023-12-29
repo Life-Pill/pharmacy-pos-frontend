@@ -40,7 +40,9 @@ const LogInCashierPasswordPage = () => {
       >
         Unlock
       </button>
-      <button className='login_button text-center w-64'>LogIn / LogOut</button>
+      <button className='login_button text-center w-64 border border-solid border-blueDarker'>
+        LogIn / LogOut
+      </button>
     </div>
   );
 };

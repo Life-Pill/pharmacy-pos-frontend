@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { RxCross1 } from 'react-icons/rx';
 import HorizontalDivider from '../divider/HorizontalDivider';
-import { FaCcVisa, FaMoneyBillAlt, FaCcMastercard } from 'react-icons/fa';
-import PaymentMethodButton from '../buttons/PaymentMethodButton';
-import PaymentNumberPad from '../numberpad/PaymentNumberPad';
-import FooterButton from './FooterButton';
 import { BiReceipt } from 'react-icons/bi';
 import { AiOutlineMail } from 'react-icons/ai';
 import { MdOutlineDone } from 'react-icons/md';
-type Props = {};
+import PaymentMethodButton from '../buttons/PaymentMethodButton';
+import PaymentNumberPad from '../numberpad/PaymentNumberPad';
+import FooterButton from './FooterButton';
+import mastercard from '../../assets/icons/mastercard.png';
+import money from '../../assets/icons/money.png';
+import visa from '../../assets/icons/visa.png';
+type Props = {
+  openConfirmPayment: () => void;
+};
 
-const PaymentDrawer = (props: Props) => {
+const PaymentDrawer = ({ openConfirmPayment }: Props) => {
   const handlePaymentMethodClick = () => {};
   const [payment, setPayment] = useState('');
   const handleKeyPress = (key: string) => {
@@ -34,9 +38,14 @@ const PaymentDrawer = (props: Props) => {
     }
   };
 
-  const footerButtonClick = () => {};
+  // Popup state here
+
+  const footerButtonClick = () => {
+    openConfirmPayment();
+  };
+
   return (
-    <div className='w-[700px] flex flex-col p-2 z-10 rounded-lg space-y-4 font-poppins'>
+    <div className='max-w-[700px] flex flex-col p-2 rounded-lg space-y-4 font-poppins'>
       <div className='flex justify-between items-center'>
         <div>
           <p className='font-semibold'>Order Payment</p>
@@ -45,7 +54,7 @@ const PaymentDrawer = (props: Props) => {
         <RxCross1 />
       </div>
       <HorizontalDivider />
-      <div className='flex flex-col'>
+      <div className='flex flex-col bg-numberpadbutton rounded-md p-2'>
         <div className=' flex flex-row justify-between items-center'>
           <p>Discount</p>
           <p>5%</p>
@@ -61,15 +70,15 @@ const PaymentDrawer = (props: Props) => {
         <p className='font-semibold'>Payment Method</p>
         <div className='flex justify-evenly items-center'>
           <PaymentMethodButton
-            icon={<FaCcMastercard />}
+            imageSrc={mastercard}
             onClick={handlePaymentMethodClick}
           />
           <PaymentMethodButton
-            icon={<FaMoneyBillAlt />}
+            imageSrc={money}
             onClick={handlePaymentMethodClick}
           />
           <PaymentMethodButton
-            icon={<FaCcVisa />}
+            imageSrc={visa}
             onClick={handlePaymentMethodClick}
           />
         </div>
