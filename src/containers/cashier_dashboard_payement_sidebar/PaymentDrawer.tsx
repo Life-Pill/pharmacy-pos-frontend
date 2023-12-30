@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { RxCross1 } from 'react-icons/rx';
-import HorizontalDivider from '../divider/HorizontalDivider';
+import HorizontalDivider from '../../components/divider/HorizontalDivider';
 import { BiReceipt } from 'react-icons/bi';
 import { AiOutlineMail } from 'react-icons/ai';
 import { MdOutlineDone } from 'react-icons/md';
-import PaymentMethodButton from '../buttons/PaymentMethodButton';
-import PaymentNumberPad from '../numberpad/PaymentNumberPad';
-import FooterButton from './FooterButton';
+import PaymentMethodButton from '../../components/buttons/PaymentMethodButton';
+import PaymentNumberPad from '../../components/numberpad/payment_numberpad/PaymentNumberPad';
+import FooterButton from '../../components/buttons/FooterButton';
 import mastercard from '../../assets/icons/mastercard.png';
 import money from '../../assets/icons/money.png';
 import visa from '../../assets/icons/visa.png';

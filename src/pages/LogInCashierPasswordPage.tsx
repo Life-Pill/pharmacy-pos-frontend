@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import RecentLogBar from '../components/login/RecentLogBar';
-import NumberPad from '../components/numberpad/NumberPad';
+import RecentLogBar from '../components/login_card/RecentLogBar';
+import NumberPad from '../components/numberpad/cashier_login_numberpad/NumberPad';
 import { useNavigate } from 'react-router-dom';
 
 const LogInCashierPasswordPage = () => {

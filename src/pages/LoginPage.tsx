@@ -1,6 +1,6 @@
 import React from 'react';
-import LogInCard from '../components/login/LogInCard';
-import RecentLogBar from '../components/login/RecentLogBar';
+import LogInCard from '../components/login_card/LogInCard';
+import RecentLogBar from '../components/login_card/RecentLogBar';
 import { useNavigate } from 'react-router-dom';
 
 const LogInPage = () => {

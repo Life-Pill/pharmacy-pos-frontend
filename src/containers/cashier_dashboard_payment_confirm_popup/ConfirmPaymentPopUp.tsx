@@ -1,6 +1,6 @@
 import React from 'react';
-import HorizontalDivider from '../../divider/HorizontalDivider';
-import MedicineGridPopUp from './MedineGridPopUp';
+import HorizontalDivider from '../../components/divider/HorizontalDivider';
+import MedicineGridPopUp from '../../components/paymentComponents/MedineGridPopUp';
 type Props = {
   isCardVisible: boolean;
   onClose: () => void;
