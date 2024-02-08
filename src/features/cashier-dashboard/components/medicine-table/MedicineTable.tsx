@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../../@shadcn/components/ui/table';
+} from '../../../../@shadcn/components/ui/table';
 
 interface MedicineTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

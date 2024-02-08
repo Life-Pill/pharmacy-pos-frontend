@@ -1,6 +1,6 @@
 import React from 'react';
 import HorizontalDivider from '../../components/divider/HorizontalDivider';
-import MedicineGridPopUp from '../../components/cashier_dashboard_order_confirm/MedineGridPopUp';
+import MedicineGridPopUp from '../../features/cashier-dashboard/components/order-confirm/MedineGridPopUp';
 type Props = {
   isCardVisible: boolean;
   onClose: () => void;

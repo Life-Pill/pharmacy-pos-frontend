@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RecentLogBar from '../modules/login/components/RecentLogBar';
+import RecentLogBar from '../features/login/components/RecentLogBar';
 import NumberPad from '../components/numberpad/cashier_login_numberpad/NumberPad';
 import { useNavigate } from 'react-router-dom';
 

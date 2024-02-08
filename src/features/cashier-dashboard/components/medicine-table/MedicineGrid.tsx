@@ -1,7 +1,7 @@
 import React from 'react';
 import { MedicineTable } from './MedicineTable';
 import { columns } from './MedicineColumns';
-import fakeMedicines from '../../assets/fakedata/medicine';
+import fakeMedicines from '../../../../assets/fakedata/medicine';
 
 type Props = {};
 

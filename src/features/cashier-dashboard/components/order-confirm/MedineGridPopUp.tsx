@@ -8,9 +8,9 @@ import {
   TableHeader,
   TableRow,
   TableFooter,
-} from '../../@shadcn/components/ui/table';
+} from '../../../../@shadcn/components/ui/table';
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
-import CountRoundButton from '../buttons/CountRoundButton';
+import CountRoundButton from '../../../../components/buttons/CountRoundButton';
 
 type Medicine = {
   name: string;
