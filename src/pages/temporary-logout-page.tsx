@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DateAndClock from '../components/clock/DateAndClock';
-import RecentCashier from '../components/login_card/RecentCashier';
+import RecentCashier from '../modules/login/components/RecentCashier';
 import { useNavigate } from 'react-router-dom';
 
 type Props = {};

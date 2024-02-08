@@ -1,9 +1,9 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import LogInPage from './pages/LogInPage';
-import LogInCashierPasswordPage from './pages/LogInCashierPasswordPage';
-import CashierTemporaryLogOutPage from './pages/CashierTemporaryLogOutPage';
-import CashierDashBoardPage from './pages/CashierDashBoardPage';
+import LogInPage from './pages/login-page';
+import LogInCashierPasswordPage from './pages/cashier-password-page';
+import CashierTemporaryLogOutPage from './pages/temporary-logout-page';
+import CashierDashBoardPage from './pages/cashier-dashboard';
 
 function App() {
   return (
