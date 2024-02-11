@@ -14,7 +14,7 @@ function CashierDashBoardPage({}: Props) {
     useState<boolean>(false);
   return (
     <div className='flex flex-col h-screen'>
-      <div className='w-full'>
+      <div>
         <CashierNavBar />
       </div>
 
