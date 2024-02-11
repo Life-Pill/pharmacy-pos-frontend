@@ -1,17 +1,21 @@
 import React from 'react';
 
 type PaymentMethodButtonProps = {
-  icon: React.ReactNode;
+  imageSrc: string; // URL or local path to the PNG image
   onClick: () => void;
 };
 
-function PaymentMethodButton({ icon, onClick }: PaymentMethodButtonProps) {
+function PaymentMethodButton({ imageSrc, onClick }: PaymentMethodButtonProps) {
   return (
     <button
-      className='p-2 text-black rounded-md hover:bg-blueDarker hover:text-white focus:border-blueDarker transition duration-300 focus:ring border border-gray'
+      className='p-2 text-black rounded-md transition-transform transform hover:scale-110 hover:text-white focus:border-blueDarker duration-300 focus:ring border border-gray'
       onClick={onClick}
     >
-      {React.cloneElement(icon as React.ReactElement, { size: 60 })}
+      <img
+        src={imageSrc}
+        alt='Payment Method'
+        className=' w-16 h-12 object-contain'
+      />
     </button>
   );
 }

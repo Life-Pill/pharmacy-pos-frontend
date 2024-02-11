@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../../@shadcn/components/ui/table';
+} from '../../../../@shadcn/components/ui/table';
 
 interface MedicineTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -66,7 +66,7 @@ export function MedicineTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-16 text-center'>
+              <TableCell colSpan={columns.length} className='h-12 text-center'>
                 No results.
               </TableCell>
             </TableRow>

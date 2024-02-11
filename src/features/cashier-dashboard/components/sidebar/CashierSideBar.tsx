@@ -5,7 +5,7 @@ import { PiPillLight } from 'react-icons/pi';
 import { IoIosFitness } from 'react-icons/io';
 import { PiFirstAidKit } from 'react-icons/pi';
 import { CiMedicalClipboard } from 'react-icons/ci';
-import ButtonWithIconAndTextVertical from '../buttons/ButtonWithIconAndTextVertical';
+import ButtonWithIconAndTextVertical from '../../../../components/buttons/ButtonWithIconAndTextVertical';
 
 type Props = {};
 

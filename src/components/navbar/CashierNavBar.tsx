@@ -7,7 +7,7 @@ import ButtonWithIconAndText from '../buttons/ButtonWithIconAndText';
 import { CiViewList } from 'react-icons/ci';
 import { LiaHistorySolid } from 'react-icons/lia';
 import { PiDeviceMobileSpeakerThin } from 'react-icons/pi';
-import ProfileNameCard from '../cashierprofile/ProfileNameCard';
+import ProfileNameCard from '../cashier_profile/ProfileNameCard';
 import Divider from '../divider/Divider';
 const Logo = require('../../assets/logo/logo.png');
 

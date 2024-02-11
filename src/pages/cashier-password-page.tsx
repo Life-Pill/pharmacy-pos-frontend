@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import RecentLogBar from '../components/login/RecentLogBar';
-import NumberPad from '../components/numberpad/NumberPad';
+import RecentLogBar from '../features/login/components/RecentLogBar';
+import NumberPad from '../components/numberpad/cashier_login_numberpad/NumberPad';
 import { useNavigate } from 'react-router-dom';
 
 const LogInCashierPasswordPage = () => {
@@ -40,7 +40,9 @@ const LogInCashierPasswordPage = () => {
       >
         Unlock
       </button>
-      <button className='login_button text-center w-64'>LogIn / LogOut</button>
+      <button className='login_button text-center w-64 border border-solid border-blueDarker'>
+        LogIn / LogOut
+      </button>
     </div>
   );
 };
