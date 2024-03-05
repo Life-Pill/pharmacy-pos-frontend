@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RecentLogBar from '../features/login/components/RecentLogBar';
-import NumberPad from '../components/numberpad/cashier_login_numberpad/NumberPad';
+import NumberPad from '../shared/cashier_login_numberpad/NumberPad';
 import { useNavigate } from 'react-router-dom';
 
 const LogInCashierPasswordPage = () => {

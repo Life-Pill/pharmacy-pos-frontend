@@ -10,14 +10,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path='/' Component={LogInPage} /> */}
-        {/* <Route
+        <Route path='/' Component={LogInPage} />
+        <Route
           path='/login-cashier-password'
           Component={LogInCashierPasswordPage}
         />
         <Route path='/' Component={CashierTemporaryLogOutPage} />
-        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} /> */}
-        <Route path='/' Component={ManagerDashboardPage} />
+        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} />
+        {/* <Route path='/' Component={ManagerDashboardPage} /> */}
       </Routes>
     </Router>
   );
