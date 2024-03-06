@@ -3,6 +3,8 @@ import BarGraph from '../../../../shared/charts/BarGraph';
 import branchSaleDetails from '../../../../assets/fakedata/branchsales';
 import DoughnutChart from '../../../../shared/charts/DoughnutChart';
 import branchOrderDetails from '../../../../assets/fakedata/orderdetails';
+import CashierRecentTransactionCard from './CashierRecentTransactionCard';
+import LatestTransactionDetails from './LatestTransactionDetails';
 type Props = {};
 
 const Dashboard = (props: Props) => {
@@ -16,8 +18,12 @@ const Dashboard = (props: Props) => {
         <p className='text-md text-center font-bold'>Order by Branch</p>
         <DoughnutChart data={branchOrderDetails} />
       </div>
-      <div className='p-4'>Item 3</div>
-      <div className='bg-gray-200 p-4'>Item 4</div>
+      <div className='p-4'>
+        <CashierRecentTransactionCard />
+      </div>
+      <div className='bg-gray-200 p-4'>
+        <LatestTransactionDetails />
+      </div>
     </div>
   );
 };
