@@ -20,8 +20,14 @@ const Dashboard = (props: Props) => {
       </div>
       <div className='p-4'>
         <CashierRecentTransactionCard />
+        <CashierRecentTransactionCard />
+        <CashierRecentTransactionCard />
+        <CashierRecentTransactionCard />
       </div>
       <div className='bg-gray-200 p-4'>
+        <LatestTransactionDetails />
+        <LatestTransactionDetails />
+        <LatestTransactionDetails />
         <LatestTransactionDetails />
       </div>
     </div>
