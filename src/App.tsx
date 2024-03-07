@@ -10,8 +10,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path='/' Component={LogInPage} /> */}
-        {/* <Route
+        {/* <Route path='/' Component={LogInPage} />
+        <Route
           path='/login-cashier-password'
           Component={LogInCashierPasswordPage}
         />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DateAndClock from '../components/clock/DateAndClock';
+import DateAndClock from '../shared/clock/DateAndClock';
 import RecentCashier from '../features/login/components/RecentCashier';
 import { useNavigate } from 'react-router-dom';
 

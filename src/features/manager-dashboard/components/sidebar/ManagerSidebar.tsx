@@ -1,4 +1,4 @@
-import ButtonWithIconAndTextVertical from '../../../../components/buttons/ButtonWithIconAndTextVertical';
+import ButtonWithIconAndTextVertical from '../../../../shared/buttons/ButtonWithIconAndTextVertical';
 import { MdOutlineManageSearch } from 'react-icons/md';
 import { IoSaveOutline } from 'react-icons/io5';
 import { VscFeedback } from 'react-icons/vsc';

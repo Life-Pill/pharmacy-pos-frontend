@@ -1,7 +1,7 @@
 import React from 'react';
 import { CiUser } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
-const Logo = require('../../assets/logo/logo.png');
+const Logo = require('../../../assets/logo/logo.png');
 
 const LogInCard = () => {
   return (

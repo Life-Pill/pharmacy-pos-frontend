@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonWithTextOnly from '../../components/buttons/ButtonWithTextOnly';
+import ButtonWithTextOnly from '../../shared/buttons/ButtonWithTextOnly';
 import MedicineGrid from '../../features/cashier-dashboard/components/order-details/MedicineGrid';
 
 type Props = {};

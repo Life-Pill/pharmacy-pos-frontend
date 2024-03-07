@@ -4,11 +4,11 @@ import { CiViewList } from 'react-icons/ci';
 import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import { LiaHistorySolid } from 'react-icons/lia';
 import { PiDeviceMobileSpeakerThin } from 'react-icons/pi';
-import ButtonWithIconAndText from '../../../../components/buttons/ButtonWithIconAndText';
-import ProfileNameCard from '../../../../components/cashier_profile/ProfileNameCard';
-import DateAndTimeNavBar from '../../../../components/clock/DateAndTimeNavBar';
-import Divider from '../../../../components/divider/Divider';
-import MedicineSearchBar from '../../../../components/searchbar/MedicineSearchBar';
+import ButtonWithIconAndText from '../../../../shared/buttons/ButtonWithIconAndText';
+import ProfileNameCard from '../../../../shared/cashier_profile/ProfileNameCard';
+import DateAndTimeNavBar from '../../../../shared/clock/DateAndTimeNavBar';
+import Divider from '../../../../shared/divider/Divider';
+import MedicineSearchBar from '../../../../shared/searchbar/MedicineSearchBar';
 import Logo from '../../../../assets/logo/logo.png';
 
 type Props = {};

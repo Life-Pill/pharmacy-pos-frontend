@@ -10,7 +10,7 @@ import {
   TableFooter,
 } from '../../../../@shadcn/components/ui/table';
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
-import CountRoundButton from '../../../../components/buttons/CountRoundButton';
+import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 
 type Medicine = {
   name: string;
