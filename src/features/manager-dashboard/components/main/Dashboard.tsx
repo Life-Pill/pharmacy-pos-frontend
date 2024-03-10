@@ -9,7 +9,7 @@ type Props = {};
 
 const Dashboard = (props: Props) => {
   return (
-    <div className=' w-full grid grid-cols-2 grid-rows-2 gap-8'>
+    <div className=' w-full grid grid-cols-2 grid-rows-2 gap-8 max-h-screen overflow-hidden'>
       <div className='p-4'>
         <p className='text-md text-center font-bold'>Sales by Branch</p>
         <BarGraph branchSaleDetails={branchSaleDetails} />
@@ -20,14 +20,8 @@ const Dashboard = (props: Props) => {
       </div>
       <div className='p-4'>
         <CashierRecentTransactionCard />
-        <CashierRecentTransactionCard />
-        <CashierRecentTransactionCard />
-        <CashierRecentTransactionCard />
       </div>
-      <div className='bg-gray-200 p-4'>
-        <LatestTransactionDetails />
-        <LatestTransactionDetails />
-        <LatestTransactionDetails />
+      <div className=' p-4'>
         <LatestTransactionDetails />
       </div>
     </div>
