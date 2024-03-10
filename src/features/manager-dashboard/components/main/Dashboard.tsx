@@ -21,10 +21,7 @@ const Dashboard = (props: Props) => {
       <div className='p-4'>
         <CashierRecentTransactionCard />
       </div>
-      <div className='bg-gray-200 p-4'>
-        <LatestTransactionDetails />
-        <LatestTransactionDetails />
-        <LatestTransactionDetails />
+      <div className=' p-4'>
         <LatestTransactionDetails />
       </div>
     </div>
