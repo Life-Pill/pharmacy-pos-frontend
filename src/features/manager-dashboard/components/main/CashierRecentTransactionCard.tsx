@@ -10,7 +10,7 @@ function CashierRecentTransactionCard({}: Props) {
         <p className=' font-bold text-lg'>Cashier Reports</p>
         <p className=' text-blueDarker'>View All</p>
       </div>
-      <div>
+      <div className='max-h-48 overflow-y-scroll'>
         {cashierReport.map((report) => (
           <div key={report.id}>
             <div className='flex flex-row gap-12 justify-between items-center'>
