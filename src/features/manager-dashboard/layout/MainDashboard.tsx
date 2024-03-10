@@ -12,7 +12,7 @@ import FeedbacksManagementWindow from '../components/feedbacks/FeedbacksManageme
 type Props = {};
 
 const MainDashboard = (props: Props) => {
-  const [selectedItem, setSelectedItem] = useState<String>('Dashboard');
+  const [selectedItem, setSelectedItem] = useState<String>('Cashiers');
 
   const handleItemClick = (itemName: String) => {
     setSelectedItem(itemName);
