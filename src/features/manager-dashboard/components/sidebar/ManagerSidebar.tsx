@@ -5,42 +5,49 @@ import { VscFeedback } from 'react-icons/vsc';
 import { FaRegKeyboard } from 'react-icons/fa';
 import { PiNoteLight } from 'react-icons/pi';
 import { RxDashboard } from 'react-icons/rx';
+import { AiOutlineBranches } from 'react-icons/ai';
 
-type Props = {};
+type Props = {
+  onItemClick: (itemName: string) => void;
+};
 
-const ManagerSidebar = (props: Props) => {
-  const handleClick = () => {};
+const ManagerSidebar = ({ onItemClick }: Props) => {
   return (
     <div className='left-0 max-w-24 p-4 font-poppins flex flex-col'>
       <ButtonWithIconAndTextVertical
         icon={<RxDashboard size={25} />}
         text='Dashboard'
-        onClick={handleClick}
+        onClick={() => onItemClick('Dashboard')}
       />
       <ButtonWithIconAndTextVertical
         icon={<FaRegKeyboard size={25} />}
         text='Cashiers'
-        onClick={handleClick}
+        onClick={() => onItemClick('Cashiers')}
       />
       <ButtonWithIconAndTextVertical
         icon={<PiNoteLight size={25} />}
         text='Summary'
-        onClick={handleClick}
+        onClick={() => onItemClick('Summary')}
       />
       <ButtonWithIconAndTextVertical
         icon={<MdOutlineManageSearch size={25} />}
         text='Manage Items'
-        onClick={handleClick}
+        onClick={() => onItemClick('Items')}
+      />
+      <ButtonWithIconAndTextVertical
+        icon={<AiOutlineBranches size={25} />}
+        text='Branches'
+        onClick={() => onItemClick('Branches')}
       />
       <ButtonWithIconAndTextVertical
         icon={<IoSaveOutline size={25} />}
         text='Saved Reports'
-        onClick={handleClick}
+        onClick={() => onItemClick('Reports')}
       />
       <ButtonWithIconAndTextVertical
         icon={<VscFeedback size={25} />}
         text='Feedbacks'
-        onClick={handleClick}
+        onClick={() => onItemClick('Feedbacks')}
       />
     </div>
   );
