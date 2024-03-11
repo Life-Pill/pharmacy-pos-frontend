@@ -5,7 +5,7 @@ import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 type Props = {};
 
 function CashierBankDetails({}: Props) {
-  const { setCurrentComponent } = useCashierContext();
+  const { setCurrentComponent, cashierDetails } = useCashierContext();
   const goToSummary = () => {
     setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
   };
@@ -26,6 +26,9 @@ function CashierBankDetails({}: Props) {
           <select
             id='currency'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.currency = e.target.value;
+            }}
           >
             <option value='usd'>USD</option>
             <option value='eur'>EUR</option>
@@ -43,6 +46,9 @@ function CashierBankDetails({}: Props) {
             type='text'
             id='bankName'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.bankName = e.target.value;
+            }}
           />
 
           <label
@@ -55,6 +61,9 @@ function CashierBankDetails({}: Props) {
             type='text'
             id='branchName'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.branchName = e.target.value;
+            }}
           />
 
           <label
@@ -67,6 +76,9 @@ function CashierBankDetails({}: Props) {
             type='text'
             id='accountNumber'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.bankAccountNumber = e.target.value;
+            }}
           />
         </div>
 
@@ -78,7 +90,13 @@ function CashierBankDetails({}: Props) {
           >
             Role in Pharmacy
           </label>
-          <select id='role' className='mt-1 p-2 border-gray rounded-md w-full'>
+          <select
+            id='role'
+            className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.role = e.target.value;
+            }}
+          >
             <option value='cashier'>Cashier</option>
             <option value='manager'>Manager</option>
             <option value='cleaning'>Cleaning Staff</option>
@@ -95,6 +113,9 @@ function CashierBankDetails({}: Props) {
           <select
             id='assignBranch'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.assignBranch = e.target.value;
+            }}
           >
             <option value='branch1'>Branch 1</option>
             <option value='branch2'>Branch 2</option>
@@ -114,6 +135,9 @@ function CashierBankDetails({}: Props) {
             type='text'
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.baseSalary = parseFloat(e.target.value);
+            }}
           />
 
           <label
@@ -126,6 +150,9 @@ function CashierBankDetails({}: Props) {
             type='text'
             id='username'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.username = e.target.value;
+            }}
           />
 
           <label
@@ -138,6 +165,9 @@ function CashierBankDetails({}: Props) {
             type='password'
             id='password'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.password = e.target.value;
+            }}
           />
 
           <label
@@ -150,6 +180,9 @@ function CashierBankDetails({}: Props) {
             type='password'
             id='reenterPassword'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.confirmPassword = e.target.value;
+            }}
           />
 
           <label
@@ -161,6 +194,9 @@ function CashierBankDetails({}: Props) {
           <textarea
             id='additionalNotes'
             className='mt-1 p-2 border-gray rounded-md w-full'
+            onChange={(e) => {
+              cashierDetails.additionalNotes = e.target.value;
+            }}
           ></textarea>
         </div>
       </div>

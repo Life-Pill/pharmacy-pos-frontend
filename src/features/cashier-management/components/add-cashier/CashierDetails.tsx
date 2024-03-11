@@ -8,7 +8,7 @@ type Props = {};
 function CashierDetails({}: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const { setCurrentComponent } = useCashierContext();
+  const { setCurrentComponent, cashierDetails } = useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -73,6 +73,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='nickname'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.nickname = e.target.value;
+            }}
           />
 
           <label
@@ -85,6 +88,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='nicNumber'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.NICnumber = e.target.value;
+            }}
           />
 
           <label
@@ -97,6 +103,9 @@ function CashierDetails({}: Props) {
             type='tel'
             id='telephone'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.phoneNumber = e.target.value;
+            }}
           />
 
           <label
@@ -109,6 +118,9 @@ function CashierDetails({}: Props) {
             type='email'
             id='email'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.email = e.target.value;
+            }}
           />
 
           <label
@@ -121,6 +133,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='firstName'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.firstName = e.target.value;
+            }}
           />
 
           <label
@@ -133,6 +148,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='lastName'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.lastName = e.target.value;
+            }}
           />
         </div>
 
@@ -144,7 +162,13 @@ function CashierDetails({}: Props) {
           >
             Gender
           </label>
-          <select id='gender' className='mt-1 p-2 border-gray rounded-md w-64'>
+          <select
+            id='gender'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.gender = e.target.value;
+            }}
+          >
             <option value='male'>Male</option>
             <option value='female'>Female</option>
             <option value='other'>Other</option>
@@ -160,6 +184,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='addressLine1'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.addressLine01 = e.target.value;
+            }}
           />
 
           <label
@@ -172,6 +199,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='addressLine2'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.addressLine02 = e.target.value;
+            }}
           />
 
           <label
@@ -184,6 +214,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='city'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.city = e.target.value;
+            }}
           />
 
           <label
@@ -196,6 +229,9 @@ function CashierDetails({}: Props) {
             type='text'
             id='province'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.province = e.target.value;
+            }}
           />
 
           <label
@@ -208,6 +244,9 @@ function CashierDetails({}: Props) {
             type='date'
             id='dateOfBirth'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.DOB = new Date(e.target.value);
+            }}
           />
         </div>
       </div>
