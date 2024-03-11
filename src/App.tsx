@@ -7,6 +7,7 @@ import CashierDashBoardPage from './pages/cashier-dashboard';
 import ManagerDashboardPage from './pages/manager-dashboard';
 import {
   AddCashier,
+  CashierBankDetails,
   UpdateCashier,
   ViewCashier,
 } from './features/cashier-management';
@@ -25,6 +26,7 @@ function App() {
         <Route path='/' element={<ManagerDashboardPage />} />
 
         <Route path='/add-cashier' element={<AddCashier />} />
+        {/* <Route path='/cashier-bank-details' element={<CashierBankDetails />} /> */}
         <Route path='/update-cashier' element={<UpdateCashier />} />
         <Route path='/view-cashier' element={<ViewCashier />} />
       </Routes>

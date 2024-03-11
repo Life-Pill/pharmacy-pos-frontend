@@ -1,11 +1,14 @@
 import React, { ChangeEvent, useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { useCashierContext } from '../../layout/AddCashier';
 
 type Props = {};
 
 function CashierDetails({}: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const { handleNextButtonClick } = useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -208,8 +211,9 @@ function CashierDetails({}: Props) {
         <button
           type='button'
           className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+          onClick={handleNextButtonClick}
         >
-          <Link to='/'>Create & Continue</Link>
+          Create & Continue
         </button>
         <button
           type='button'
