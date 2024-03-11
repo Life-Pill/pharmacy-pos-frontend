@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCashierContext } from '../../layout/AddCashier';
+import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 
 type Props = {};
 
 function CashierBankDetails({}: Props) {
-  const { handleBackButtonClick } = useCashierContext();
+  const { setCurrentComponent } = useCashierContext();
+  const goToSummary = () => {
+    setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
+  };
+  const goToBack = () => {
+    setCurrentComponent(ComponentState.Details);
+  };
   return (
     <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
@@ -162,13 +168,14 @@ function CashierBankDetails({}: Props) {
         <button
           type='button'
           className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+          onClick={goToSummary}
         >
           Create & Continue
         </button>
         <button
           type='button'
           className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
-          onClick={handleBackButtonClick}
+          onClick={goToBack}
         >
           Back To Details Page
         </button>

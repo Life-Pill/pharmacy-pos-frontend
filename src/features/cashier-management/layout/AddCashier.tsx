@@ -4,13 +4,17 @@ import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import CashierDetails from '../components/add-cashier/CashierDetails';
 import CashierBankDetails from '../components/add-cashier/CashierBankDetails';
+import CashierDetailsSummary from '../components/add-cashier/CashierDetailsSummary';
+
+export enum ComponentState {
+  BankDetails,
+  Details,
+  DetailsSummary,
+}
 
 interface CashierContextType {
-  showBankDetails: boolean;
-  setShowBankDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  cashierDetailsValues: any; // Define your type for cashier details values
-  handleNextButtonClick: (values: any) => void; // Define your type for the function
-  handleBackButtonClick: () => void;
+  currentComponent: ComponentState;
+  setCurrentComponent: React.Dispatch<React.SetStateAction<ComponentState>>;
 }
 
 const CashierContext = createContext<CashierContextType | undefined>(undefined);
@@ -24,31 +28,33 @@ export const useCashierContext = () => {
 };
 
 const AddCashier = () => {
-  const [showBankDetails, setShowBankDetails] = useState(false);
-  const [cashierDetailsValues, setCashierDetailsValues] = useState<any>({});
-
-  const handleNextButtonClick = (values: any) => {
-    setCashierDetailsValues(values);
-    setShowBankDetails(true);
-  };
-
-  const handleBackButtonClick = () => {
-    setShowBankDetails(false);
-  };
+  const [currentComponent, setCurrentComponent] = useState(
+    ComponentState.Details
+  );
 
   const contextValue: CashierContextType = {
-    showBankDetails,
-    setShowBankDetails,
-    cashierDetailsValues,
-    handleNextButtonClick,
-    handleBackButtonClick,
+    currentComponent,
+    setCurrentComponent,
+  };
+
+  const renderComponent = () => {
+    switch (currentComponent) {
+      case ComponentState.BankDetails:
+        return <CashierBankDetails />;
+      case ComponentState.Details:
+        return <CashierDetails />;
+      case ComponentState.DetailsSummary:
+        return <CashierDetailsSummary />;
+      default:
+        return null;
+    }
   };
 
   return (
     <CashierContext.Provider value={contextValue}>
       <div className=' bg-indigo-100 h-screen font-poppins'>
         <CashierManagerNavBar />
-        {showBankDetails ? <CashierBankDetails /> : <CashierDetails />}
+        {renderComponent()}
       </div>
     </CashierContext.Provider>
   );
