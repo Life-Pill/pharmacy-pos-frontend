@@ -8,7 +8,8 @@ type Props = {};
 function CashierDetails({}: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const { setCurrentComponent, cashierDetails } = useCashierContext();
+  const { setCurrentComponent, cashierDetails, setCashierDetails } =
+    useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -75,6 +76,8 @@ function CashierDetails({}: Props) {
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
               cashierDetails.nickname = e.target.value;
+
+              console.log(cashierDetails);
             }}
           />
 
