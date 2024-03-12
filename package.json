@@ -9,10 +9,6 @@
   "dependencies": {
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@tanstack/react-table": "^8.11.0",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.68",
     "@types/react": "^18.2.45",
     "@types/react-chartjs-2": "^2.5.7",
@@ -38,12 +34,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://127.0.0.1:3000 && electronmon .\"",
     "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js",
     "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js",
+    "test": "vitestest"
   },
   "eslintConfig": {
     "extends": [
@@ -86,6 +82,7 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
+    "cypress": "^13.6.6",
     "electron": "^22.0.0",
     "electron-builder": "^24.9.1",
     "electronmon": "^2.0.2",
