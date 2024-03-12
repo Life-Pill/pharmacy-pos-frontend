@@ -47,7 +47,7 @@ const MainDashboard = (props: Props) => {
   };
 
   return (
-    <div className='w-full'>
+    <div className='w-full max-h-screen overflow-hidden'>
       <ManagerNavbar />
       <div className='flex flex-row'>
         <ManagerSidebar onItemClick={handleItemClick} />
