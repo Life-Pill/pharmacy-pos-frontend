@@ -5,8 +5,8 @@ type Props = {};
 
 function Medicine({}: Props) {
   return (
-    <div className='max-h-[750px] overflow-y-scroll'>
-      <table className='text-sm text-left text-gray-500 dark:text-gray-400 max-h-screen overflow-scroll'>
+    <div className='max-h-[750px] overflow-y-scroll w-full'>
+      <table className='text-sm text-left text-gray-500 dark:text-gray-400 max-h-screen overflow-scroll w-full'>
         <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
           <tr>
             <th scope='col' className='px-6 py-3'>
