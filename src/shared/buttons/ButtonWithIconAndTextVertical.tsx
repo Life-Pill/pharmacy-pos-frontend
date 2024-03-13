@@ -4,13 +4,14 @@ type ButtonWithIconAndTextVerticalProps = {
   icon: ReactNode;
   text: string;
   onClick: () => void;
+  testid: string;
 };
 
 const ButtonWithIconAndTextVertical: React.FC<
   ButtonWithIconAndTextVerticalProps
-> = ({ icon, text, onClick }) => {
+> = ({ icon, text, onClick, testid }) => {
   return (
-    <div className='hover:text-white text-black'>
+    <div className='hover:text-white text-black' data-testid={testid}>
       <button
         type='button'
         className='hover:bg-blue 

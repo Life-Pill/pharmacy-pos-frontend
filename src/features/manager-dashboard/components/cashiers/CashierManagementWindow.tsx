@@ -17,7 +17,7 @@ function CashierManagementWindow({}: Props) {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col' data-testid='cashier-management-window'>
       {/* buttons */}
       <div className='flex flex-row items-center z-20 p-8 px-16 justify-around bg-slate-200 rounded-lg'>
         <Link

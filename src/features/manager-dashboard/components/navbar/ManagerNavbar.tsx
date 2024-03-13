@@ -16,7 +16,10 @@ type Props = {};
 const ManagerNavbar = (props: Props) => {
   const handleClick = () => {};
   return (
-    <div className='flex items-center justify-between w-full p-2 font-poppins shadow-md'>
+    <div
+      className='flex items-center justify-between w-full p-2 font-poppins shadow-md'
+      data-testid='cypress-manager-navbar'
+    >
       <div className='flex flex-row items-center justify-center gap-4'>
         {/* Back Button */}
         <div className='ml-2'>

@@ -7,7 +7,7 @@ type Props = {};
 const OrderDetailsSideBar = (props: Props) => {
   const PayNowButtonClick = () => {};
   return (
-    <div className='w-[700px] flex justify-center flex-col font-poppins space-y-3 p-3'>
+    <div className='max-w-[700px] flex justify-center flex-col font-poppins space-y-3 p-3'>
       <p className='border rounded-full w-10/12 bg-slate-300 text-grayLight text-center mx-auto p-2 '>
         Order Details
       </p>

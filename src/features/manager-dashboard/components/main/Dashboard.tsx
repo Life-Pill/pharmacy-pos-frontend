@@ -9,7 +9,10 @@ type Props = {};
 
 const Dashboard = (props: Props) => {
   return (
-    <div className=' w-full grid grid-cols-2 grid-rows-2 gap-8 max-h-screen overflow-hidden'>
+    <div
+      className=' w-full grid grid-cols-2 grid-rows-2 gap-8 max-h-screen overflow-hidden'
+      data-testid='dashboard'
+    >
       <div className='p-4 bg-slate-200 rounded-md'>
         <p className='text-md text-center font-bold'>Sales by Branch</p>
         <BarGraph branchSaleDetails={branchSaleDetails} />

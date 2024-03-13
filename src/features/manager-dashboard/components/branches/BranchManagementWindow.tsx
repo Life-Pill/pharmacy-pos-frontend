@@ -3,7 +3,9 @@ import React from 'react';
 type Props = {};
 
 function BranchManagementWindow({}: Props) {
-  return <div>BranchManagementWindow</div>;
+  return (
+    <div data-testid='branch-management-window'>BranchManagementWindow</div>
+  );
 }
 
 export default BranchManagementWindow;

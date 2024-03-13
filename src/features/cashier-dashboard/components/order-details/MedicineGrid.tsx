@@ -79,7 +79,7 @@ function MedicineGrid({}: Props) {
   };
 
   return (
-    <div className='overflow-y-auto flex-grow flex'>
+    <div className='overflow-y-auto flex'>
       <Table>
         <div>
           <TableHead>

@@ -3,7 +3,7 @@ import React from 'react';
 type Props = {};
 
 function ItemsManagementWindow({}: Props) {
-  return <div>ItemsManagementWindow</div>;
+  return <div data-testid='items-management-window'>ItemsManagementWindow</div>;
 }
 
 export default ItemsManagementWindow;
