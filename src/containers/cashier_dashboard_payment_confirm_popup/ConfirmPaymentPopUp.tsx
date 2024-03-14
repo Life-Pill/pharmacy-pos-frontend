@@ -1,14 +1,39 @@
 import React from 'react';
 import HorizontalDivider from '../../shared/divider/HorizontalDivider';
 import MedicineGridPopUp from '../../features/cashier-dashboard/components/order-confirm/MedineGridPopUp';
+import {
+  ComponentState,
+  usePaymentContext,
+} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
 type Props = {
   isCardVisible: boolean;
   onClose: () => void;
 };
 
-const ConfirmPaymentPopUp = ({ isCardVisible, onClose }: Props) => {
-  if (!isCardVisible) return null;
-  const onClick = () => {};
+const ConfirmPaymentPopUp = () => {
+  const {
+    setCurrentComponent,
+    orderedMedicine,
+    paymentDetails,
+    setOrderedMedicine,
+    setPaymentDetails,
+  } = usePaymentContext();
+  const cancelClick = () => {
+    setCurrentComponent(ComponentState.ConfirmPayment);
+  };
+  const confirmClick = () => {
+    setCurrentComponent(ComponentState.OrderDetails);
+    setOrderedMedicine([]);
+    setPaymentDetails({
+      paymentMethod: '',
+      paymentAmount: 0,
+      paymentDate: new Date(),
+      paymentType: '',
+      paymentNotes: '',
+      paymentDiscount: 0,
+      paidAmount: 0,
+    });
+  };
   return (
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center font-poppins text-xs'>
       <div className=' w-[750px]'>
@@ -37,27 +62,38 @@ const ConfirmPaymentPopUp = ({ isCardVisible, onClose }: Props) => {
             <div className='flex flex-col flex-1'>
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
                 <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>{paymentDetails.paymentAmount}</p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>Discount Applied</p>
+                <p>{paymentDetails.paymentDiscount}</p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>After Discount Reduced</p>
+                <p>
+                  {paymentDetails.paymentAmount -
+                    (paymentDetails.paymentDiscount *
+                      paymentDetails.paymentAmount) /
+                      100}
+                </p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>Paid amount by customer</p>
+                <p>{paymentDetails.paidAmount}</p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>Balance</p>
+                <p>
+                  {paymentDetails.paidAmount -
+                    (paymentDetails.paymentAmount -
+                      (paymentDetails.paymentDiscount *
+                        paymentDetails.paymentAmount) /
+                        100)}
+                </p>
               </div>
             </div>
           </div>
@@ -67,19 +103,20 @@ const ConfirmPaymentPopUp = ({ isCardVisible, onClose }: Props) => {
           <div className='flex flex-row justify-between items-center mt-2 pt-2'>
             <div>
               <p className='font-semibold'>Payment Method</p>
-              <p>Cash</p>
+              <p>{paymentDetails.paymentMethod}</p>
             </div>
 
             <div className='flex gap-4'>
               <button
                 className='login_button text-center w-28 '
-                onClick={() => {
-                  onClose();
-                }}
+                onClick={cancelClick}
               >
                 Cancel
               </button>
-              <button className='signup_button w-28 rounded-full'>
+              <button
+                className='signup_button w-28 rounded-full'
+                onClick={confirmClick}
+              >
                 Payment
               </button>
             </div>

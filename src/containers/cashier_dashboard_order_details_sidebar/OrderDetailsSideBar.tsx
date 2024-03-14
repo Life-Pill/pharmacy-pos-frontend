@@ -1,13 +1,22 @@
 import React from 'react';
 import ButtonWithTextOnly from '../../shared/buttons/ButtonWithTextOnly';
 import MedicineGrid from '../../features/cashier-dashboard/components/order-details/MedicineGrid';
+import {
+  ComponentState,
+  usePaymentContext,
+} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
 
 type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
-  const PayNowButtonClick = () => {};
+  const { setCurrentComponent, orderedMedicine } = usePaymentContext();
+
+  const PayNowButtonClick = () => {
+    setCurrentComponent(ComponentState.ConfirmPayment);
+  };
+
   return (
-    <div className='max-w-[700px] flex justify-center flex-col font-poppins space-y-3 p-4'>
+    <div className='w-auto flex justify-center flex-col font-poppins space-y-3 p-4 min-h-[400px]'>
       <p className='border rounded-full w-10/12 bg-slate-300 text-grayLight text-center mx-auto p-2 '>
         Order Details
       </p>

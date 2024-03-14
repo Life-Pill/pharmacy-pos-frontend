@@ -11,100 +11,45 @@ import {
 } from '../../../../@shadcn/components/ui/table';
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
-
-type Medicine = {
-  name: string;
-  unitPrice: string;
-  amount: number;
-};
+import { usePaymentContext } from '../../layout/MainCashierDashboard';
 
 type Props = {};
 
 function MedineGridPopUp({}: Props) {
-  const [medicines, setMedicines] = useState<Medicine[]>([
-    {
-      name: 'Medicine1',
-      unitPrice: '$10.00',
-      amount: 5,
-    },
-    {
-      name: 'Medicine2',
-      unitPrice: '$15.00',
-      amount: 3,
-    },
-    {
-      name: 'Medicine3',
-      unitPrice: '$20.00',
-      amount: 8,
-    },
-    {
-      name: 'Medicine4',
-      unitPrice: '$12.00',
-      amount: 10,
-    },
-    {
-      name: 'Medicine5',
-      unitPrice: '$25.00',
-      amount: 4,
-    },
-    {
-      name: 'Medicine6',
-      unitPrice: '$18.00',
-      amount: 6,
-    },
-    {
-      name: 'Medicine7',
-      unitPrice: '$22.00',
-      amount: 7,
-    },
-    {
-      name: 'Medicine8',
-      unitPrice: '$30.00',
-      amount: 2,
-    },
-  ]);
+  const { orderedMedicine } = usePaymentContext();
 
   return (
-    <div className='overflow-y-auto flex-grow flex'>
-      <Table>
-        <div>
-          <TableHead>
-            <TableRow>
-              <TableHead className='w-1/3'>Medicine</TableHead>
-              <TableHead className='w-1/3'>Unit Price</TableHead>
-              <TableHead className='w-1/3'>Amount</TableHead>
-              <TableHead className='w-1/3'></TableHead>
-            </TableRow>
-          </TableHead>
-        </div>
+    <div className='overflow-y-scroll flex h-[400px] flex-col'>
+      <table className='text-sm text-left text-gray-500 dark:text-gray-400 max-h-screen overflow-scroll'>
+        <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
+          <tr>
+            <th scope='col' className='px-6 py-3'>
+              Medicine ID
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              Medicine Name
+            </th>
 
-        <div className='overflow-y-auto max-h-[400px]'>
-          <TableBody>
-            {medicines.map((medicine, index) => (
-              <TableRow key={medicine.name}>
-                <TableCell className='font-medium w-1/3'>
-                  {medicine.name}
-                </TableCell>
-                <TableCell className='w-1/3'>{medicine.unitPrice}</TableCell>
-                <TableCell className='w-2/3'>
-                  <div className='flex justify-center items-center gap-2'>
-                    {medicine.amount}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </div>
+            <th scope='col' className='px-6 py-3'>
+              Unit Price
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              Amount
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {orderedMedicine.map((cashier, index) => (
+            <tr className='bg-slate-50 border-b' key={cashier.id}>
+              <td className='px-6 py-4'>{cashier.id}</td>
+              <td className='px-6 py-4'>{cashier.name}</td>
+              <td className='px-6 py-4'>{cashier.unitPrice}</td>
 
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className='text-right text-blueDarker font-semibold'>
-              $2,500.00
-            </TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
+              <td className='px-6 py-4'>{cashier.amount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

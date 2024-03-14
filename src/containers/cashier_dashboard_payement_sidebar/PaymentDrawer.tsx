@@ -10,11 +10,18 @@ import FooterButton from '../../shared/buttons/FooterButton';
 import mastercard from '../../assets/icons/mastercard.png';
 import money from '../../assets/icons/money.png';
 import visa from '../../assets/icons/visa.png';
+import {
+  ComponentState,
+  usePaymentContext,
+} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
 type Props = {
   openConfirmPayment: () => void;
 };
 
-const PaymentDrawer = ({ openConfirmPayment }: Props) => {
+const PaymentDrawer = () => {
+  const { setCurrentComponent, paymentDetails, setPaymentDetails } =
+    usePaymentContext();
+
   const handlePaymentMethodClick = () => {};
   const [payment, setPayment] = useState('');
   const handleKeyPress = (key: string) => {
@@ -36,12 +43,18 @@ const PaymentDrawer = ({ openConfirmPayment }: Props) => {
       // Handle other digit inputs
       setPayment((prevPayment) => prevPayment + key);
     }
+
+    // // Update the payment details
+    // setPaymentDetails({
+    //   ...paymentDetails,
+    //   paidAmount: parseInt(payment),
+    // });
   };
 
   // Popup state here
 
   const footerButtonClick = () => {
-    openConfirmPayment();
+    setCurrentComponent(ComponentState.PopupPayment);
   };
 
   return (
@@ -57,11 +70,13 @@ const PaymentDrawer = ({ openConfirmPayment }: Props) => {
       <div className='flex flex-col bg-numberpadbutton rounded-md p-2'>
         <div className=' flex flex-row justify-between items-center'>
           <p>Discount</p>
-          <p>5%</p>
+          <p>{paymentDetails.paymentDiscount}</p>
         </div>
         <div className='flex flex-row justify-between items-center'>
           <p>Total Amount</p>
-          <p className='text-blueDarker font-semibold'>LKR.7500</p>
+          <p className='text-blueDarker font-semibold'>
+            {paymentDetails.paymentAmount}
+          </p>
         </div>
       </div>
 
@@ -71,15 +86,30 @@ const PaymentDrawer = ({ openConfirmPayment }: Props) => {
         <div className='flex justify-evenly items-center'>
           <PaymentMethodButton
             imageSrc={mastercard}
-            onClick={handlePaymentMethodClick}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'mastercard',
+              });
+            }}
           />
           <PaymentMethodButton
             imageSrc={money}
-            onClick={handlePaymentMethodClick}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'cash',
+              });
+            }}
           />
           <PaymentMethodButton
             imageSrc={visa}
-            onClick={handlePaymentMethodClick}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'visa',
+              });
+            }}
           />
         </div>
       </div>
@@ -95,7 +125,14 @@ const PaymentDrawer = ({ openConfirmPayment }: Props) => {
           value={payment}
           placeholder='Enter Amount'
           className='border rounded border-gray-500 focus:border-blue-500 outline-none w-full text-lg font-semibold placeholder-gray-700 text-center py-2'
-          onKeyPress={(e) => handleKeyPress(e.key)}
+          // onKeyPress={(e) => handleKeyPress(e.key)}
+          onChange={(e) => {
+            setPayment(e.target.value);
+            setPaymentDetails({
+              ...paymentDetails,
+              paidAmount: parseInt(e.target.value),
+            });
+          }}
         />
       </div>
 
