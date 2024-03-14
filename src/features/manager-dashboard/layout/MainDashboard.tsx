@@ -12,7 +12,7 @@ import FeedbacksManagementWindow from '../components/feedbacks/FeedbacksManageme
 type Props = {};
 
 const MainDashboard = (props: Props) => {
-  const [selectedItem, setSelectedItem] = useState<String>('Cashiers');
+  const [selectedItem, setSelectedItem] = useState<String>('Dashboard');
 
   const handleItemClick = (itemName: String) => {
     setSelectedItem(itemName);
@@ -47,7 +47,7 @@ const MainDashboard = (props: Props) => {
   };
 
   return (
-    <div className='w-full'>
+    <div className='w-full max-h-screen overflow-hidden'>
       <ManagerNavbar />
       <div className='flex flex-row'>
         <ManagerSidebar onItemClick={handleItemClick} />

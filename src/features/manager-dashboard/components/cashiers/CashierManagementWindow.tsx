@@ -3,6 +3,7 @@ import { TbCirclePlus } from 'react-icons/tb';
 import { TbSettingsCog } from 'react-icons/tb';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import PharmacyCashiers from '../../../../assets/fakedata/cashiers';
+import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -16,23 +17,32 @@ function CashierManagementWindow({}: Props) {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col' data-testid='cashier-management-window'>
       {/* buttons */}
       <div className='flex flex-row items-center z-20 p-8 px-16 justify-around bg-slate-200 rounded-lg'>
-        <div className=' bg-yellow-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'>
+        <Link
+          to='/add-cashier'
+          className=' bg-yellow-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
+        >
           <TbCirclePlus size={25} />
           <h1 className=' font-medium'>Add cashier</h1>
-        </div>
+        </Link>
 
-        <div className=' bg-purple-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'>
+        <Link
+          to='/update-cashier'
+          className=' bg-purple-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
+        >
           <TbSettingsCog size={25} />
           <h1 className='font-medium'>Manage cashier</h1>
-        </div>
+        </Link>
 
-        <div className=' bg-green-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'>
+        <Link
+          to='/view-cashier'
+          className=' bg-green-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
+        >
           <LiaStreetViewSolid size={25} />
           <h1 className='font-medium'>View cashier</h1>
-        </div>
+        </Link>
       </div>
 
       {/* table */}

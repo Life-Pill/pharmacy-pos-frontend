@@ -3,7 +3,7 @@ import React from 'react';
 type Props = {};
 
 const SalesManagementWindow = (props: Props) => {
-  return <div>SalesManagementWindow</div>;
+  return <div data-testid='sales-management-window'>SalesManagementWindow</div>;
 };
 
 export default SalesManagementWindow;

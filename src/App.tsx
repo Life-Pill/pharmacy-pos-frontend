@@ -5,19 +5,30 @@ import LogInCashierPasswordPage from './pages/cashier-password-page';
 import CashierTemporaryLogOutPage from './pages/temporary-logout-page';
 import CashierDashBoardPage from './pages/cashier-dashboard';
 import ManagerDashboardPage from './pages/manager-dashboard';
+import {
+  AddCashier,
+  CashierBankDetails,
+  UpdateCashier,
+  ViewCashier,
+} from './features/cashier-management';
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path='/' Component={LogInPage} />
+        <Route path='/' Component={LogInPage} />
         <Route
           path='/login-cashier-password'
           Component={LogInCashierPasswordPage}
         />
         <Route path='/' Component={CashierTemporaryLogOutPage} />
-        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} /> */}
-        <Route path='/' Component={ManagerDashboardPage} />
+        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} />
+        {/* <Route path='/' element={<ManagerDashboardPage />} />
+
+        <Route path='/add-cashier' element={<AddCashier />} /> */}
+        {/* <Route path='/cashier-bank-details' element={<CashierBankDetails />} /> */}
+        {/* <Route path='/update-cashier' element={<UpdateCashier />} />
+        <Route path='/view-cashier' element={<ViewCashier />} /> */}
       </Routes>
     </Router>
   );
