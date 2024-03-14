@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 
-export type Medicine = {
+export type MedicineType = {
   id: string;
   image: string;
   name: string;
@@ -9,7 +9,7 @@ export type Medicine = {
   quantity: number;
 };
 
-export const columns: ColumnDef<Medicine>[] = [
+export const columns: ColumnDef<MedicineType>[] = [
   {
     accessorKey: 'id',
     header: () => <div className='font-thin'>MEDICINE ID</div>,

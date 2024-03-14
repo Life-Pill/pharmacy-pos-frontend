@@ -105,9 +105,9 @@ function MainCashierDashboard({}: Props) {
       <div className='flex flex-row'>
         <CashierSideBar />
         <Divider />
-        <Medicine />
-
         <PaymentContext.Provider value={contextValue}>
+          <Medicine />
+
           {renderComponent()}
         </PaymentContext.Provider>
       </div>

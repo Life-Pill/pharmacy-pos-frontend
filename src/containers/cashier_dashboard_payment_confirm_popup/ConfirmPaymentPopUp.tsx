@@ -11,13 +11,28 @@ type Props = {
 };
 
 const ConfirmPaymentPopUp = () => {
-  const { setCurrentComponent, orderedMedicine, paymentDetails } =
-    usePaymentContext();
+  const {
+    setCurrentComponent,
+    orderedMedicine,
+    paymentDetails,
+    setOrderedMedicine,
+    setPaymentDetails,
+  } = usePaymentContext();
   const cancelClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
   const confirmClick = () => {
     setCurrentComponent(ComponentState.OrderDetails);
+    setOrderedMedicine([]);
+    setPaymentDetails({
+      paymentMethod: '',
+      paymentAmount: 0,
+      paymentDate: new Date(),
+      paymentType: '',
+      paymentNotes: '',
+      paymentDiscount: 0,
+      paidAmount: 0,
+    });
   };
   return (
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center font-poppins text-xs'>

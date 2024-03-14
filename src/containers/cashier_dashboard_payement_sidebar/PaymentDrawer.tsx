@@ -44,11 +44,11 @@ const PaymentDrawer = () => {
       setPayment((prevPayment) => prevPayment + key);
     }
 
-    // Update the payment details
-    setPaymentDetails({
-      ...paymentDetails,
-      paidAmount: parseInt(payment),
-    });
+    // // Update the payment details
+    // setPaymentDetails({
+    //   ...paymentDetails,
+    //   paidAmount: parseInt(payment),
+    // });
   };
 
   // Popup state here
@@ -125,7 +125,14 @@ const PaymentDrawer = () => {
           value={payment}
           placeholder='Enter Amount'
           className='border rounded border-gray-500 focus:border-blue-500 outline-none w-full text-lg font-semibold placeholder-gray-700 text-center py-2'
-          onKeyPress={(e) => handleKeyPress(e.key)}
+          // onKeyPress={(e) => handleKeyPress(e.key)}
+          onChange={(e) => {
+            setPayment(e.target.value);
+            setPaymentDetails({
+              ...paymentDetails,
+              paidAmount: parseInt(e.target.value),
+            });
+          }}
         />
       </div>
 

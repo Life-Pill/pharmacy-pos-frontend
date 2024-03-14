@@ -9,14 +9,14 @@ import {
 type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
-  const { setCurrentComponent } = usePaymentContext();
+  const { setCurrentComponent, orderedMedicine } = usePaymentContext();
 
   const PayNowButtonClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
 
   return (
-    <div className='max-w-[700px] flex justify-center flex-col font-poppins space-y-3 p-4'>
+    <div className='w-auto flex justify-center flex-col font-poppins space-y-3 p-4 min-h-[400px]'>
       <p className='border rounded-full w-10/12 bg-slate-300 text-grayLight text-center mx-auto p-2 '>
         Order Details
       </p>
