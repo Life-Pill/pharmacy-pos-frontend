@@ -18,6 +18,28 @@ export enum ComponentState {
 interface PaymentContextType {
   currentComponent: ComponentState;
   setCurrentComponent: React.Dispatch<React.SetStateAction<ComponentState>>;
+  paymentDetails: PaymentDetails;
+  setPaymentDetails: React.Dispatch<React.SetStateAction<PaymentDetails>>;
+  orderedMedicine: OrderedMedicine[];
+  setOrderedMedicine: React.Dispatch<React.SetStateAction<OrderedMedicine[]>>;
+}
+
+interface PaymentDetails {
+  paymentMethod: string;
+  paymentAmount: number;
+  paymentDate: Date;
+  paymentType: string;
+  paymentNotes: string;
+  paymentDiscount: number;
+  paidAmount: number;
+}
+
+export interface OrderedMedicine {
+  id: string;
+  name: string;
+  unitPrice: number;
+  amount: number;
+  availableQuantity: number;
 }
 
 const PaymentContext = React.createContext<PaymentContextType | undefined>(
@@ -37,9 +59,25 @@ function MainCashierDashboard({}: Props) {
     ComponentState.OrderDetails
   );
 
+  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
+    paymentMethod: '',
+    paymentAmount: 0,
+    paymentDate: new Date(),
+    paymentType: '',
+    paymentNotes: '',
+    paymentDiscount: 0,
+    paidAmount: 0,
+  });
+
+  const [orderedMedicine, setOrderedMedicine] = useState<OrderedMedicine[]>([]);
+
   const contextValue: PaymentContextType = {
     currentComponent,
     setCurrentComponent,
+    paymentDetails,
+    setPaymentDetails,
+    orderedMedicine,
+    setOrderedMedicine,
   };
 
   const renderComponent = () => {

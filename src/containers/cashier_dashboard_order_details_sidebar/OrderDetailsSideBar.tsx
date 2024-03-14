@@ -10,6 +10,7 @@ type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
   const { setCurrentComponent } = usePaymentContext();
+
   const PayNowButtonClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };

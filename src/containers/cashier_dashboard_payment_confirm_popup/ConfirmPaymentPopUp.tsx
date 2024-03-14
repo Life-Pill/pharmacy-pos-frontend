@@ -11,7 +11,8 @@ type Props = {
 };
 
 const ConfirmPaymentPopUp = () => {
-  const { setCurrentComponent } = usePaymentContext();
+  const { setCurrentComponent, orderedMedicine, paymentDetails } =
+    usePaymentContext();
   const cancelClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
@@ -46,27 +47,38 @@ const ConfirmPaymentPopUp = () => {
             <div className='flex flex-col flex-1'>
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
                 <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>{paymentDetails.paymentAmount}</p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>Discount Applied</p>
+                <p>{paymentDetails.paymentDiscount}</p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>After Discount Reduced</p>
+                <p>
+                  {paymentDetails.paymentAmount -
+                    (paymentDetails.paymentDiscount *
+                      paymentDetails.paymentAmount) /
+                      100}
+                </p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>Paid amount by customer</p>
+                <p>{paymentDetails.paidAmount}</p>
               </div>
 
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>
-                <p>SubTotal</p>
-                <p>LKR.7000</p>
+                <p>Balance</p>
+                <p>
+                  {paymentDetails.paidAmount -
+                    (paymentDetails.paymentAmount -
+                      (paymentDetails.paymentDiscount *
+                        paymentDetails.paymentAmount) /
+                        100)}
+                </p>
               </div>
             </div>
           </div>
@@ -76,7 +88,7 @@ const ConfirmPaymentPopUp = () => {
           <div className='flex flex-row justify-between items-center mt-2 pt-2'>
             <div>
               <p className='font-semibold'>Payment Method</p>
-              <p>Cash</p>
+              <p>{paymentDetails.paymentMethod}</p>
             </div>
 
             <div className='flex gap-4'>

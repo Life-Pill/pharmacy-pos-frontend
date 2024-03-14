@@ -19,7 +19,8 @@ type Props = {
 };
 
 const PaymentDrawer = () => {
-  const { setCurrentComponent } = usePaymentContext();
+  const { setCurrentComponent, paymentDetails, setPaymentDetails } =
+    usePaymentContext();
 
   const handlePaymentMethodClick = () => {};
   const [payment, setPayment] = useState('');
@@ -42,6 +43,12 @@ const PaymentDrawer = () => {
       // Handle other digit inputs
       setPayment((prevPayment) => prevPayment + key);
     }
+
+    // Update the payment details
+    setPaymentDetails({
+      ...paymentDetails,
+      paidAmount: parseInt(payment),
+    });
   };
 
   // Popup state here
@@ -63,11 +70,13 @@ const PaymentDrawer = () => {
       <div className='flex flex-col bg-numberpadbutton rounded-md p-2'>
         <div className=' flex flex-row justify-between items-center'>
           <p>Discount</p>
-          <p>5%</p>
+          <p>{paymentDetails.paymentDiscount}</p>
         </div>
         <div className='flex flex-row justify-between items-center'>
           <p>Total Amount</p>
-          <p className='text-blueDarker font-semibold'>LKR.7500</p>
+          <p className='text-blueDarker font-semibold'>
+            {paymentDetails.paymentAmount}
+          </p>
         </div>
       </div>
 
@@ -77,15 +86,30 @@ const PaymentDrawer = () => {
         <div className='flex justify-evenly items-center'>
           <PaymentMethodButton
             imageSrc={mastercard}
-            onClick={handlePaymentMethodClick}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'mastercard',
+              });
+            }}
           />
           <PaymentMethodButton
             imageSrc={money}
-            onClick={handlePaymentMethodClick}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'cash',
+              });
+            }}
           />
           <PaymentMethodButton
             imageSrc={visa}
-            onClick={handlePaymentMethodClick}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'visa',
+              });
+            }}
           />
         </div>
       </div>

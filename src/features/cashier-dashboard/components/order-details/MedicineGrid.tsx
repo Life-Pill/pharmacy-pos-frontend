@@ -11,74 +11,72 @@ import {
 } from '../../../../@shadcn/components/ui/table';
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
-
-type Medicine = {
-  id: number;
-  name: string;
-  unitPrice: number;
-  amount: number;
-  availableQuantity: number;
-};
+import {
+  OrderedMedicine,
+  usePaymentContext,
+} from '../../layout/MainCashierDashboard';
 
 type Props = {};
 
 function MedicineGrid({}: Props) {
+  const { setPaymentDetails, setOrderedMedicine, paymentDetails } =
+    usePaymentContext();
   const [discountedTotal, setDiscountedTotal] = useState<number>(0);
 
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
-  const [medicines, setMedicines] = useState<Medicine[]>([
+  const [medicines, setMedicines] = useState<OrderedMedicine[]>([
     {
-      id: 1,
+      id: '1',
       name: 'Medicine1',
       unitPrice: 10.0,
       amount: 0,
       availableQuantity: 5,
     },
     {
-      id: 2,
+      id: '2',
       name: 'Medicine2',
       unitPrice: 15.0,
       amount: 0,
       availableQuantity: 3,
     },
     {
-      id: 3,
+      id: '3',
       name: 'Medicine3',
       unitPrice: 20.0,
       amount: 0,
       availableQuantity: 8,
     },
     {
-      id: 4,
+      id: '4',
       name: 'Medicine4',
       unitPrice: 20.0,
       amount: 0,
       availableQuantity: 6,
     },
     {
-      id: 5,
+      id: '5',
       name: 'Medicine5',
       unitPrice: 25.0,
       amount: 0,
       availableQuantity: 10,
     },
     {
-      id: 6,
+      id: '6',
       name: 'Medicine6',
       unitPrice: 30.0,
       amount: 0,
       availableQuantity: 7,
     },
     {
-      id: 7,
+      id: '7',
       name: 'Medicine7',
       unitPrice: 35.0,
       amount: 0,
       availableQuantity: 4,
     },
     {
-      id: 8,
+      id: '8',
       name: 'Medicine8',
       unitPrice: 40.0,
       amount: 0,
@@ -131,6 +129,8 @@ function MedicineGrid({}: Props) {
       total += medicine.unitPrice * medicine.amount;
     });
     setTotalAmount(total);
+    setPaymentDetails({ ...paymentDetails, paymentAmount: total });
+    setOrderedMedicine(medicines);
   };
 
   const calculateAfterDiscount = (discount: number) => {
@@ -141,6 +141,12 @@ function MedicineGrid({}: Props) {
         total += medicine.unitPrice * medicine.amount;
       });
       setDiscountedTotal(total - (total * discount) / 100);
+      setOrderedMedicine(medicines);
+      setPaymentDetails({
+        ...paymentDetails,
+        paymentAmount: total,
+        paymentDiscount: discount,
+      });
     } else {
       alert('Discount must be between 0 and 100');
       setDiscount(0);
