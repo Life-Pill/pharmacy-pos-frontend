@@ -1,13 +1,8 @@
-import React from 'react';
+import { IoIosAdd } from 'react-icons/io';
 import fakeMedicines from '../../../../assets/fakedata/medicine';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
-import { useCashierContext } from '../../../cashier-management/layout/AddCashier';
-import {
-  OrderedMedicine,
-  usePaymentContext,
-} from '../../layout/MainCashierDashboard';
+import { usePaymentContext } from '../../layout/MainCashierDashboard';
 import { MedicineType } from './MedicineColumns';
-import { IoIosAdd } from 'react-icons/io';
 
 type Props = {};
 
@@ -58,7 +53,7 @@ function Medicine({}: Props) {
             <tr className='bg-slate-50 border-b'>
               <td className='px-6 py-4'>{cashier.id}</td>
               <td className='px-6 py-4 w-8 h-8'>
-                <img src={cashier.image} alt='image' />
+                <img src={cashier.image} alt={cashier.name} />
               </td>
               <td className='px-6 py-4'>{cashier.name}</td>
               <td className='px-6 py-4'>{cashier.price}</td>
