@@ -1,14 +1,23 @@
 import React from 'react';
 import HorizontalDivider from '../../shared/divider/HorizontalDivider';
 import MedicineGridPopUp from '../../features/cashier-dashboard/components/order-confirm/MedineGridPopUp';
+import {
+  ComponentState,
+  usePaymentContext,
+} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
 type Props = {
   isCardVisible: boolean;
   onClose: () => void;
 };
 
-const ConfirmPaymentPopUp = ({ isCardVisible, onClose }: Props) => {
-  if (!isCardVisible) return null;
-  const onClick = () => {};
+const ConfirmPaymentPopUp = () => {
+  const { setCurrentComponent } = usePaymentContext();
+  const cancelClick = () => {
+    setCurrentComponent(ComponentState.ConfirmPayment);
+  };
+  const confirmClick = () => {
+    setCurrentComponent(ComponentState.OrderDetails);
+  };
   return (
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center font-poppins text-xs'>
       <div className=' w-[750px]'>
@@ -73,13 +82,14 @@ const ConfirmPaymentPopUp = ({ isCardVisible, onClose }: Props) => {
             <div className='flex gap-4'>
               <button
                 className='login_button text-center w-28 '
-                onClick={() => {
-                  onClose();
-                }}
+                onClick={cancelClick}
               >
                 Cancel
               </button>
-              <button className='signup_button w-28 rounded-full'>
+              <button
+                className='signup_button w-28 rounded-full'
+                onClick={confirmClick}
+              >
                 Payment
               </button>
             </div>

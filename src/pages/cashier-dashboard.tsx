@@ -7,39 +7,14 @@ import Divider from '../shared/divider/Divider';
 import PaymentDrawer from '../containers/cashier_dashboard_payement_sidebar/PaymentDrawer';
 import ConfirmPaymentPopUp from '../containers/cashier_dashboard_payment_confirm_popup/ConfirmPaymentPopUp';
 import Medicine from '../features/cashier-dashboard/components/medicine-table/Medicine';
+import MainCashierDashboard from '../features/cashier-dashboard/layout/MainCashierDashboard';
 
 type Props = {};
 
 function CashierDashBoardPage({}: Props) {
-  const [isConfirmPaymentCardVisible, setIsConfirmPaymentCardVisible] =
-    useState<boolean>(false);
   return (
-    <div className='flex flex-col'>
-      <div>
-        <CashierNavBar />
-      </div>
-
-      <div className='flex flex-row'>
-        <CashierSideBar />
-        <Divider />
-        <Medicine />
-        {/* 
-        ! Here i used the payment method for just development there should be a way to switch between these two
-         */}
-        <OrderDetailsSideBar />
-        {/* 
-        <PaymentDrawer
-          openConfirmPayment={() => {
-            setIsConfirmPaymentCardVisible(true);
-          }}
-        /> */}
-        <ConfirmPaymentPopUp
-          isCardVisible={isConfirmPaymentCardVisible}
-          onClose={() => {
-            setIsConfirmPaymentCardVisible(false);
-          }}
-        />
-      </div>
+    <div>
+      <MainCashierDashboard />
     </div>
   );
 }

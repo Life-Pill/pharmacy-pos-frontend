@@ -10,11 +10,17 @@ import FooterButton from '../../shared/buttons/FooterButton';
 import mastercard from '../../assets/icons/mastercard.png';
 import money from '../../assets/icons/money.png';
 import visa from '../../assets/icons/visa.png';
+import {
+  ComponentState,
+  usePaymentContext,
+} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
 type Props = {
   openConfirmPayment: () => void;
 };
 
-const PaymentDrawer = ({ openConfirmPayment }: Props) => {
+const PaymentDrawer = () => {
+  const { setCurrentComponent } = usePaymentContext();
+
   const handlePaymentMethodClick = () => {};
   const [payment, setPayment] = useState('');
   const handleKeyPress = (key: string) => {
@@ -41,7 +47,7 @@ const PaymentDrawer = ({ openConfirmPayment }: Props) => {
   // Popup state here
 
   const footerButtonClick = () => {
-    openConfirmPayment();
+    setCurrentComponent(ComponentState.PopupPayment);
   };
 
   return (
