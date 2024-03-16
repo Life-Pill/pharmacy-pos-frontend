@@ -16,4 +16,17 @@ const getAllItems = async () => {
   }
 };
 
+//get item by id
+const getItemById = async (id: string) => {
+  try {
+    const res = await http.get('/item/' + id);
+    const items = res.data.data;
+    const mappedItems = items.map((item: any) => mapIItemsToIMedicine(item));
+    console.log(mappedItems);
+    return mappedItems;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default getAllItems;
