@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import OrderDetailsSideBar from '../../../containers/cashier_dashboard_order_details_sidebar/OrderDetailsSideBar';
-import ConfirmPaymentPopUp from '../../../containers/cashier_dashboard_payment_confirm_popup/ConfirmPaymentPopUp';
 import Divider from '../../../shared/divider/Divider';
 import CashierNavBar from '../../../shared/navbar/CashierNavBar';
+import OrderDetailsSideBar from '../components/cashier_dashboard_order_details_sidebar/OrderDetailsSideBar';
+import PaymentDrawer from '../components/cashier_dashboard_payement_sidebar/PaymentDrawer';
+import ConfirmPaymentPopUp from '../components/cashier_dashboard_payment_confirm_popup/ConfirmPaymentPopUp';
 import Medicine from '../components/medicine-table/Medicine';
 import CashierSideBar from '../components/sidebar/CashierSideBar';
-import PaymentDrawer from '../../../containers/cashier_dashboard_payement_sidebar/PaymentDrawer';
+import { OrderedMedicine } from '../interfaces/OrderMedicine';
+import { PaymentContextType } from '../interfaces/PaymentContextType';
+import { PaymentDetails } from '../interfaces/PaymentDetails';
 
 type Props = {};
 
@@ -13,33 +16,6 @@ export enum ComponentState {
   OrderDetails,
   ConfirmPayment,
   PopupPayment,
-}
-
-interface PaymentContextType {
-  currentComponent: ComponentState;
-  setCurrentComponent: React.Dispatch<React.SetStateAction<ComponentState>>;
-  paymentDetails: PaymentDetails;
-  setPaymentDetails: React.Dispatch<React.SetStateAction<PaymentDetails>>;
-  orderedMedicine: OrderedMedicine[];
-  setOrderedMedicine: React.Dispatch<React.SetStateAction<OrderedMedicine[]>>;
-}
-
-interface PaymentDetails {
-  paymentMethod: string;
-  paymentAmount: number;
-  paymentDate: Date;
-  paymentType: string;
-  paymentNotes: string;
-  paymentDiscount: number;
-  paidAmount: number;
-}
-
-export interface OrderedMedicine {
-  id: string;
-  name: string;
-  unitPrice: number;
-  amount: number;
-  availableQuantity: number;
 }
 
 const PaymentContext = React.createContext<PaymentContextType | undefined>(
@@ -93,9 +69,6 @@ function MainCashierDashboard({}: Props) {
     }
   };
 
-  const [isConfirmPaymentCardVisible, setIsConfirmPaymentCardVisible] =
-    useState<boolean>(false);
-
   return (
     <div className='flex flex-col'>
       <div>
@@ -116,3 +89,4 @@ function MainCashierDashboard({}: Props) {
 }
 
 export default MainCashierDashboard;
+// /

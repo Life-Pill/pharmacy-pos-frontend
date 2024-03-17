@@ -1,18 +1,16 @@
-import React from 'react';
-import fakeMedicines from '../../../../assets/fakedata/medicine';
-import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
-import { useCashierContext } from '../../../cashier-management/layout/AddCashier';
-import {
-  OrderedMedicine,
-  usePaymentContext,
-} from '../../layout/MainCashierDashboard';
-import { MedicineType } from './MedicineColumns';
 import { IoIosAdd } from 'react-icons/io';
+import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
+import { usePaymentContext } from '../../layout/MainCashierDashboard';
+import { MedicineType } from './MedicineColumns';
+import { useEffect, useState } from 'react';
+import getAllItems from '../../services/ItemService';
+import { IMedicine } from '../../../../interfaces/IMedicine';
 
 type Props = {};
 
 function Medicine({}: Props) {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
+  const [medicine, setMedicine] = useState<IMedicine[]>([]);
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {
@@ -27,6 +25,19 @@ function Medicine({}: Props) {
       },
     ]);
   };
+
+  //
+  useEffect(() => {
+    //fetchMedicine from server
+    fetchMedicine();
+  }, []);
+  //
+
+  const fetchMedicine = async () => {
+    const medicine = await getAllItems();
+    setMedicine(medicine);
+  };
+
   return (
     <div className='max-h-[750px] overflow-y-scroll w-full'>
       <table className='text-sm text-left text-gray-500 dark:text-gray-400 max-h-screen overflow-scroll w-full'>
@@ -54,11 +65,11 @@ function Medicine({}: Props) {
           </tr>
         </thead>
         <tbody>
-          {fakeMedicines.map((cashier) => (
+          {medicine.map((cashier) => (
             <tr className='bg-slate-50 border-b'>
               <td className='px-6 py-4'>{cashier.id}</td>
               <td className='px-6 py-4 w-8 h-8'>
-                <img src={cashier.image} alt='image' />
+                <img src={cashier.image} alt={cashier.name} />
               </td>
               <td className='px-6 py-4'>{cashier.name}</td>
               <td className='px-6 py-4'>{cashier.price}</td>

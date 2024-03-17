@@ -1,19 +1,13 @@
-import React from 'react';
-import HorizontalDivider from '../../shared/divider/HorizontalDivider';
-import MedicineGridPopUp from '../../features/cashier-dashboard/components/order-confirm/MedineGridPopUp';
+import HorizontalDivider from '../../../../shared/divider/HorizontalDivider';
+import MedicineGridPopUp from '../order-confirm/MedineGridPopUp';
 import {
   ComponentState,
   usePaymentContext,
-} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
-type Props = {
-  isCardVisible: boolean;
-  onClose: () => void;
-};
+} from '../../layout/MainCashierDashboard';
 
 const ConfirmPaymentPopUp = () => {
   const {
     setCurrentComponent,
-    orderedMedicine,
     paymentDetails,
     setOrderedMedicine,
     setPaymentDetails,

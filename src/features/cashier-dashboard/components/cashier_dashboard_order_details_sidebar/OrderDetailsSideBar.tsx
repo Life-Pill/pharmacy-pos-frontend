@@ -1,15 +1,15 @@
 import React from 'react';
-import ButtonWithTextOnly from '../../shared/buttons/ButtonWithTextOnly';
-import MedicineGrid from '../../features/cashier-dashboard/components/order-details/MedicineGrid';
+import ButtonWithTextOnly from '../../../../shared/buttons/ButtonWithTextOnly';
+import MedicineGrid from '../order-details/MedicineGrid';
 import {
   ComponentState,
   usePaymentContext,
-} from '../../features/cashier-dashboard/layout/MainCashierDashboard';
+} from '../../layout/MainCashierDashboard';
 
 type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
-  const { setCurrentComponent, orderedMedicine } = usePaymentContext();
+  const { setCurrentComponent } = usePaymentContext();
 
   const PayNowButtonClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
