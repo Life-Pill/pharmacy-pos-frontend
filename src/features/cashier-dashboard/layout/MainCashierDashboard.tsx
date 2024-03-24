@@ -9,6 +9,11 @@ import CashierSideBar from '../components/sidebar/CashierSideBar';
 import { OrderedMedicine } from '../interfaces/OrderMedicine';
 import { PaymentContextType } from '../interfaces/PaymentContextType';
 import { PaymentDetails } from '../interfaces/PaymentDetails';
+import PersonalCareTable from '../components/personal-care-table/PersonalCareTable';
+import SportsTable from '../components/sports-table/SportsTable';
+import NutritionTable from '../components/nutrition-table/NutritionTable';
+import FirstAidTable from '../components/first-aid-table/FirstAidTable';
+import MedicalDeviceTable from '../components/medical-device-table/MedicalDeviceTable';
 
 type Props = {};
 
@@ -69,6 +74,8 @@ function MainCashierDashboard({}: Props) {
     }
   };
 
+  const [activeTable, setActiveTable] = useState('medicine');
+
   return (
     <div className='flex flex-col'>
       <div>
@@ -76,11 +83,15 @@ function MainCashierDashboard({}: Props) {
       </div>
 
       <div className='flex flex-row'>
-        <CashierSideBar />
+        <CashierSideBar setActiveTable={setActiveTable} />
         <Divider />
         <PaymentContext.Provider value={contextValue}>
-          <Medicine />
-
+          {activeTable === 'medicine' && <Medicine />}
+          {activeTable === 'personal-care' && <PersonalCareTable />}
+          {activeTable === 'sports' && <SportsTable />}
+          {activeTable === 'nutrition' && <NutritionTable />}
+          {activeTable === 'first-aid' && <FirstAidTable />}
+          {activeTable === 'medical-devices' && <MedicalDeviceTable />}
           {renderComponent()}
         </PaymentContext.Provider>
       </div>

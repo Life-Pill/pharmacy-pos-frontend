@@ -9,5 +9,6 @@ export const mapIItemsToIMedicine = (item: IItemInterface): IMedicine => {
     quantity: item.itemQuantity,
     status: item.itemQuantity > 0 ? 'In Stock' : 'Out of Stock',
     image: item.itemImage,
+    category: item.itemCategory,
   };
 };

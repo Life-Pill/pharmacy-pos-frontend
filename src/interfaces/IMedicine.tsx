@@ -5,4 +5,5 @@ export interface IMedicine {
   price: number;
   status: string;
   quantity: number;
+  category: string;
 }

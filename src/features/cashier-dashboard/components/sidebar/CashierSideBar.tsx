@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { PiSyringeLight } from 'react-icons/pi';
 import { PiHandHeartLight } from 'react-icons/pi';
 import { PiPillLight } from 'react-icons/pi';
@@ -7,46 +7,48 @@ import { PiFirstAidKit } from 'react-icons/pi';
 import { CiMedicalClipboard } from 'react-icons/ci';
 import ButtonWithIconAndTextVertical from '../../../../shared/buttons/ButtonWithIconAndTextVertical';
 
-type Props = {};
+type Props = {
+  //pass setactivetable
+  setActiveTable: Dispatch<string>;
+};
 
 const CashierSideBar = (props: Props) => {
-  const handleClick = () => {};
   return (
     <div className='left-0 max-w-24 p-4 font-poppins flex flex-col'>
       <ButtonWithIconAndTextVertical
         icon={<PiSyringeLight size={25} />}
         text='Medical Devices'
-        onClick={handleClick}
+        onClick={() => props.setActiveTable('medical-devices')}
         testid='medical-devices'
       />
       <ButtonWithIconAndTextVertical
         icon={<PiHandHeartLight size={25} />}
         text='Personal Care'
-        onClick={handleClick}
+        onClick={() => props.setActiveTable('personal-care')}
         testid='personal-care'
       />
       <ButtonWithIconAndTextVertical
         icon={<PiPillLight size={25} />}
         text='Medicine'
-        onClick={handleClick}
+        onClick={() => props.setActiveTable('medicine')}
         testid='medicine'
       />
       <ButtonWithIconAndTextVertical
         icon={<IoIosFitness size={25} />}
         text='Sports'
-        onClick={handleClick}
+        onClick={() => props.setActiveTable('sports')}
         testid='sports'
       />
       <ButtonWithIconAndTextVertical
         icon={<PiFirstAidKit size={25} />}
         text='First AID'
-        onClick={handleClick}
+        onClick={() => props.setActiveTable('first-aid')}
         testid='first-aid'
       />
       <ButtonWithIconAndTextVertical
         icon={<CiMedicalClipboard size={25} />}
         text='Nutrition'
-        onClick={handleClick}
+        onClick={() => props.setActiveTable('nutrition')}
         testid='nutrition'
       />
     </div>
