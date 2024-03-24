@@ -29,6 +29,7 @@ function PersonalCareTable({}: Props) {
   //
   useEffect(() => {
     //fetchMedicine from server
+    console.log('fetching medicine');
     fetchMedicine();
   }, []);
   //
