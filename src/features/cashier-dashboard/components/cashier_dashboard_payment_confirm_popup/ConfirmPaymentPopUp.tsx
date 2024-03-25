@@ -11,11 +11,15 @@ const ConfirmPaymentPopUp = () => {
     paymentDetails,
     setOrderedMedicine,
     setPaymentDetails,
+    orderedMedicine,
   } = usePaymentContext();
   const cancelClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
   const confirmClick = () => {
+    //send request to backend for updating cashier,inventory and the orders
+    console.log(orderedMedicine);
+
     setCurrentComponent(ComponentState.OrderDetails);
     setOrderedMedicine([]);
     setPaymentDetails({

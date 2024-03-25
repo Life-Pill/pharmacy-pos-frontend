@@ -29,4 +29,7 @@ const getItemById = async (id: string) => {
   }
 };
 
+//update the items in the inventory
+const updateInventory = (orderdMedicne: OrderedMedicine[]) => {};
+
 export default getAllItems;
