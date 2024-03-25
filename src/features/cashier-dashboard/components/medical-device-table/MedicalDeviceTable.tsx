@@ -3,7 +3,7 @@ import { IoIosAdd } from 'react-icons/io';
 import { IMedicine } from '../../../../interfaces/IMedicine';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
-import getAllItems from '../../services/ItemService';
+import { getAllItems } from '../../services/ItemService';
 import { MedicineType } from '../medicine-table/MedicineColumns';
 
 type Props = {};
