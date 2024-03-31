@@ -2,7 +2,7 @@ import http from '../../../services/http-common';
 import { OrderedMedicine } from '../interfaces/OrderMedicine';
 import { mapIItemsToIMedicine } from '../utils/mapIItemsToIMedicine';
 
-const getAllItems = async () => {
+export const getAllItems = async () => {
   try {
     const res = await http.get('/item/get-all-items');
     //console.log(res);
@@ -17,7 +17,7 @@ const getAllItems = async () => {
 };
 
 //get item by id
-const getItemById = async (id: string) => {
+export const getItemById = async (id: string) => {
   try {
     const res = await http.get('/item/' + id);
     const items = res.data.data;
@@ -29,4 +29,17 @@ const getItemById = async (id: string) => {
   }
 };
 
-export default getAllItems;
+//update the items in the inventory
+export const updateInventory = async (orderdMedicne: OrderedMedicine[]) => {
+  orderdMedicne.forEach(async (item) => {
+    //   try {
+    //     const res = await http.put('/item/update-item/' + item.id, {
+    //       availableQuantity: item.availableQuantity - item.amount,
+    //     });
+    //     console.log(res);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //
+  });
+};

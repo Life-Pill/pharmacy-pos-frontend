@@ -3,7 +3,7 @@ import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
 import { MedicineType } from './MedicineColumns';
 import { useEffect, useState } from 'react';
-import getAllItems from '../../services/ItemService';
+import { getAllItems } from '../../services/ItemService';
 import { IMedicine } from '../../../../interfaces/IMedicine';
 
 type Props = {};

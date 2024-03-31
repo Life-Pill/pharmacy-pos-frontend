@@ -4,6 +4,9 @@ import {
   ComponentState,
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
+import { updateInventory } from '../../services/ItemService';
+import { updateCashierOrderDetails } from '../../services/CashierService';
+import { addOrder } from '../../services/OrderService';
 
 const ConfirmPaymentPopUp = () => {
   const {
@@ -11,11 +14,25 @@ const ConfirmPaymentPopUp = () => {
     paymentDetails,
     setOrderedMedicine,
     setPaymentDetails,
+    orderedMedicine,
   } = usePaymentContext();
   const cancelClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
-  const confirmClick = () => {
+  const confirmClick = async () => {
+    //send request to backend for updating cashier,inventory and the orders
+    console.log(orderedMedicine);
+    console.log(paymentDetails);
+
+    //update inventory
+    const res = await updateInventory(orderedMedicine);
+
+    //update cashier orders
+    const res2 = await updateCashierOrderDetails();
+
+    //update orders pharmacy
+    const res3 = await addOrder(orderedMedicine, paymentDetails);
+
     setCurrentComponent(ComponentState.OrderDetails);
     setOrderedMedicine([]);
     setPaymentDetails({
