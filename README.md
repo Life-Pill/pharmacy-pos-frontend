@@ -1,7 +1,6 @@
 # Pharmacy POS System
 
-![logo](https://github.com/TheTharz/Life-Pill-pharmacy-pos-frontend/assets/119271523/2193e9b5-c060-4aeb-8098-df8d9d1f7736)
-
+![logo](https://avatars.githubusercontent.com/u/149755096?s=200&v=4)
 
 ## Description
 
