@@ -16,19 +16,22 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' Component={LogInPage} />
+        {/* <Route path='/' Component={LogInPage} />
         <Route
           path='/login-cashier-password'
           Component={LogInCashierPasswordPage}
         />
-        <Route path='/' Component={CashierTemporaryLogOutPage} />
-        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} />
-        {/* <Route path='/' element={<ManagerDashboardPage />} />
+        <Route path='/' Component={CashierTemporaryLogOutPage} /> */}
+        {/* <Route path='/cashier-dashboard' Component={CashierDashBoardPage} /> */}
 
-        <Route path='/add-cashier' element={<AddCashier />} /> */}
-        {/* <Route path='/cashier-bank-details' element={<CashierBankDetails />} /> */}
-        {/* <Route path='/update-cashier' element={<UpdateCashier />} />
-        <Route path='/view-cashier' element={<ViewCashier />} /> */}
+        {/* to view admin side uncomment below */}
+
+        <Route path='/' element={<ManagerDashboardPage />} />
+
+        <Route path='/add-cashier' element={<AddCashier />} />
+        <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
+        <Route path='/update-cashier' element={<UpdateCashier />} />
+        <Route path='/view-cashier' element={<ViewCashier />} />
       </Routes>
     </Router>
   );
