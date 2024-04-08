@@ -5,9 +5,12 @@ import ProfileNameCard from '../../../../shared/cashier_profile/ProfileNameCard'
 import DateAndTimeNavBar from '../../../../shared/clock/DateAndTimeNavBar';
 import Divider from '../../../../shared/divider/Divider';
 
-type Props = {};
+type Props = {
+  // Define props here
+  topic: String;
+};
 
-function CashierManagerNavBar({}: Props) {
+function CashierManagerNavBar({ topic }: Props) {
   const handleClick = () => {};
   return (
     <div className='flex items-center justify-between w-full p-2 font-poppins shadow-md z-10 bg-white'>
@@ -24,7 +27,7 @@ function CashierManagerNavBar({}: Props) {
           <img src={Logo} alt='Logo' width={60} height={60} />
         </div>
 
-        <h2 className='font-medium text-lg'>Add Cashier</h2>
+        <h2 className='font-medium text-lg'>{topic}</h2>
       </div>
 
       <div className='flex flex-row items-center justify-center gap-2'>
