@@ -11,6 +11,7 @@ import {
   UpdateCashier,
   ViewCashier,
 } from './features/cashier-management';
+import ErrorRoutePage from './pages/error-route-page';
 
 function App() {
   return (
@@ -30,8 +31,12 @@ function App() {
 
         <Route path='/add-cashier' element={<AddCashier />} />
         <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
-        <Route path='/update-cashier' element={<UpdateCashier />} />
+        <Route path='/update-cashie' element={<UpdateCashier />} />
         <Route path='/view-cashier' element={<ViewCashier />} />
+
+        {/* Invalid routes goes here */}
+
+        <Route path='*' element={<ErrorRoutePage />} />
       </Routes>
     </Router>
   );
