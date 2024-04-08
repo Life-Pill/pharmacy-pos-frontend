@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# Pharmacy POS System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![logo](https://github.com/TheTharz/Life-Pill-pharmacy-pos-frontend/assets/119271523/2193e9b5-c060-4aeb-8098-df8d9d1f7736)
 
-## Available Scripts
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+The Pharmacy POS System is a comprehensive software solution built using Electron, React, and Tailwind CSS. It offers a range of features for efficient management of pharmacy operations, including patient order management, online payment processing, sales management, inventory management, employee management, security measures, analytics and dashboard, automated payroll calculation, end of day reporting, and daily database synchronization with AWS.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Patient Order Management:** Manage patient orders efficiently with customizable options and order tracking.
+  
+- **Online Payment Processing:** Accept online payments securely and seamlessly integrated with popular payment gateways.
+  
+- **Sales Management:** Track sales transactions, generate invoices, and manage sales reports.
+  
+- **Inventory Management:** Monitor inventory levels, track stock movements, and receive alerts for low stock items.
+  
+- **Employee Management:** Manage employee profiles, roles, schedules, and performance metrics.
+  
+- **Security Measures:** Implement security measures such as user authentication, access control, and data encryption.
+  
+- **Analytics and Dashboard:** Visualize key metrics, generate custom reports, and gain insights with interactive dashboards.
+  
+- **Automated Payroll Calculation:** Streamline payroll processes with automated calculations based on employee hours and rates.
+  
+- **End of Day Reporting:** Generate end-of-day reports summarizing sales, revenue, inventory status, and other key metrics.
+  
+- **Daily Database Synchronization with AWS:** Automatically synchronize data with AWS for backup, scalability, and accessibility.
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/pharmacy-pos-system.git
 
-### `npm run build`
+2. Install the dependencies:
+   ```bash
+   cd pharmacy-pos-system
+   npm install
+3. Start the application:
+   ```bash
+   npm run electron:start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used
+- Electron
+- React
+- Tailwind CSS
+- Node.js
+- Express.js
+- AWS (for database synchronization)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
+- Contributions are welcome! Please follow the contributing guidelines to contribute to this project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
+- This project is licensed under the MIT License.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
