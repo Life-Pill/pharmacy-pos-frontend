@@ -31,7 +31,7 @@ function App() {
 
         <Route path='/add-cashier' element={<AddCashier />} />
         <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
-        <Route path='/update-cashie' element={<UpdateCashier />} />
+        <Route path='/update-cashier' element={<UpdateCashier />} />
         <Route path='/view-cashier' element={<ViewCashier />} />
 
         {/* Invalid routes goes here */}
