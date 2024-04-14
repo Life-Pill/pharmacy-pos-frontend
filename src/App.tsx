@@ -12,6 +12,11 @@ import {
   ViewCashier,
 } from './features/cashier-management';
 import ErrorRoutePage from './pages/error-route-page';
+import {
+  AddItems,
+  RemoveItems,
+  UpdateItems,
+} from './features/items-management';
 
 function App() {
   return (
@@ -36,7 +41,9 @@ function App() {
         <Route path='/update-cashier' element={<UpdateCashier />} />
         <Route path='/view-cashier' element={<ViewCashier />} />
 
-        {/* <Route path='/' */}
+        <Route path='/add-items' element={<AddItems />} />
+        <Route path='/update-items' element={<UpdateItems />} />
+        <Route path='/remove-items' element={<RemoveItems />} />
 
         {/* Invalid routes goes here */}
 
