@@ -29,10 +29,14 @@ function App() {
 
         <Route path='/' element={<ManagerDashboardPage />} />
 
+        {/* Cashier management details */}
+
         <Route path='/add-cashier' element={<AddCashier />} />
         <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
         <Route path='/update-cashier' element={<UpdateCashier />} />
         <Route path='/view-cashier' element={<ViewCashier />} />
+
+        {/* <Route path='/' */}
 
         {/* Invalid routes goes here */}
 
