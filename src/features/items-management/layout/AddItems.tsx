@@ -2,11 +2,13 @@ import React, { ChangeEvent, useState } from 'react';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
+import { IItemInterface } from '../../../interfaces/IItemInterface';
 
 type Props = {};
 
 function AddItems({}: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [item, setItem] = useState<IItemInterface>({} as IItemInterface);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -15,6 +17,10 @@ function AddItems({}: Props) {
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
           setPreviewImage(reader.result);
+          setItem({
+            ...item,
+            itemImage: reader.result,
+          });
         }
       };
       reader.readAsDataURL(file);
@@ -60,249 +66,317 @@ function AddItems({}: Props) {
           {/* First Column */}
           <div>
             <label
-              htmlFor='nickname'
+              htmlFor='name'
               className='block text-sm font-medium text-black mt-4'
             >
-              Nickname
+              Name
             </label>
             <input
               type='text'
-              id='nickname'
+              id='name'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  itemName: e.target.value,
+                });
+              }}
             />
 
             <label
-              htmlFor='nicNumber'
+              htmlFor='sellingPrice'
               className='block text-sm font-medium text-black mt-4'
             >
-              NIC Number
+              Selling Price
             </label>
             <input
               type='text'
-              id='nicNumber'
+              id='sellingPrice'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  sellingPrice: parseFloat(e.target.value),
+                });
+              }}
             />
 
             <label
-              htmlFor='telephone'
+              htmlFor='supplyDate'
               className='block text-sm font-medium text-black mt-4'
             >
-              Telephone Number
+              Supply Date
             </label>
             <input
-              type='tel'
-              id='telephone'
+              type='date'
+              id='supplyDate'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  supplyDate: new Date(e.target.value),
+                });
+              }}
             />
 
             <label
-              htmlFor='email'
+              htmlFor='supplierPrice'
               className='block text-sm font-medium text-black mt-4'
             >
-              Email
-            </label>
-            <input
-              type='email'
-              id='email'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='firstName'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              First Name
+              Supplier Price
             </label>
             <input
               type='text'
-              id='firstName'
+              id='supplierPrice'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  supplierPrice: parseFloat(e.target.value),
+                });
+              }}
             />
 
             <label
-              htmlFor='lastName'
+              htmlFor='itemManufacturer'
               className='block text-sm font-medium text-black mt-4'
             >
-              Last Name
+              Manufacturer
             </label>
             <input
               type='text'
-              id='lastName'
+              id='itemManufacturer'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  itemManufacture: e.target.value,
+                });
+              }}
+            />
+
+            <label
+              htmlFor='itemQuantity'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Quantity
+            </label>
+            <input
+              type='number'
+              id='itemQuantity'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  itemQuantity: parseFloat(e.target.value),
+                });
+              }}
             />
           </div>
 
           {/* Second Column */}
           <div>
             <label
-              htmlFor='gender'
+              htmlFor='itemCategory'
               className='block text-sm font-medium text-black'
             >
-              Gender
+              Category
             </label>
             <select
-              id='gender'
+              id='itemCategory'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  itemCategory: e.target.value,
+                });
+              }}
             >
-              <option value='male'>Male</option>
-              <option value='female'>Female</option>
-              <option value='other'>Other</option>
+              <option value='medicine'>Medicine</option>
+              <option value='nutritions'>Nutritions</option>
+              <option value='sports'>Sports</option>
+              <option value='equipment'>Equipment</option>
+              <option value='firstAid'>First Aid</option>
             </select>
 
             <label
-              htmlFor='addressLine1'
+              htmlFor='measuringUnitType'
               className='block text-sm font-medium text-black mt-4'
             >
-              Address Line 1
+              Measuring Unit Type
             </label>
             <input
               type='text'
-              id='addressLine1'
+              id='measuringUnitType'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  measuringUnitType: e.target.value,
+                });
+              }}
             />
 
             <label
-              htmlFor='addressLine2'
+              htmlFor='manufactureDate'
               className='block text-sm font-medium text-black mt-4'
             >
-              Address Line 2
-            </label>
-            <input
-              type='text'
-              id='addressLine2'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='city'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              City
-            </label>
-            <input
-              type='text'
-              id='city'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='province'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              Province
-            </label>
-            <input
-              type='text'
-              id='province'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='dateOfBirth'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              Date of Birth
+              Manufacturer Date
             </label>
             <input
               type='date'
-              id='dateOfBirth'
+              id='manufactureDate'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  manufactureDate: new Date(e.target.value),
+                });
+              }}
+            />
+
+            <label
+              htmlFor='expireDate'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Expire Date
+            </label>
+            <input
+              type='date'
+              id='expireDate'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  expireDate: new Date(e.target.value),
+                });
+              }}
+            />
+
+            <label
+              htmlFor='purchaseDate'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Purchase Date
+            </label>
+            <input
+              type='date'
+              id='purchaseDate'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  purchaseDate: new Date(e.target.value),
+                });
+              }}
+            />
+
+            <label
+              htmlFor='warrantyPeriod'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Warranty Period
+            </label>
+            <input
+              type='text'
+              id='warrantyPeriod'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  warrantyPeriod: e.target.value,
+                });
+              }}
             />
           </div>
           {/* Third Column */}
           <div>
             <label
-              htmlFor='gender'
+              htmlFor='rackNumber'
               className='block text-sm font-medium text-black'
             >
-              Gender
+              Rack Number
+            </label>
+            <input
+              type='text'
+              id='rackNumber'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  rackNumber: e.target.value,
+                });
+              }}
+            />
+
+            <label
+              htmlFor='discountedPercentage'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Discounted Percentage
+            </label>
+            <input
+              type='number'
+              id='discountedPercentage'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  discountedPercentage: parseFloat(e.target.value),
+                });
+              }}
+            />
+
+            <label
+              htmlFor='warehouseName'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Warehouse Name
+            </label>
+            <input
+              type='text'
+              id='warehouseName'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {}}
+            />
+
+            <label
+              htmlFor='itemDescription'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Item Description
+            </label>
+            <input
+              type='text'
+              id='itemDescription'
+              className='mt-1 p-2 border-gray rounded-md w-64'
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  itemDescription: e.target.value,
+                });
+              }}
+            />
+
+            <label
+              htmlFor='specialCondition'
+              className='block text-sm font-medium text-black mt-4'
+            >
+              Special Condition
             </label>
             <select
-              id='gender'
+              id='specialCondition'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  specialCondition: e.target.value === 'true' ? true : false,
+                });
+              }}
             >
-              <option value='male'>Male</option>
-              <option value='female'>Female</option>
-              <option value='other'>Other</option>
+              <option value='true'>Yes</option>
+              <option value='false'>No</option>
             </select>
-
-            <label
-              htmlFor='addressLine1'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              Address Line 1
-            </label>
-            <input
-              type='text'
-              id='addressLine1'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='addressLine2'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              Address Line 2
-            </label>
-            <input
-              type='text'
-              id='addressLine2'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='city'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              City
-            </label>
-            <input
-              type='text'
-              id='city'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='province'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              Province
-            </label>
-            <input
-              type='text'
-              id='province'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
-
-            <label
-              htmlFor='dateOfBirth'
-              className='block text-sm font-medium text-black mt-4'
-            >
-              Date of Birth
-            </label>
-            <input
-              type='date'
-              id='dateOfBirth'
-              className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
-            />
           </div>
         </div>
         <div className='flex items-center justify-center gap-8 w-full mt-8'>
