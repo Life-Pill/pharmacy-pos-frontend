@@ -17,6 +17,7 @@ import {
   RemoveItems,
   UpdateItems,
 } from './features/items-management';
+import MainDashboard from './features/manager-dashboard';
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
 
         {/* to view admin side uncomment below */}
 
-        <Route path='/' element={<ManagerDashboardPage />} />
+        <Route path='/' element={<MainDashboard />} />
 
         {/* Cashier management details */}
 
