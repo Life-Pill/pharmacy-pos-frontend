@@ -12,6 +12,12 @@ import {
   ViewCashier,
 } from './features/cashier-management';
 import ErrorRoutePage from './pages/error-route-page';
+import {
+  AddItems,
+  RemoveItems,
+  UpdateItems,
+} from './features/items-management';
+import MainDashboard from './features/manager-dashboard';
 
 function App() {
   return (
@@ -27,12 +33,18 @@ function App() {
 
         {/* to view admin side uncomment below */}
 
-        <Route path='/' element={<ManagerDashboardPage />} />
+        <Route path='/' element={<MainDashboard />} />
+
+        {/* Cashier management details */}
 
         <Route path='/add-cashier' element={<AddCashier />} />
         <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
         <Route path='/update-cashier' element={<UpdateCashier />} />
         <Route path='/view-cashier' element={<ViewCashier />} />
+
+        <Route path='/add-items' element={<AddItems />} />
+        <Route path='/update-items' element={<UpdateItems />} />
+        <Route path='/remove-items' element={<RemoveItems />} />
 
         {/* Invalid routes goes here */}
 
