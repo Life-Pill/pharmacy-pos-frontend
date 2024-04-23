@@ -5,9 +5,11 @@ import { mapIItemsToIMedicine } from '../utils/mapIItemsToIMedicine';
 export const getAllItems = async () => {
   try {
     const res = await http.get('/item/get-all-items');
-    //console.log(res);
+    console.log(res);
     const items = res.data.data;
     //map to ordered item
+    if (items.length === 0) return [];
+
     const mappedItems = items.map((item: any) => mapIItemsToIMedicine(item));
     console.log(mappedItems);
     return mappedItems;
