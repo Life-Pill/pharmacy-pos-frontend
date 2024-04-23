@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonWithTextOnly from '../../../../shared/buttons/ButtonWithTextOnly';
 import MedicineGrid from '../order-details/MedicineGrid';
 import {
@@ -9,20 +9,27 @@ import {
 type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
-  const { setCurrentComponent, setMedicine, medicine } = usePaymentContext();
+  const { setCurrentComponent, medicine, setMedicine } = usePaymentContext();
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const PayNowButtonClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
 
-  const handleSearchMedicine = (query: string) => {
-    // search medicine by query
+  const handleSearchMedicine = (value: string): void => {
+    setSearchQuery(value.trim());
     setMedicine(
       medicine.filter((med) =>
-        med.name.toLowerCase().includes(query.toLowerCase())
+        med.name.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      setMedicine(medicine);
+    }
+  }, [searchQuery]);
 
   return (
     <div className='w-auto flex justify-center flex-col font-poppins space-y-3 p-4 min-h-[400px]'>
@@ -35,6 +42,7 @@ const OrderDetailsSideBar = (props: Props) => {
           className='border p-2 rounded-md w-full'
           type='text'
           placeholder='Scan or enter barcode'
+          value={searchQuery}
           onChange={(e) => handleSearchMedicine(e.target.value)}
         />
       </div>
