@@ -9,10 +9,19 @@ import {
 type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
-  const { setCurrentComponent } = usePaymentContext();
+  const { setCurrentComponent, setMedicine, medicine } = usePaymentContext();
 
   const PayNowButtonClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
+  };
+
+  const handleSearchMedicine = (query: string) => {
+    // search medicine by query
+    setMedicine(
+      medicine.filter((med) =>
+        med.name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   };
 
   return (
@@ -26,6 +35,7 @@ const OrderDetailsSideBar = (props: Props) => {
           className='border p-2 rounded-md w-full'
           type='text'
           placeholder='Scan or enter barcode'
+          onChange={(e) => handleSearchMedicine(e.target.value)}
         />
       </div>
       <div>
