@@ -3,14 +3,33 @@ import { CiUser } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import Logo from '../../../assets/logo/logo.png';
 
-import { useNavigate } from 'react-router-dom';
-import SignIn from '../services/AuthService';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { SignIn } from '../services/AuthService';
+import { useUserContext } from '../../../context/UserContext';
 
 const LogInCard = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { setUser } = useUserContext();
 
   const navigate = useNavigate();
+  function handleSignIn(
+    username: string,
+    password: string,
+    navigate: NavigateFunction
+  ): void {
+    SignIn(username, password).then((user) => {
+      console.log(user);
+      if (user) {
+        console.log('User is not null');
+        //store user in local storage
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+        navigate('/cashier-dashboard');
+      }
+    });
+  }
+
   return (
     <div className='font-poppins p-8 flex flex-col items-center justify-center space-y-8 shadow-lg rounded-lg w-96 md:w-[60vw] lg:w-[40vw] xl:w-[30vw] h-[80vh]'>
       {/* logo */}
@@ -71,7 +90,7 @@ const LogInCard = () => {
       <div>
         <button
           className='signup_button'
-          onClick={() => SignIn(username, password, navigate)}
+          onClick={() => handleSignIn(username, password, navigate)}
         >
           Sign In
         </button>

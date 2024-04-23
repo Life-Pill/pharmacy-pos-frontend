@@ -1,14 +1,18 @@
 import React from 'react';
+import { useUserContext } from '../../context/UserContext';
 
 type Props = {};
 
 const ProfileNameCard = (props: Props) => {
+  const { user } = useUserContext();
+  console.log(`ProfileNameCard: ${user}`);
+
   return (
     <div className='flex items-center justify-center space-x-2'>
       {/* Details */}
       <div>
-        <p className='font-bold text-sm'>Cashier-001</p>
-        <p className='text-xs'>Ruwani Manchanayaka</p>
+        <p className='font-bold text-sm'>{`Cashier-${user?.employerId}`}</p>
+        <p className='text-xs'>{`${user?.employerFirstName} ${user?.employerLastName}`}</p>
       </div>
       {/* Image */}
       <div className='w-[60px] h-[60px] rounded-full overflow-hidden relative'>

@@ -9,6 +9,7 @@ import { LiaHistorySolid } from 'react-icons/lia';
 import { PiDeviceMobileSpeakerThin } from 'react-icons/pi';
 import ProfileNameCard from '../cashier_profile/ProfileNameCard';
 import Divider from '../divider/Divider';
+import { useUserContext } from '../../context/UserContext';
 const Logo = require('../../assets/logo/logo.png');
 
 type Props = {};

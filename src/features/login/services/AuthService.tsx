@@ -2,12 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import http from '../../../services/http-common';
 import { mapEmployeeReponseToIEmployee } from '../utils/mapEmployeeReponseToIEmployee';
+import { useUserContext } from '../../../context/UserContext';
+import { IEmployeeInterface } from '../../../interfaces/IEmployeeInterface';
 
-const SignIn = async (
-  username: string,
-  password: string,
-  navigate: ReturnType<typeof useNavigate>
-): Promise<void> => {
+export const SignIn = async (username: string, password: string) => {
   try {
     const res = await http.post('/auth/authenticate', {
       employerEmail: username,
@@ -19,12 +17,10 @@ const SignIn = async (
 
     if (res.data.authenticationResponse.message === 'Successfully logged in.') {
       alert('Logged in successfully');
-      navigate('/cashier-dashboard');
+      return employee;
     }
   } catch (error) {
     console.log(error);
     alert('Incorrect password. Please try again.');
   }
 };
-
-export default SignIn;
