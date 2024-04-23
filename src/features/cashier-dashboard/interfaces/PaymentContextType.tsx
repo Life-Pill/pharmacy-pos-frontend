@@ -13,4 +13,6 @@ export interface PaymentContextType {
   setOrderedMedicine: React.Dispatch<React.SetStateAction<OrderedMedicine[]>>;
   medicine: IMedicine[];
   setMedicine: React.Dispatch<React.SetStateAction<IMedicine[]>>;
+  filteredMedicine: IMedicine[];
+  setFilteredMedicine: React.Dispatch<React.SetStateAction<IMedicine[]>>;
 }

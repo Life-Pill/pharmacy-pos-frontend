@@ -12,7 +12,8 @@ function Medicine({}: Props) {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
   const [loading, setLoading] = useState(true);
 
-  const { setMedicine, medicine } = usePaymentContext();
+  const { setMedicine, medicine, setFilteredMedicine, filteredMedicine } =
+    usePaymentContext();
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {
@@ -39,6 +40,7 @@ function Medicine({}: Props) {
     try {
       const medicineData = await getAllItems();
       setMedicine(medicineData);
+      setFilteredMedicine(medicineData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching medicine data:', error);
@@ -77,7 +79,7 @@ function Medicine({}: Props) {
             </tr>
           </thead>
           <tbody>
-            {medicine.map((cashier) => (
+            {filteredMedicine.map((cashier) => (
               <tr className='bg-slate-50 border-b'>
                 <td className='px-6 py-4'>{cashier.id}</td>
                 <td className='px-6 py-4 w-8 h-8'>

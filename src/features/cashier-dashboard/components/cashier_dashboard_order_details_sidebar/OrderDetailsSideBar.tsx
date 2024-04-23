@@ -5,11 +5,13 @@ import {
   ComponentState,
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
+import { IMedicine } from '../../../../interfaces/IMedicine';
 
 type Props = {};
 
 const OrderDetailsSideBar = (props: Props) => {
-  const { setCurrentComponent, medicine, setMedicine } = usePaymentContext();
+  const { setCurrentComponent, medicine, setFilteredMedicine } =
+    usePaymentContext();
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const PayNowButtonClick = () => {
@@ -18,18 +20,16 @@ const OrderDetailsSideBar = (props: Props) => {
 
   const handleSearchMedicine = (value: string): void => {
     setSearchQuery(value.trim());
-    setMedicine(
-      medicine.filter((med) =>
-        med.name.toLowerCase().includes(value.toLowerCase())
-      )
-    );
-  };
-
-  useEffect(() => {
-    if (searchQuery === '') {
-      setMedicine(medicine);
+    if (value === '') {
+      setFilteredMedicine(medicine);
+    } else {
+      setFilteredMedicine(
+        medicine.filter((item) =>
+          item.name.toLowerCase().includes(value.toLowerCase())
+        )
+      );
     }
-  }, [searchQuery]);
+  };
 
   return (
     <div className='w-auto flex justify-center flex-col font-poppins space-y-3 p-4 min-h-[400px]'>

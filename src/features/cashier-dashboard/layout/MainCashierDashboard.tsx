@@ -55,6 +55,8 @@ function MainCashierDashboard({}: Props) {
 
   const [medicine, setMedicine] = useState<IMedicine[]>([]);
 
+  const [filteredMedicine, setFilteredMedicine] = useState<IMedicine[]>([]);
+
   const contextValue: PaymentContextType = {
     currentComponent,
     setCurrentComponent,
@@ -64,6 +66,8 @@ function MainCashierDashboard({}: Props) {
     setOrderedMedicine,
     medicine,
     setMedicine,
+    filteredMedicine,
+    setFilteredMedicine,
   };
 
   const renderComponent = () => {
