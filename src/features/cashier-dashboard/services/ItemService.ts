@@ -34,14 +34,14 @@ export const getItemById = async (id: string) => {
 //update the items in the inventory
 export const updateInventory = async (orderdMedicne: OrderedMedicine[]) => {
   orderdMedicne.forEach(async (item) => {
-    //   try {
-    //     const res = await http.put('/item/update-item/' + item.id, {
-    //       availableQuantity: item.availableQuantity - item.amount,
-    //     });
-    //     console.log(res);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //
+    // try {
+    //   const res = await http.put('/item/update/', {
+    //     itemId: item.id,
+    //     itemQuantity: item.availableQuantity - item.amount,
+    //   });
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   });
 };

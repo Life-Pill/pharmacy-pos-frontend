@@ -1,11 +1,11 @@
 import axios from 'axios';
+import Cookie from 'js-cookie';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:8081/lifepill/v1',
   headers: {
     'Content-type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1pdGhhQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9PV05FUiIsImlhdCI6MTcxMzg0NTcwMywiZXhwIjoxNzEzOTMyMTAzfQ.h4sqqsYFEAVIH8o8p7isktieqTQnQ7jpZJ0x17afnVs',
+    Authorization: `Bearer ${Cookie.get('Authorization')}`,
   },
 });
 

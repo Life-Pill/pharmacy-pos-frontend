@@ -26,9 +26,7 @@ const ConfirmPaymentPopUp = () => {
 
     //update inventory
     const res = await updateInventory(orderedMedicine);
-
-    //update cashier orders
-    const res2 = await updateCashierOrderDetails();
+    console.log(res);
 
     //update orders pharmacy
     const res3 = await addOrder(orderedMedicine, paymentDetails);
