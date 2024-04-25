@@ -33,7 +33,7 @@ const useSignIn = () => {
         console.log(employee);
 
         // Set user data or store cookie if needed
-        setCookie(res.data.authenticationResponse.token);
+        setCookie(res.data.authenticationResponse.access_token);
 
         return employee;
       }
