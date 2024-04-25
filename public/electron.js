@@ -1,5 +1,5 @@
 // Module to control the application lifecycle and the native browser window.
-const { app, BrowserWindow, protocol } = require('electron');
+const { app, BrowserWindow, protocol, session } = require('electron');
 const path = require('path');
 const url = require('url');
 
@@ -11,6 +11,7 @@ function createWindow() {
     // Set the path of an additional "preload" script that can be used to
     // communicate between node-land and browser-land.
     webPreferences: {
+      webSecurity: false,
       preload: path.join(__dirname, 'preload.js'),
     },
   });

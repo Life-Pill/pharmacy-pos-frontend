@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CiUser } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import Logo from '../../../assets/logo/logo.png';
 
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import useSignIn from '../services/AuthService';
+import { useUserContext } from '../../../context/UserContext';
+import Cookie from 'js-cookie';
+
 const LogInCard = () => {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const { setUser, setCookie } = useUserContext();
+
+  const navigate = useNavigate();
+
+  const { signIn, loading } = useSignIn();
+
+  const handleSignIn = async () => {
+    const user = await signIn(username, password);
+    if (user) {
+      setUser(user);
+      navigate('/cashier-dashboard');
+    }
+  };
+
   return (
     <div className='font-poppins p-8 flex flex-col items-center justify-center space-y-8 shadow-lg rounded-lg w-96 md:w-[60vw] lg:w-[40vw] xl:w-[30vw] h-[80vh]'>
       {/* logo */}
@@ -34,6 +55,7 @@ const LogInCard = () => {
               type='text'
               name='username'
               className='block w-full pl-8 rounded-md py-1.5 px-2 ring-1 focus:ring-blue'
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
         </div>
@@ -52,6 +74,7 @@ const LogInCard = () => {
               type='password'
               name='password'
               className='block w-full pl-8 rounded-md py-1.5 px-2 ring-1 focus:ring-blue'
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
@@ -60,7 +83,9 @@ const LogInCard = () => {
       </div>
       {/* Buttons */}
       <div>
-        <button className='signup_button'>Sign Up</button>
+        <button className='signup_button' onClick={handleSignIn}>
+          Sign In
+        </button>
       </div>
 
       {/* User agreement bar */}

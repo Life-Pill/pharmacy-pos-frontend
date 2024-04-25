@@ -23,20 +23,20 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path='/' Component={LogInPage} />
+        <Route path='/' Component={LogInPage} />
         <Route
           path='/login-cashier-password'
           Component={LogInCashierPasswordPage}
         />
-        <Route path='/' Component={CashierTemporaryLogOutPage} /> */}
-        {/* <Route path='/cashier-dashboard' Component={CashierDashBoardPage} /> */}
+        <Route path='/' Component={CashierTemporaryLogOutPage} />
+        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} />
 
         {/* to view admin side uncomment below */}
 
-        <Route path='/' element={<MainDashboard />} />
+        {/* <Route path='/' element={<MainDashboard />} /> */}
 
         {/* Cashier management details */}
-
+        {/* 
         <Route path='/add-cashier' element={<AddCashier />} />
         <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
         <Route path='/update-cashier' element={<UpdateCashier />} />
@@ -44,7 +44,7 @@ function App() {
 
         <Route path='/add-items' element={<AddItems />} />
         <Route path='/update-items' element={<UpdateItems />} />
-        <Route path='/remove-items' element={<RemoveItems />} />
+        <Route path='/remove-items' element={<RemoveItems />} /> */}
 
         {/* Invalid routes goes here */}
 

@@ -14,6 +14,7 @@ import SportsTable from '../components/sports-table/SportsTable';
 import NutritionTable from '../components/nutrition-table/NutritionTable';
 import FirstAidTable from '../components/first-aid-table/FirstAidTable';
 import MedicalDeviceTable from '../components/medical-device-table/MedicalDeviceTable';
+import { IMedicine } from '../../../interfaces/IMedicine';
 
 type Props = {};
 
@@ -44,13 +45,16 @@ function MainCashierDashboard({}: Props) {
     paymentMethod: '',
     paymentAmount: 0,
     paymentDate: new Date(),
-    paymentType: '',
     paymentNotes: '',
     paymentDiscount: 0,
     paidAmount: 0,
   });
 
   const [orderedMedicine, setOrderedMedicine] = useState<OrderedMedicine[]>([]);
+
+  const [medicine, setMedicine] = useState<IMedicine[]>([]);
+
+  const [filteredMedicine, setFilteredMedicine] = useState<IMedicine[]>([]);
 
   const contextValue: PaymentContextType = {
     currentComponent,
@@ -59,6 +63,10 @@ function MainCashierDashboard({}: Props) {
     setPaymentDetails,
     orderedMedicine,
     setOrderedMedicine,
+    medicine,
+    setMedicine,
+    filteredMedicine,
+    setFilteredMedicine,
   };
 
   const renderComponent = () => {
