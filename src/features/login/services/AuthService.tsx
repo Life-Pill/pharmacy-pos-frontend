@@ -1,26 +1,51 @@
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import http from '../../../services/http-common';
-import { mapEmployeeReponseToIEmployee } from '../utils/mapEmployeeReponseToIEmployee';
+import { useState } from 'react';
+import axios from 'axios';
 import { useUserContext } from '../../../context/UserContext';
+import { mapEmployeeReponseToIEmployee } from '../utils/mapEmployeeReponseToIEmployee';
 import { IEmployeeInterface } from '../../../interfaces/IEmployeeInterface';
 
-export const SignIn = async (username: string, password: string) => {
-  try {
-    const res = await http.post('/auth/authenticate', {
-      employerEmail: username,
-      employerPassword: password,
-    });
-    console.log(res.data);
-    const employee = mapEmployeeReponseToIEmployee(res.data.employerDetails);
-    console.log(employee);
+const useSignIn = () => {
+  const [loading, setLoading] = useState(false);
+  const { setCookie } = useUserContext(); // Assuming you have a setUser function in your context for setting user data
 
-    if (res.data.authenticationResponse.message === 'Successfully logged in.') {
-      alert('Logged in successfully');
-      return employee;
+  const signIn = async (
+    username: string,
+    password: string
+  ): Promise<IEmployeeInterface | null> => {
+    setLoading(true);
+    try {
+      const res = await axios.post('/auth/authenticate', {
+        employerEmail: username,
+        employerPassword: password,
+      });
+
+      console.log(res.data);
+
+      if (
+        res.data.authenticationResponse.message === 'Successfully logged in.'
+      ) {
+        alert('Logged in successfully');
+        const employee = mapEmployeeReponseToIEmployee(
+          res.data.employerDetails
+        );
+        console.log(employee);
+
+        // Set user data or store cookie if needed
+        setCookie(res.data.authenticationResponse.token);
+
+        return employee;
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Incorrect password. Please try again.');
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.log(error);
-    alert('Incorrect password. Please try again.');
-  }
+
+    return null;
+  };
+
+  return { signIn, loading };
 };
+
+export default useSignIn;

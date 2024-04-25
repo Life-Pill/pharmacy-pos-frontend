@@ -45,7 +45,6 @@ function MainCashierDashboard({}: Props) {
     paymentMethod: '',
     paymentAmount: 0,
     paymentDate: new Date(),
-    paymentType: '',
     paymentNotes: '',
     paymentDiscount: 0,
     paidAmount: 0,

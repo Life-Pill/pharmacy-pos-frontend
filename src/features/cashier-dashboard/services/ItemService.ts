@@ -1,4 +1,3 @@
-import http from '../../../services/http-common';
 import { OrderedMedicine } from '../interfaces/OrderMedicine';
 import { mapIItemsToIMedicine } from '../utils/mapIItemsToIMedicine';
 

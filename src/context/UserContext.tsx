@@ -4,6 +4,8 @@ import { IEmployeeInterface } from '../interfaces/IEmployeeInterface';
 interface UserContextType {
   user: IEmployeeInterface | null;
   setUser: (user: IEmployeeInterface | null) => void;
+  cookie: String | null;
+  setCookie: (cookie: String | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -17,8 +19,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
+  const [cookie, setCookie] = useState<String | null>(() => {
+    const storedCookie = localStorage.getItem('cookie');
+    return storedCookie ? JSON.parse(storedCookie) : null;
+  });
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, cookie, setCookie }}>
       {children}
     </UserContext.Provider>
   );
