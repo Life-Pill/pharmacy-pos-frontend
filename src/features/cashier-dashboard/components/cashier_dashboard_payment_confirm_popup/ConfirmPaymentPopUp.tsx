@@ -5,7 +5,7 @@ import {
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
 import { updateCashierOrderDetails } from '../../services/CashierService';
-import { addOrder } from '../../services/OrderService';
+import useOrderService from '../../services/OrderService';
 
 const ConfirmPaymentPopUp = () => {
   const {
@@ -15,19 +15,18 @@ const ConfirmPaymentPopUp = () => {
     setPaymentDetails,
     orderedMedicine,
   } = usePaymentContext();
+
   const cancelClick = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
+
+  const { addOrder } = useOrderService();
+
   const confirmClick = async () => {
     //send request to backend for updating cashier,inventory and the orders
     console.log(orderedMedicine);
     console.log(paymentDetails);
 
-    //update inventory
-    // const res = await updateInventory(orderedMedicine);
-    // console.log(res);
-
-    //update orders pharmacy
     const res3 = await addOrder(orderedMedicine, paymentDetails);
 
     setCurrentComponent(ComponentState.OrderDetails);
@@ -41,6 +40,7 @@ const ConfirmPaymentPopUp = () => {
       paidAmount: 0,
     });
   };
+
   return (
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center font-poppins text-xs'>
       <div className=' w-[750px]'>
