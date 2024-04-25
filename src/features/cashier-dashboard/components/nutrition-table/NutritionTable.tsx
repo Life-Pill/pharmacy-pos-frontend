@@ -3,14 +3,16 @@ import { IoIosAdd } from 'react-icons/io';
 import { IMedicine } from '../../../../interfaces/IMedicine';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
-import { getAllItems } from '../../services/ItemService';
 import { MedicineType } from '../medicine-table/MedicineColumns';
+import useItemService from '../../services/ItemService';
 
 type Props = {};
 
 function NutritionTable({}: Props) {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
   const [medicine, setMedicine] = useState<IMedicine[]>([]);
+
+  const { items, getAllItems } = useItemService();
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {

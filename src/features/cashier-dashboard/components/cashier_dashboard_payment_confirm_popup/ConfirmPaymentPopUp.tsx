@@ -4,7 +4,6 @@ import {
   ComponentState,
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
-import { updateInventory } from '../../services/ItemService';
 import { updateCashierOrderDetails } from '../../services/CashierService';
 import { addOrder } from '../../services/OrderService';
 
@@ -25,8 +24,8 @@ const ConfirmPaymentPopUp = () => {
     console.log(paymentDetails);
 
     //update inventory
-    const res = await updateInventory(orderedMedicine);
-    console.log(res);
+    // const res = await updateInventory(orderedMedicine);
+    // console.log(res);
 
     //update orders pharmacy
     const res3 = await addOrder(orderedMedicine, paymentDetails);
