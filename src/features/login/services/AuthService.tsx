@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useUserContext } from '../../../context/UserContext';
 import { mapEmployeeReponseToIEmployee } from '../utils/mapEmployeeReponseToIEmployee';
 import { IEmployeeInterface } from '../../../interfaces/IEmployeeInterface';
+import useAxiosInstance from './useAxiosInstance';
 
 const useSignIn = () => {
   const [loading, setLoading] = useState(false);
   const { setCookie } = useUserContext(); // Assuming you have a setUser function in your context for setting user data
+  const http = useAxiosInstance();
 
   const signIn = async (
     username: string,
@@ -14,7 +16,7 @@ const useSignIn = () => {
   ): Promise<IEmployeeInterface | null> => {
     setLoading(true);
     try {
-      const res = await axios.post('/auth/authenticate', {
+      const res = await http.post('/auth/authenticate', {
         employerEmail: username,
         employerPassword: password,
       });
