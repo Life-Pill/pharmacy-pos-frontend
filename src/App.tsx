@@ -1,5 +1,10 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import LogInPage from './pages/login-page';
 import LogInCashierPasswordPage from './pages/cashier-password-page';
 import CashierTemporaryLogOutPage from './pages/temporary-logout-page';
@@ -18,37 +23,53 @@ import {
   UpdateItems,
 } from './features/items-management';
 import MainDashboard from './features/manager-dashboard';
+import { useUserContext } from './context/UserContext';
 
 function App() {
+  const { user } = useUserContext();
+  const isAdmin = user?.role === 'OWNER'; // Assuming 'OWNER' is the role for admin/owner
+
   return (
     <Router>
       <Routes>
-        <Route path='/' Component={LogInPage} />
+        <Route path='/' element={<LogInPage />} />
         <Route
           path='/login-cashier-password'
-          Component={LogInCashierPasswordPage}
+          element={<LogInCashierPasswordPage />}
         />
-        <Route path='/' Component={CashierTemporaryLogOutPage} />
-        <Route path='/cashier-dashboard' Component={CashierDashBoardPage} />
+        <Route
+          path='/temporary-logout'
+          element={<CashierTemporaryLogOutPage />}
+        />
 
-        {/* to view admin side uncomment below */}
+        {isAdmin ? (
+          <>
+            {/* Routes for OWNER */}
+            <Route path='/manager-dashboard' element={<MainDashboard />} />
+            <Route path='/add-cashier' element={<AddCashier />} />
+            <Route
+              path='/cashier-bank-details'
+              element={<CashierBankDetails />}
+            />
+            <Route path='/update-cashier' element={<UpdateCashier />} />
+            <Route path='/view-cashier' element={<ViewCashier />} />
+            <Route path='/add-items' element={<AddItems />} />
+            <Route path='/update-items' element={<UpdateItems />} />
+            <Route path='/remove-items' element={<RemoveItems />} />
+          </>
+        ) : (
+          <>
+            {/* Routes for CASHIER */}
+            <Route
+              path='/cashier-dashboard'
+              element={<CashierDashBoardPage />}
+            />
+            {/* Add more routes specific to CASHIER if needed */}
+          </>
+        )}
 
-        {/* <Route path='/' element={<MainDashboard />} /> */}
-
-        {/* Cashier management details */}
-        {/* 
-        <Route path='/add-cashier' element={<AddCashier />} />
-        <Route path='/cashier-bank-details' element={<CashierBankDetails />} />
-        <Route path='/update-cashier' element={<UpdateCashier />} />
-        <Route path='/view-cashier' element={<ViewCashier />} />
-
-        <Route path='/add-items' element={<AddItems />} />
-        <Route path='/update-items' element={<UpdateItems />} />
-        <Route path='/remove-items' element={<RemoveItems />} /> */}
-
-        {/* Invalid routes goes here */}
-
-        <Route path='*' element={<ErrorRoutePage />} />
+        {/* Error route */}
+        <Route path='/*' element={<ErrorRoutePage />} />
       </Routes>
     </Router>
   );
