@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -21,18 +21,26 @@ function MedicineGrid({}: Props) {
     setOrderedMedicine,
     paymentDetails,
     orderedMedicine,
+    setFilteredMedicine,
+    filteredMedicine,
   } = usePaymentContext();
   const [discountedTotal, setDiscountedTotal] = useState<number>(0);
 
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
+  const filterUpdateMedicine = [...filteredMedicine];
 
   const handleAddAmount = (index: number) => {
     const updatedMedicines = [...orderedMedicine];
+
     if (updatedMedicines[index].availableQuantity > 0) {
       updatedMedicines[index].amount += 1;
       updatedMedicines[index].availableQuantity -= 1;
+      filterUpdateMedicine[index].quantity -= 1;
+
       setOrderedMedicine(updatedMedicines);
+      setFilteredMedicine(filterUpdateMedicine);
+
       calculateTotalAmount();
     } else {
       alert('You have reached the maximum quantity');
@@ -45,6 +53,8 @@ function MedicineGrid({}: Props) {
     if (updatedMedicines[index].amount !== 0) {
       updatedMedicines[index].amount -= 1;
       updatedMedicines[index].availableQuantity += 1;
+      filterUpdateMedicine[index].quantity += 1;
+      setFilteredMedicine(filterUpdateMedicine);
       setOrderedMedicine(updatedMedicines);
       calculateTotalAmount();
     } else {
@@ -61,6 +71,8 @@ function MedicineGrid({}: Props) {
     } else {
       updatedMedicines[index].amount = amount;
       // updatedMedicines[index].availableQuantity -= amount;
+      filterUpdateMedicine[index].quantity -= amount;
+      setFilteredMedicine(filterUpdateMedicine);
       setOrderedMedicine(updatedMedicines);
       calculateTotalAmount();
     }

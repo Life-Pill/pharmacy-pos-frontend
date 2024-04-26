@@ -21,7 +21,11 @@ const LogInCard = () => {
     const user = await signIn(username, password);
     if (user) {
       setUser(user);
-      navigate('/cashier-dashboard');
+      if (user.role === 'OWNER') {
+        navigate('/manager-dashboard');
+      } else {
+        navigate('/cashier-dashboard');
+      }
     }
   };
 
