@@ -42,6 +42,7 @@ const useOrderService = () => {
     } catch (error) {
       console.log(error);
       setLoading(false);
+      toast.error('Error with the server: ' + (error as Error).message);
 
       return error;
     }

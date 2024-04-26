@@ -123,7 +123,9 @@ const ConfirmPaymentPopUp = () => {
               {
                 // if loading is true, show loading spinner
                 loading ? (
-                  <div className='w-28 h-10 bg-gray-200 animate-pulse rounded-full'></div>
+                  <div className='w-28 h-10 bg-gray-200 animate-pulse rounded-full'>
+                    Processing ...
+                  </div>
                 ) : (
                   <button
                     className='signup_button w-28 rounded-full'
