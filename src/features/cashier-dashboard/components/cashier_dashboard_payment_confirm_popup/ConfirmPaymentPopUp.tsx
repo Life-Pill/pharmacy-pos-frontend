@@ -20,7 +20,7 @@ const ConfirmPaymentPopUp = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
 
-  const { addOrder } = useOrderService();
+  const { addOrder, loading } = useOrderService();
 
   const confirmClick = async () => {
     //send request to backend for updating cashier,inventory and the orders
@@ -120,12 +120,19 @@ const ConfirmPaymentPopUp = () => {
               >
                 Cancel
               </button>
-              <button
-                className='signup_button w-28 rounded-full'
-                onClick={confirmClick}
-              >
-                Payment
-              </button>
+              {
+                // if loading is true, show loading spinner
+                loading ? (
+                  <div className='w-28 h-10 bg-gray-200 animate-pulse rounded-full'></div>
+                ) : (
+                  <button
+                    className='signup_button w-28 rounded-full'
+                    onClick={confirmClick}
+                  >
+                    Pay
+                  </button>
+                )
+              }
             </div>
           </div>
         </div>
