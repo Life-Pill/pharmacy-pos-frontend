@@ -1,11 +1,7 @@
-import React from 'react';
-
-type Props = {};
-
-function BranchManagementWindow({}: Props) {
+const BranchManagementWindow = () => {
   return (
     <div data-testid='branch-management-window'>BranchManagementWindow</div>
   );
-}
+};
 
 export default BranchManagementWindow;

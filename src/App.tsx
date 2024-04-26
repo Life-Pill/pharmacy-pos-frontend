@@ -1,15 +1,8 @@
-import React from 'react';
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import LogInPage from './pages/login-page';
 import LogInCashierPasswordPage from './pages/cashier-password-page';
 import CashierTemporaryLogOutPage from './pages/temporary-logout-page';
 import CashierDashBoardPage from './pages/cashier-dashboard';
-import ManagerDashboardPage from './pages/manager-dashboard';
 import {
   AddCashier,
   CashierBankDetails,

@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import { TbCirclePlus, TbSettingsCog } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import Medicine from '../../../../assets/fakedata/medicine';
 
-type Props = {};
-
-function ItemsManagementWindow({}: Props) {
+const ItemsManagementWindow = () => {
   const [filteredItems, setfilteredItems] = useState(Medicine);
   const handleSearch = (searchName: string) => {
     const filtered = Medicine.filter((medicine) =>
@@ -133,6 +131,6 @@ function ItemsManagementWindow({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default ItemsManagementWindow;

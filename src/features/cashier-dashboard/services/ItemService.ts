@@ -34,7 +34,7 @@ const useItemService = () => {
 
   useEffect(() => {
     getAllItems();
-  }, []); // Fetch items when component mounts
+  }); // Fetch items when component mounts
 
   return { items, getAllItems, getItemById };
 };

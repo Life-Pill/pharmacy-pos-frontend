@@ -1,9 +1,6 @@
-import React from 'react';
 import cashierReport from '../../../../assets/fakedata/managerdashboardrecenttransactiondata';
 
-type Props = {};
-
-function CashierRecentTransactionCard({}: Props) {
+const CashierRecentTransactionCard = () => {
   return (
     <div>
       <div className='flex flex-row justify-between items-center mb-8 font-bold'>
@@ -34,6 +31,6 @@ function CashierRecentTransactionCard({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default CashierRecentTransactionCard;

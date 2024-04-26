@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CiUser } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import Logo from '../../../assets/logo/logo.png';
 
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useSignIn from '../services/AuthService';
 import { useUserContext } from '../../../context/UserContext';
-import Cookie from 'js-cookie';
 
 const LogInCard = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { setUser, setCookie } = useUserContext();
+  const { setUser } = useUserContext();
 
   const navigate = useNavigate();
 
-  const { signIn, loading } = useSignIn();
+  const { signIn } = useSignIn();
 
   const handleSignIn = async () => {
     const user = await signIn(username, password);

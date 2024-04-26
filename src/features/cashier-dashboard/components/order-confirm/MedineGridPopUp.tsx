@@ -1,21 +1,6 @@
-import React, { useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableFooter,
-} from '../../../../@shadcn/components/ui/table';
-import { IoIosAdd, IoIosRemove } from 'react-icons/io';
-import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
 
-type Props = {};
-
-function MedineGridPopUp({}: Props) {
+const MedineGridPopUp = () => {
   const { orderedMedicine } = usePaymentContext();
 
   return (
@@ -39,7 +24,7 @@ function MedineGridPopUp({}: Props) {
           </tr>
         </thead>
         <tbody>
-          {orderedMedicine.map((cashier, index) => (
+          {orderedMedicine.map((cashier) => (
             <tr className='bg-slate-50 border-b' key={cashier.id}>
               <td className='px-6 py-4'>{cashier.id}</td>
               <td className='px-6 py-4'>{cashier.name}</td>
@@ -52,6 +37,6 @@ function MedineGridPopUp({}: Props) {
       </table>
     </div>
   );
-}
+};
 
 export default MedineGridPopUp;

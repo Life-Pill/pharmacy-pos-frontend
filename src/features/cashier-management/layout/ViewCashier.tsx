@@ -1,9 +1,5 @@
-import React from 'react';
-
-type Props = {};
-
-function ViewCashier({}: Props) {
+const ViewCashier = () => {
   return <div>ViewCashier</div>;
-}
+};
 
 export default ViewCashier;

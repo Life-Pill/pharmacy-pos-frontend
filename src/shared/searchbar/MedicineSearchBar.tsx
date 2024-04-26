@@ -1,9 +1,6 @@
-import React from 'react';
 import { IoIosSearch } from 'react-icons/io';
 
-type Props = {};
-
-function MedicineSearchBar({}: Props) {
+const MedicineSearchBar = () => {
   return (
     <div>
       <div className='relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden'>
@@ -20,6 +17,6 @@ function MedicineSearchBar({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default MedicineSearchBar;

@@ -1,9 +1,6 @@
-import React from 'react';
 import { useCashierContext, ComponentState } from '../../layout/UpdateCashier';
 
-type Props = {};
-
-function UpdateCashierBankDetails({}: Props) {
+const UpdateCashierBankDetails = () => {
   const { setCurrentComponent, cashierDetails } = useCashierContext();
   const goToSummary = () => {
     setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
@@ -217,6 +214,6 @@ function UpdateCashierBankDetails({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default UpdateCashierBankDetails;

@@ -1,9 +1,6 @@
-import React from 'react';
 import transactionDetails from '../../../../assets/fakedata/transactiondetails';
 
-type Props = {};
-
-function LatestTransactionDetails({}: Props) {
+const LatestTransactionDetails = () => {
   return (
     <div className=''>
       <div className='flex flex-row justify-between items-center mb-8 font-bold'>
@@ -42,6 +39,6 @@ function LatestTransactionDetails({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default LatestTransactionDetails;

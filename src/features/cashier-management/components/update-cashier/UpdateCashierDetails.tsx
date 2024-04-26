@@ -1,15 +1,12 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { useCashierContext, ComponentState } from '../../layout/UpdateCashier';
 
-type Props = {};
-
-function UpdateCashierDetails({}: Props) {
+const UpdateCashierDetails = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const { setCurrentComponent, cashierDetails, setCashierDetails } =
-    useCashierContext();
+  const { setCurrentComponent, cashierDetails } = useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -268,6 +265,6 @@ function UpdateCashierDetails({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default UpdateCashierDetails;

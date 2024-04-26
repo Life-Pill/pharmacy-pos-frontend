@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableFooter,
-} from '../../../../@shadcn/components/ui/table';
+import { useState } from 'react';
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
 
-type Props = {};
-
-function MedicineGrid({}: Props) {
+const MedicineGrid = () => {
   const {
     setPaymentDetails,
     setOrderedMedicine,
@@ -187,6 +175,6 @@ function MedicineGrid({}: Props) {
       </div>
     </>
   );
-}
+};
 
 export default MedicineGrid;

@@ -3,15 +3,12 @@ import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
 import { MedicineType } from './MedicineColumns';
 import { useEffect, useState } from 'react';
-import { IMedicine } from '../../../../interfaces/IMedicine';
 import useItemService from '../../services/ItemService';
 
-type Props = {};
-
-function Medicine({}: Props) {
+const Medicine = () => {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
   const [loading, setLoading] = useState(true);
-  const { items, getAllItems } = useItemService();
+  const { getAllItems } = useItemService();
 
   const { setMedicine, medicine, setFilteredMedicine, filteredMedicine } =
     usePaymentContext();
@@ -34,7 +31,7 @@ function Medicine({}: Props) {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, []);
+  });
   //
 
   const fetchMedicine = async () => {
@@ -103,6 +100,6 @@ function Medicine({}: Props) {
       )}
     </div>
   );
-}
+};
 
 export default Medicine;

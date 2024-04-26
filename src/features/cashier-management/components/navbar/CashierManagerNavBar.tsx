@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import Logo from '../../../../assets/logo/logo.png';
 import ProfileNameCard from '../../../../shared/cashier_profile/ProfileNameCard';
@@ -11,7 +10,6 @@ type Props = {
 };
 
 function CashierManagerNavBar({ topic }: Props) {
-  const handleClick = () => {};
   return (
     <div className='flex items-center justify-between w-full p-2 font-poppins shadow-md z-10 bg-white'>
       <div className='flex flex-row items-center justify-center gap-4'>
