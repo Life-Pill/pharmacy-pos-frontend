@@ -2,12 +2,12 @@ import cashierReport from '../../../../assets/fakedata/managerdashboardrecenttra
 
 const CashierRecentTransactionCard = () => {
   return (
-    <div>
+    <div className='w-[600px]'>
       <div className='flex flex-row justify-between items-center mb-8 font-bold'>
         <p className=' font-bold text-lg'>Cashier Reports</p>
         <p className=' text-blueDarker'>View All</p>
       </div>
-      <div className='max-h-48 overflow-y-scroll'>
+      <div className='max-h-96 overflow-y-scroll'>
         {cashierReport.map((report) => (
           <div key={report.id}>
             <div className='flex flex-row gap-12 justify-between items-center'>

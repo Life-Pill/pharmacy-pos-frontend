@@ -19,12 +19,14 @@ const ConfirmPaymentPopUp = () => {
     setCurrentComponent(ComponentState.ConfirmPayment);
   };
 
-  const { loading } = useOrderService();
+  const { loading, addOrder } = useOrderService();
 
   const confirmClick = async () => {
     //send request to backend for updating cashier,inventory and the orders
     console.log(orderedMedicine);
     console.log(paymentDetails);
+
+    addOrder(orderedMedicine, paymentDetails);
 
     setCurrentComponent(ComponentState.OrderDetails);
     setOrderedMedicine([]);
