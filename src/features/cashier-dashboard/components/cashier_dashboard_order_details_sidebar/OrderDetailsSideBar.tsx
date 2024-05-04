@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ButtonWithTextOnly from '../../../../shared/buttons/ButtonWithTextOnly';
 import MedicineGrid from '../order-details/MedicineGrid';
 import {
   ComponentState,
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
-import { IMedicine } from '../../../../interfaces/IMedicine';
 
 type Props = {};
 

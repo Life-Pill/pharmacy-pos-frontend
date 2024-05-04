@@ -4,8 +4,6 @@ import UpdateCashierBankDetails from '../components/update-cashier/UpdateCashier
 import UpdateCashierDetails from '../components/update-cashier/UpdateCashierDetails';
 import UpdateCashierSummary from '../components/update-cashier/UpdateCashierSummary';
 
-type Props = {};
-
 export enum ComponentState {
   BankDetails,
   Details,
@@ -56,7 +54,7 @@ export const useCashierContext = () => {
   return context;
 };
 
-function UpdateCashier({}: Props) {
+const UpdateCashier = () => {
   const [currentComponent, setCurrentComponent] = useState(
     ComponentState.Details
   );
@@ -115,6 +113,6 @@ function UpdateCashier({}: Props) {
       </div>
     </CashierContext.Provider>
   );
-}
+};
 
 export default UpdateCashier;

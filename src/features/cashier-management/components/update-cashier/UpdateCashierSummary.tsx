@@ -1,10 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCashierContext, ComponentState } from '../../layout/UpdateCashier';
 
-type Props = {};
-
-function UpdateCashierSummary({}: Props) {
+const UpdateCashierSummary = () => {
   const { cashierDetails, setCurrentComponent } = useCashierContext();
 
   const goToBack = () => {
@@ -103,6 +100,6 @@ function UpdateCashierSummary({}: Props) {
       </button>
     </div>
   );
-}
+};
 
 export default UpdateCashierSummary;

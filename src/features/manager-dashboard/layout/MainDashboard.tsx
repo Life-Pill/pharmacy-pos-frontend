@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ManagerNavbar from '../components/navbar/ManagerNavbar';
 import ManagerSidebar from '../components/sidebar/ManagerSidebar';
 import Dashboard from '../components/main/Dashboard';
@@ -9,9 +9,7 @@ import ItemsManagementWindow from '../components/items/ItemsManagementWindow';
 import SavedReportsWindow from '../components/reports/SavedReportsWindow';
 import FeedbacksManagementWindow from '../components/feedbacks/FeedbacksManagementWindow';
 
-type Props = {};
-
-const MainDashboard = (props: Props) => {
+const MainDashboard = () => {
   const [selectedItem, setSelectedItem] = useState<String>('Dashboard');
 
   const handleItemClick = (itemName: String) => {
@@ -22,27 +20,20 @@ const MainDashboard = (props: Props) => {
     switch (selectedItem) {
       case 'Dashboard':
         return <Dashboard />;
-        break;
       case 'Cashiers':
         return <CashierManagementWindow />;
-        break;
       case 'Branches':
         return <BranchManagementWindow />;
-        break;
       case 'Summary':
         return <SalesManagementWindow />;
-        break;
       case 'Items':
         return <ItemsManagementWindow />;
-        break;
       case 'Reports':
         return <SavedReportsWindow />;
-        break;
       case 'Feedbacks':
         return <FeedbacksManagementWindow />;
       default:
         return <Dashboard />;
-        break;
     }
   };
 

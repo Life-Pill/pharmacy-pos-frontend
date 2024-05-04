@@ -1,11 +1,8 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogInCard from '../components/LogInCard';
 import RecentLogBar from '../components/RecentLogBar';
 
-type Props = {};
-
-function LogInPageLayout({}: Props) {
+const LogInPageLayout = () => {
   const navigate = useNavigate();
   const logInButtonClick = () => {
     navigate('/login-cashier-password');
@@ -21,6 +18,6 @@ function LogInPageLayout({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default LogInPageLayout;

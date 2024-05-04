@@ -1,9 +1,5 @@
-import React from 'react';
-
-type Props = {};
-
-function SavedReportsWindow({}: Props) {
+const SavedReportsWindow = () => {
   return <div data-testid='saved-reports-window'>SavedReportsWindow</div>;
-}
+};
 
 export default SavedReportsWindow;

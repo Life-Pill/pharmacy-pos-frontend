@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TbCirclePlus } from 'react-icons/tb';
 import { TbSettingsCog } from 'react-icons/tb';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import PharmacyCashiers from '../../../../assets/fakedata/cashiers';
 import { Link } from 'react-router-dom';
 
-type Props = {};
-
-function CashierManagementWindow({}: Props) {
+const CashierManagementWindow = () => {
   const [filteredCashiers, setFilteredCashiers] = useState(PharmacyCashiers);
   const handleSearch = (searchPhoneNumber: string) => {
     const filtered = PharmacyCashiers.filter((cashier) =>
@@ -137,6 +135,6 @@ function CashierManagementWindow({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default CashierManagementWindow;

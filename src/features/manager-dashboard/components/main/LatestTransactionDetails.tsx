@@ -1,16 +1,13 @@
-import React from 'react';
 import transactionDetails from '../../../../assets/fakedata/transactiondetails';
 
-type Props = {};
-
-function LatestTransactionDetails({}: Props) {
+const LatestTransactionDetails = () => {
   return (
-    <div className=''>
+    <div className=' w-[600px]'>
       <div className='flex flex-row justify-between items-center mb-8 font-bold'>
         <p className=' font-bold text-lg'>Latest Transactions</p>
         <p className=' text-blueDarker'>View All</p>
       </div>
-      <div className='border-s border-gray-200 dark:border-gray-700  max-h-48 overflow-y-scroll'>
+      <div className='border-s border-gray-200 dark:border-gray-700  max-h-96 overflow-y-scroll'>
         <ul className='divide-y divide-gray-200 dark:divide-gray-700'>
           {/* Mapping through each transaction and rendering them as timeline items */}
           {transactionDetails.map((transaction) => (
@@ -42,6 +39,6 @@ function LatestTransactionDetails({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default LatestTransactionDetails;

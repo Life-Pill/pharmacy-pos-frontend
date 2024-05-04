@@ -1,12 +1,10 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { useNavigate, Link } from 'react-router-dom';
 import { IItemInterface } from '../../../interfaces/IItemInterface';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
 
-type Props = {};
-
-function UpdateItems({}: Props) {
+const UpdateItems = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [item, setItem] = useState<IItemInterface>({} as IItemInterface);
   const navigate = useNavigate();
@@ -402,6 +400,6 @@ function UpdateItems({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default UpdateItems;

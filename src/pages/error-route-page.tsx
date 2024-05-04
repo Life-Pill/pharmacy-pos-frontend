@@ -1,9 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type Props = {};
-
-function ErrorRoutePage({}: Props) {
+const ErrorRoutePage = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -65,6 +62,6 @@ function ErrorRoutePage({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default ErrorRoutePage;

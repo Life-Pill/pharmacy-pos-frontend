@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useUserContext } from '../../../context/UserContext';
 import { mapEmployeeReponseToIEmployee } from '../utils/mapEmployeeReponseToIEmployee';
 import { IEmployeeInterface } from '../../../interfaces/IEmployeeInterface';

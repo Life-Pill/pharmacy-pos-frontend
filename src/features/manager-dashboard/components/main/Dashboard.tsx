@@ -1,31 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BarGraph from '../../../../shared/charts/BarGraph';
 import branchSaleDetails from '../../../../assets/fakedata/branchsales';
 import DoughnutChart from '../../../../shared/charts/DoughnutChart';
 import branchOrderDetails from '../../../../assets/fakedata/orderdetails';
 import CashierRecentTransactionCard from './CashierRecentTransactionCard';
 import LatestTransactionDetails from './LatestTransactionDetails';
-type Props = {};
+import UseBranchService from '../../services/BranchService';
+import SummaryCard from './SummaryCard';
 
-const Dashboard = (props: Props) => {
+const Dashboard = () => {
   return (
     <div
-      className=' w-full grid grid-cols-2 grid-rows-2 gap-8 max-h-screen overflow-hidden'
+      className=' w-full max-h-screen overflow-hidden flex flex-col'
       data-testid='dashboard'
     >
-      <div className='p-4 bg-slate-200 rounded-md'>
-        <p className='text-md text-center font-bold'>Sales by Branch</p>
-        <BarGraph branchSaleDetails={branchSaleDetails} />
+      <div className=' p-4 bg-slate-200 rounded-md max-h-[300px]'>
+        <SummaryCard />
       </div>
-      <div className='p-4 bg-slate-200 rounded-md'>
-        <p className='text-md text-center font-bold'>Order by Branch</p>
-        <DoughnutChart data={branchOrderDetails} />
-      </div>
-      <div className='p-4 bg-slate-200 rounded-md h-[300px]'>
-        <CashierRecentTransactionCard />
-      </div>
-      <div className=' p-4 bg-slate-200 rounded-md h-[300px]'>
-        <LatestTransactionDetails />
+      <div className='flex flex-row gap-4 p-4 justify-between items-center'>
+        <div className='p-4 bg-slate-200 rounded-md h-[500px]'>
+          <CashierRecentTransactionCard />
+        </div>
+        <div className=' p-4 bg-slate-200 rounded-md h-[500px]'>
+          <LatestTransactionDetails />
+        </div>
       </div>
     </div>
   );

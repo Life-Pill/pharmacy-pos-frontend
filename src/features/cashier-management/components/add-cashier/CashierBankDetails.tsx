@@ -1,10 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 
-type Props = {};
-
-function CashierBankDetails({}: Props) {
+const CashierBankDetails = () => {
   const { setCurrentComponent, cashierDetails } = useCashierContext();
   const goToSummary = () => {
     setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
@@ -218,6 +214,6 @@ function CashierBankDetails({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default CashierBankDetails;

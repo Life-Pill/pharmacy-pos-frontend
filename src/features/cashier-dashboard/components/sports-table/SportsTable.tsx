@@ -6,12 +6,10 @@ import { usePaymentContext } from '../../layout/MainCashierDashboard';
 import { MedicineType } from '../medicine-table/MedicineColumns';
 import useItemService from '../../services/ItemService';
 
-type Props = {};
-
-function SportsTable({}: Props) {
+const SportsTable = () => {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
   const [medicine, setMedicine] = useState<IMedicine[]>([]);
-  const { items, getAllItems } = useItemService();
+  const { getAllItems } = useItemService();
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {
@@ -31,7 +29,7 @@ function SportsTable({}: Props) {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, []);
+  });
   //
 
   const fetchMedicine = async () => {
@@ -92,6 +90,6 @@ function SportsTable({}: Props) {
       </table>
     </div>
   );
-}
+};
 
 export default SportsTable;

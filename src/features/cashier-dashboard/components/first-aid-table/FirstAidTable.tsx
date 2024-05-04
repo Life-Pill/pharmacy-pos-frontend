@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoIosAdd } from 'react-icons/io';
 import { IMedicine } from '../../../../interfaces/IMedicine';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
@@ -26,12 +26,13 @@ const FirstAidTable = (props: Props) => {
       },
     ]);
   };
+  console.log(items);
 
   //
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, []);
+  });
   //
 
   const fetchMedicine = async () => {

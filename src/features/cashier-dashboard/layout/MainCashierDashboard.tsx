@@ -16,8 +16,6 @@ import FirstAidTable from '../components/first-aid-table/FirstAidTable';
 import MedicalDeviceTable from '../components/medical-device-table/MedicalDeviceTable';
 import { IMedicine } from '../../../interfaces/IMedicine';
 
-type Props = {};
-
 export enum ComponentState {
   OrderDetails,
   ConfirmPayment,
@@ -36,7 +34,7 @@ export const usePaymentContext = () => {
   return context;
 };
 
-function MainCashierDashboard({}: Props) {
+const MainCashierDashboard = () => {
   const [currentComponent, setCurrentComponent] = useState(
     ComponentState.OrderDetails
   );
@@ -105,7 +103,7 @@ function MainCashierDashboard({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default MainCashierDashboard;
 // /

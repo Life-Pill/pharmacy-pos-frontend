@@ -1,9 +1,5 @@
-import React from 'react';
-
-type Props = {};
-
-function RemoveItems({}: Props) {
+const RemoveItems = () => {
   return <div>RemoveItems</div>;
-}
+};
 
 export default RemoveItems;

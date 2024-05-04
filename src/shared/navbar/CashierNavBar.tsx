@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import DateAndTimeNavBar from '../clock/DateAndTimeNavBar';
 import MedicineSearchBar from '../searchbar/MedicineSearchBar';
@@ -9,12 +8,9 @@ import { LiaHistorySolid } from 'react-icons/lia';
 import { PiDeviceMobileSpeakerThin } from 'react-icons/pi';
 import ProfileNameCard from '../cashier_profile/ProfileNameCard';
 import Divider from '../divider/Divider';
-import { useUserContext } from '../../context/UserContext';
 const Logo = require('../../assets/logo/logo.png');
 
-type Props = {};
-
-const CashierNavBar = (props: Props) => {
+const CashierNavBar = () => {
   const handleClick = () => {};
   return (
     <div className='flex items-center justify-between w-full p-2 font-poppins shadow-md'>

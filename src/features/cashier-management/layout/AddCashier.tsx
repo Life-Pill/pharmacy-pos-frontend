@@ -1,7 +1,5 @@
-import React, { ChangeEvent, useState, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext } from 'react';
 import CashierManagerNavBar from '../components/navbar/CashierManagerNavBar';
-import { IoCloudUploadOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
 import CashierDetails from '../components/add-cashier/CashierDetails';
 import CashierBankDetails from '../components/add-cashier/CashierBankDetails';
 import CashierDetailsSummary from '../components/add-cashier/CashierDetailsSummary';
