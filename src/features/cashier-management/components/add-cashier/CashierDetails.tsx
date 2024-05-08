@@ -30,7 +30,7 @@ const CashierDetails = () => {
       <p className='text-2xl font-bold text-center mb-4'>
         Creating A New Cashier
       </p>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-6 items-center justify-center'>
+      <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
         <div className='flex items-center justify-center gap-4 flex-col'>
           {previewImage ? (
             <div className='mt-4'>
@@ -157,6 +157,24 @@ const CashierDetails = () => {
         {/* Second Column */}
         <div>
           <label
+            htmlFor='branch'
+            className='block text-sm font-medium text-black'
+          >
+            Branch
+          </label>
+          <select
+            id='branch'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.assignBranch = e.target.value;
+            }}
+          >
+            <option value='0'>Branch 1</option>
+            <option value='1'>Branch 2</option>
+            <option value='2'>Branch 3</option>
+          </select>
+
+          <label
             htmlFor='gender'
             className='block text-sm font-medium text-black'
           >
@@ -186,21 +204,6 @@ const CashierDetails = () => {
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
               cashierDetails.addressLine01 = e.target.value;
-            }}
-          />
-
-          <label
-            htmlFor='addressLine2'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Address Line 2
-          </label>
-          <input
-            type='text'
-            id='addressLine2'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.addressLine02 = e.target.value;
             }}
           />
 
@@ -246,6 +249,98 @@ const CashierDetails = () => {
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
               cashierDetails.DOB = new Date(e.target.value);
+            }}
+          />
+        </div>
+        {/* Third Column */}
+        <div>
+          <label
+            htmlFor='password'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Password
+          </label>
+          <input
+            type='text'
+            id='password'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.password = e.target.value;
+            }}
+          />
+
+          <label
+            htmlFor='confirmPassword'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Confirm Password
+          </label>
+          <input
+            type='text'
+            id='confirmPassword'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.confirmPassword = e.target.value;
+            }}
+          />
+
+          <label
+            htmlFor='phone'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Phone Number
+          </label>
+          <input
+            type='text'
+            id='phoneNumber'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.phoneNumber = e.target.value;
+            }}
+          />
+
+          <label
+            htmlFor='role'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Role
+          </label>
+          <input
+            type='text'
+            id='role'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.role = e.target.value;
+            }}
+          />
+
+          <label
+            htmlFor='baseSalary'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Base Salary
+          </label>
+          <input
+            type='text'
+            id='baseSalary'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.baseSalary = parseFloat(e.target.value);
+            }}
+          />
+
+          <label
+            htmlFor='pin'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Pin
+          </label>
+          <input
+            type='text'
+            id='pin'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            onChange={(e) => {
+              cashierDetails.pin = parseInt(e.target.value);
             }}
           />
         </div>

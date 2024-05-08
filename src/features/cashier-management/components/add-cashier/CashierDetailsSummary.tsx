@@ -33,10 +33,6 @@ function CashierDetailsSummary() {
           {cashierDetails.addressLine01}
         </p>
         <p>
-          <span className='font-semibold'>Address Line 2:</span>{' '}
-          {cashierDetails.addressLine02}
-        </p>
-        <p>
           <span className='font-semibold'>City:</span> {cashierDetails.city}
         </p>
         <p>
@@ -62,8 +58,7 @@ function CashierDetailsSummary() {
           {cashierDetails.baseSalary}
         </p>
         <p>
-          <span className='font-semibold'>Username:</span>{' '}
-          {cashierDetails.username}
+          <span className='font-semibold'>Pin:</span> {cashierDetails.pin}
         </p>
         <p>
           <span className='font-semibold'>Bank Account Number:</span>{' '}

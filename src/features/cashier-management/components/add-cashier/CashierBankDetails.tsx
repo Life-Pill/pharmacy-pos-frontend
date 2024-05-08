@@ -137,21 +137,6 @@ const CashierBankDetails = () => {
           />
 
           <label
-            htmlFor='username'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Username
-          </label>
-          <input
-            type='text'
-            id='username'
-            className='mt-1 p-2 border-gray rounded-md w-full'
-            onChange={(e) => {
-              cashierDetails.username = e.target.value;
-            }}
-          />
-
-          <label
             htmlFor='password'
             className='block text-sm font-medium text-black mt-4'
           >

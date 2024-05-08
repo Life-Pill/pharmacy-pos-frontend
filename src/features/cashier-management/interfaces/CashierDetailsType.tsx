@@ -15,12 +15,11 @@ export interface CashierDetailsType {
   NICnumber: string;
   gender: string;
   addressLine01: string;
-  addressLine02: string;
   city: string;
   province: string;
   DOB: Date;
   role: string;
   assignBranch: string;
   baseSalary: number;
-  username: string;
+  pin: number;
 }
