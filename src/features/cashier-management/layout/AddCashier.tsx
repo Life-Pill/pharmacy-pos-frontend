@@ -3,45 +3,13 @@ import CashierManagerNavBar from '../components/navbar/CashierManagerNavBar';
 import CashierDetails from '../components/add-cashier/CashierDetails';
 import CashierBankDetails from '../components/add-cashier/CashierBankDetails';
 import CashierDetailsSummary from '../components/add-cashier/CashierDetailsSummary';
+import { CashierDetailsType } from '../interfaces/CashierDetailsType';
+import { CashierContextType } from '../context/CashierContextType';
 
 export enum ComponentState {
   BankDetails,
   Details,
   DetailsSummary,
-}
-
-interface CashierDetailsType {
-  nickname: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-  image: string;
-  bankAccountNumber: string;
-  bankName: string;
-  branchName: string;
-  currency: string;
-  additionalNotes: string;
-  NICnumber: string;
-  gender: string;
-  addressLine01: string;
-  addressLine02: string;
-  city: string;
-  province: string;
-  DOB: Date;
-  role: string;
-  assignBranch: string;
-  baseSalary: number;
-  username: string;
-}
-
-interface CashierContextType {
-  currentComponent: ComponentState;
-  setCurrentComponent: React.Dispatch<React.SetStateAction<ComponentState>>;
-  setCashierDetails: React.Dispatch<React.SetStateAction<any>>;
-  cashierDetails: CashierDetailsType;
 }
 
 const CashierContext = createContext<CashierContextType | undefined>(undefined);
