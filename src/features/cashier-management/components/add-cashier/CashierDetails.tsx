@@ -72,7 +72,7 @@ const CashierDetails = () => {
             id='nickname'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.nickname = e.target.value;
+              cashierDetails.employerNicName = e.target.value;
 
               console.log(cashierDetails);
             }}
@@ -89,7 +89,7 @@ const CashierDetails = () => {
             id='nicNumber'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.NICnumber = e.target.value;
+              cashierDetails.employerNic = e.target.value;
             }}
           />
 
@@ -104,7 +104,7 @@ const CashierDetails = () => {
             id='telephone'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.phoneNumber = e.target.value;
+              cashierDetails.employerPhone = e.target.value;
             }}
           />
 
@@ -119,7 +119,7 @@ const CashierDetails = () => {
             id='email'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.email = e.target.value;
+              cashierDetails.employerEmail = e.target.value;
             }}
           />
 
@@ -134,7 +134,7 @@ const CashierDetails = () => {
             id='firstName'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.firstName = e.target.value;
+              cashierDetails.employerFirstName = e.target.value;
             }}
           />
 
@@ -149,7 +149,7 @@ const CashierDetails = () => {
             id='lastName'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.lastName = e.target.value;
+              cashierDetails.employerLastName = e.target.value;
             }}
           />
         </div>
@@ -166,7 +166,7 @@ const CashierDetails = () => {
             id='branch'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.assignBranch = e.target.value;
+              cashierDetails.branchId = parseInt(e.target.value);
             }}
           >
             <option value='0'>Branch 1</option>
@@ -187,9 +187,9 @@ const CashierDetails = () => {
               cashierDetails.gender = e.target.value;
             }}
           >
-            <option value='male'>Male</option>
-            <option value='female'>Female</option>
-            <option value='other'>Other</option>
+            <option value='MALE'>Male</option>
+            <option value='FEMALE'>Female</option>
+            <option value='OTHER'>Other</option>
           </select>
 
           <label
@@ -203,7 +203,7 @@ const CashierDetails = () => {
             id='addressLine1'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.addressLine01 = e.target.value;
+              cashierDetails.employerAddress += e.target.value;
             }}
           />
 
@@ -218,7 +218,7 @@ const CashierDetails = () => {
             id='city'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.city = e.target.value;
+              cashierDetails.employerAddress += e.target.value;
             }}
           />
 
@@ -233,7 +233,7 @@ const CashierDetails = () => {
             id='province'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.province = e.target.value;
+              cashierDetails.employerAddress += e.target.value;
             }}
           />
 
@@ -248,7 +248,7 @@ const CashierDetails = () => {
             id='dateOfBirth'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.DOB = new Date(e.target.value);
+              cashierDetails.dateOfBirth = new Date(e.target.value);
             }}
           />
         </div>
@@ -265,7 +265,7 @@ const CashierDetails = () => {
             id='password'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.password = e.target.value;
+              cashierDetails.employerPassword = e.target.value;
             }}
           />
 
@@ -280,7 +280,7 @@ const CashierDetails = () => {
             id='confirmPassword'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.confirmPassword = e.target.value;
+              cashierDetails.employerConfirmPassword = e.target.value;
             }}
           />
 
@@ -295,7 +295,7 @@ const CashierDetails = () => {
             id='phoneNumber'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.phoneNumber = e.target.value;
+              cashierDetails.employerPhone = e.target.value;
             }}
           />
 
@@ -325,7 +325,7 @@ const CashierDetails = () => {
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-64'
             onChange={(e) => {
-              cashierDetails.baseSalary = parseFloat(e.target.value);
+              cashierDetails.employerSalary = parseFloat(e.target.value);
             }}
           />
 

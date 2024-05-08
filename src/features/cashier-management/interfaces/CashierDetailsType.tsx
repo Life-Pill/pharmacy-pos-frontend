@@ -1,25 +1,20 @@
 export interface CashierDetailsType {
-  nickname: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-  image: string;
-  bankAccountNumber: string;
-  bankName: string;
-  branchName: string;
-  currency: string;
-  additionalNotes: string;
-  NICnumber: string;
-  gender: string;
-  addressLine01: string;
-  city: string;
-  province: string;
-  DOB: Date;
-  role: string;
-  assignBranch: string;
-  baseSalary: number;
+  employerId: number;
+  branchId: number;
+  employerNicName: string;
+  employerFirstName: string;
+  employerLastName: string;
+  employerPassword: string;
+  employerConfirmPassword: string;
+  employerEmail: string;
+  employerPhone: string;
+  employerAddress: string;
+  employerSalary: number;
+  employerNic: string;
+  gender: 'MALE' | 'FEMALE' | 'OTHER' | string; // Assuming gender can be one of these values
+  dateOfBirth: Date;
+  role: 'OWNER' | 'MANAGER' | 'CASHIER' | string; // Assuming role can be one of these values
   pin: number;
+  activeStatus: boolean;
+  employerImage: string;
 }
