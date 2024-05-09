@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
 import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
 import Loader from '../../../../shared/loader/Loader';
+import { BsPencilSquare, BsEye } from 'react-icons/bs';
 
 const CashierManagementWindow = () => {
   const {
@@ -96,6 +97,18 @@ const CashierManagementWindow = () => {
                   <th scope='col' className='px-6 py-3'>
                     Monthly Payment Amount
                   </th>
+                  <th scope='col' className='px-6 py-3'>
+                    {/* Update Button */}
+                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                      <BsPencilSquare /> Update
+                    </button>
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    {/* View Button */}
+                    <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'>
+                      <BsEye /> View
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -145,6 +158,8 @@ const CashierManagementWindow = () => {
                       }
                     </td>
                     <td className='px-6 py-4'>{worker.employerSalary}</td>
+                    <td className='px-6 py-4'></td>
+                    <td className='px-6 py-4'></td>
                   </tr>
                 ))}
               </tbody>
