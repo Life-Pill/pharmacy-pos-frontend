@@ -3,45 +3,14 @@ import CashierManagerNavBar from '../components/navbar/CashierManagerNavBar';
 import CashierDetails from '../components/add-cashier/CashierDetails';
 import CashierBankDetails from '../components/add-cashier/CashierBankDetails';
 import CashierDetailsSummary from '../components/add-cashier/CashierDetailsSummary';
+import { CashierDetailsType } from '../interfaces/CashierDetailsType';
+import { CashierContextType } from '../context/CashierContextType';
+import { EmployerBankDetails } from '../interfaces/EmployerBankDetails';
 
 export enum ComponentState {
   BankDetails,
   Details,
   DetailsSummary,
-}
-
-interface CashierDetailsType {
-  nickname: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  confirmPassword: string;
-  image: string;
-  bankAccountNumber: string;
-  bankName: string;
-  branchName: string;
-  currency: string;
-  additionalNotes: string;
-  NICnumber: string;
-  gender: string;
-  addressLine01: string;
-  addressLine02: string;
-  city: string;
-  province: string;
-  DOB: Date;
-  role: string;
-  assignBranch: string;
-  baseSalary: number;
-  username: string;
-}
-
-interface CashierContextType {
-  currentComponent: ComponentState;
-  setCurrentComponent: React.Dispatch<React.SetStateAction<ComponentState>>;
-  setCashierDetails: React.Dispatch<React.SetStateAction<any>>;
-  cashierDetails: CashierDetailsType;
 }
 
 const CashierContext = createContext<CashierContextType | undefined>(undefined);
@@ -59,37 +28,44 @@ const AddCashier = () => {
     ComponentState.Details
   );
 
-  const [cashierDetails, setCashierDetails] = useState({
-    nickname: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
-    image: '',
-    bankAccountNumber: '',
-    bankName: '',
-    branchName: '',
-    currency: '',
-    additionalNotes: '',
-    NICnumber: '',
-    DOB: new Date(),
-    addressLine01: '',
-    addressLine02: '',
-    city: '',
-    province: '',
-    username: '',
-    role: '',
-    assignBranch: '',
-    baseSalary: 0,
+  const [cashierDetails, setCashierDetails] = useState<CashierDetailsType>({
+    employerNicName: '',
+    employerFirstName: '',
+    employerLastName: '',
+    employerEmail: '',
+    employerPhone: '',
+    employerPassword: '',
+    employerConfirmPassword: '',
+    profileImage: '',
+    branchId: 0,
+    employerNic: '',
+    dateOfBirth: new Date(),
+    employerAddress: '',
+    pin: 0,
+    role: 'CASHIER',
+    employerSalary: 0,
+    gender: 'MALE',
   } as CashierDetailsType);
+
+  const [cashierBankDetails, setCashierBankDetails] =
+    useState<EmployerBankDetails>({
+      bankAccountNumber: 0,
+      bankName: '',
+      bankBranchName: '',
+      employerDescription: '',
+      employerBankDetailsId: 0,
+      monthlyPayment: 0,
+      monthlyPaymentStatus: false,
+      employerId: 0,
+    });
 
   const contextValue: CashierContextType = {
     currentComponent,
     setCurrentComponent,
     setCashierDetails,
     cashierDetails,
+    cashierBankDetails,
+    setCashierBankDetails,
   };
 
   const renderComponent = () => {

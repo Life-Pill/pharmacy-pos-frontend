@@ -1,18 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TbCirclePlus } from 'react-icons/tb';
 import { TbSettingsCog } from 'react-icons/tb';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import PharmacyCashiers from '../../../../assets/fakedata/cashiers';
 import { Link } from 'react-router-dom';
+import useCashierService from '../../services/CashierService';
+import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
+import Loader from '../../../../shared/loader/Loader';
 
 const CashierManagementWindow = () => {
-  const [filteredCashiers, setFilteredCashiers] = useState(PharmacyCashiers);
+  const {
+    fetchEmployeeData,
+    workers,
+    setFilteredCashiers,
+    filteredCashiers,
+    loading,
+  } = useCashierService();
+
   const handleSearch = (searchPhoneNumber: string) => {
-    const filtered = PharmacyCashiers.filter((cashier) =>
-      cashier.phoneNumber.includes(searchPhoneNumber)
+    const filtered = workers.filter((cashier) =>
+      cashier.employerPhone?.includes(searchPhoneNumber)
     );
     setFilteredCashiers(filtered);
   };
+
+  useEffect(() => {
+    fetchEmployeeData();
+  }, []);
 
   return (
     <div className='flex flex-col' data-testid='cashier-management-window'>
@@ -55,82 +69,87 @@ const CashierManagementWindow = () => {
       </div>
       <div className='overflow-y-auto max-h-[500px]'>
         <div className='relative'>
-          <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-            <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
-              <tr>
-                <th scope='col' className='px-6 py-3'>
-                  Cashier ID
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Phone No.
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Gender
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Active Status
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Branch Name
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Monthly Payment Status
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Monthly Payment Amount
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCashiers.map((cashier) => (
-                <tr className='bg-slate-50 border-b'>
-                  <td className='px-6 py-4'>{cashier.cashierId}</td>
-                  <td className='px-6 py-4'>{cashier.phoneNumber}</td>
-                  <td className='px-6 py-4'>{cashier.gender}</td>
-                  <td className='px-6 py-4'>{cashier.branchName}</td>
-                  <td className='px-6 py-4'>
-                    {
-                      <div
-                        className={`rounded-full p-1 w-24 flex items-center justify-center ${
-                          cashier.activeStatus
-                            ? 'bg-green-500'
-                            : 'bg-yellow-500'
-                        }`}
-                      >
-                        <span
-                          className={`${
-                            cashier.activeStatus ? 'text-white' : 'text-black'
-                          }`}
-                        >
-                          {cashier.activeStatus ? 'Online' : 'Offline'}
-                        </span>
-                      </div>
-                    }
-                  </td>
-                  <td className='px-6 py-4'>
-                    {
-                      <div
-                        className={`rounded-full p-1 w-24 flex items-center justify-center ${
-                          cashier.monthlySalaryPaid ? 'bg-green-500' : 'bg-red'
-                        }`}
-                      >
-                        <span
-                          className={`${
-                            cashier.monthlySalaryPaid
-                              ? 'text-white'
-                              : 'text-black'
-                          }`}
-                        >
-                          {cashier.monthlySalaryPaid ? 'Paid' : 'Not Paid'}
-                        </span>
-                      </div>
-                    }
-                  </td>
-                  <td className='px-6 py-4'>{cashier.monthlyPaymentAmount}</td>
+          {loading ? (
+            <Loader />
+          ) : (
+            <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+              <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
+                <tr>
+                  <th scope='col' className='px-6 py-3'>
+                    Cashier ID
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Name
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Gender
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Phone Number
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Active Status
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Monthly Payment Status
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Monthly Payment Amount
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredCashiers.map((worker) => (
+                  <tr
+                    className='bg-slate-50 border-b'
+                    id={worker.employerId.toString()}
+                  >
+                    <td className='px-6 py-4'>{worker.employerId}</td>
+                    <td className='px-6 py-4'>{worker.employerFirstName}</td>
+                    <td className='px-6 py-4'>{worker.gender}</td>
+                    <td className='px-6 py-4'>{worker.employerPhone}</td>
+                    <td className='px-6 py-4'>
+                      {
+                        <div
+                          className={`rounded-full p-1 w-24 flex items-center justify-center ${
+                            worker.activeStatus
+                              ? 'bg-green-500'
+                              : 'bg-yellow-500'
+                          }`}
+                        >
+                          <span
+                            className={`${
+                              worker.activeStatus ? 'text-white' : 'text-black'
+                            }`}
+                          >
+                            {worker.activeStatus ? 'Online' : 'Offline'}
+                          </span>
+                        </div>
+                      }
+                    </td>
+                    <td className='px-6 py-4'>
+                      {
+                        <div
+                          className={`rounded-full p-1 w-24 flex items-center justify-center ${
+                            worker.activeStatus ? 'bg-green-500' : 'bg-red'
+                          }`}
+                        >
+                          <span
+                            className={`${
+                              worker.activeStatus ? 'text-white' : 'text-black'
+                            }`}
+                          >
+                            {worker.activeStatus ? 'Paid' : 'Not Paid'}
+                          </span>
+                        </div>
+                      }
+                    </td>
+                    <td className='px-6 py-4'>{worker.employerSalary}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

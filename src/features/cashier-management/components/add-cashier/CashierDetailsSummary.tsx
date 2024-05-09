@@ -3,7 +3,8 @@ import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import { Link } from 'react-router-dom';
 
 function CashierDetailsSummary() {
-  const { cashierDetails, setCurrentComponent } = useCashierContext();
+  const { cashierDetails, setCurrentComponent, cashierBankDetails } =
+    useCashierContext();
 
   const goToBack = () => {
     setCurrentComponent(ComponentState.BankDetails);
@@ -15,37 +16,27 @@ function CashierDetailsSummary() {
         <p className='text-lg font-bold mb-2'>Personal Information</p>
         <p>
           <span className='font-semibold'>Name:</span>{' '}
-          {cashierDetails.firstName} {cashierDetails.lastName}
+          {cashierDetails.employerFirstName} {cashierDetails.employerLastName}
         </p>
         <p>
           <span className='font-semibold'>Nickname:</span>{' '}
-          {cashierDetails.nickname}
+          {cashierDetails.employerNicName}
         </p>
         <p>
-          <span className='font-semibold'>Email:</span> {cashierDetails.email}
+          <span className='font-semibold'>Email:</span>{' '}
+          {cashierDetails.employerEmail}
         </p>
         <p>
           <span className='font-semibold'>Phone Number:</span>{' '}
-          {cashierDetails.phoneNumber}
+          {cashierDetails.employerPhone}
         </p>
         <p>
-          <span className='font-semibold'>Address Line 1:</span>{' '}
-          {cashierDetails.addressLine01}
-        </p>
-        <p>
-          <span className='font-semibold'>Address Line 2:</span>{' '}
-          {cashierDetails.addressLine02}
-        </p>
-        <p>
-          <span className='font-semibold'>City:</span> {cashierDetails.city}
-        </p>
-        <p>
-          <span className='font-semibold'>Province:</span>{' '}
-          {cashierDetails.province}
+          <span className='font-semibold'>Address </span>{' '}
+          {cashierDetails.employerAddress}
         </p>
         <p>
           <span className='font-semibold'>Date of Birth:</span>{' '}
-          {cashierDetails.DOB.toDateString()}
+          {cashierDetails.dateOfBirth.toDateString()}
         </p>
       </div>
       <div className='bg-gray-100 p-4 rounded-lg'>
@@ -55,49 +46,37 @@ function CashierDetailsSummary() {
         </p>
         <p>
           <span className='font-semibold'>Assign Branch:</span>{' '}
-          {cashierDetails.assignBranch}
+          {cashierDetails.branchId}
         </p>
         <p>
           <span className='font-semibold'>Base Salary:</span>{' '}
-          {cashierDetails.baseSalary}
+          {cashierDetails.employerSalary}
         </p>
         <p>
-          <span className='font-semibold'>Username:</span>{' '}
-          {cashierDetails.username}
+          <span className='font-semibold'>Pin:</span> {cashierDetails.pin}
         </p>
         <p>
           <span className='font-semibold'>Bank Account Number:</span>{' '}
-          {cashierDetails.bankAccountNumber}
+          {cashierBankDetails.bankAccountNumber}
         </p>
         <p>
           <span className='font-semibold'>Bank Name:</span>{' '}
-          {cashierDetails.bankName}
+          {cashierBankDetails.bankName}
         </p>
         <p>
           <span className='font-semibold'>Branch Name:</span>{' '}
-          {cashierDetails.branchName}
-        </p>
-        <p>
-          <span className='font-semibold'>Currency:</span>{' '}
-          {cashierDetails.currency}
+          {cashierBankDetails.bankBranchName}
         </p>
         <p>
           <span className='font-semibold'>Additional Notes:</span>{' '}
-          {cashierDetails.additionalNotes}
+          {cashierBankDetails.employerDescription}
         </p>
       </div>
       <button
         type='button'
         className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
       >
-        <Link to='/'>Confirm and Create</Link>
-      </button>
-      <button
-        type='button'
-        className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
-        onClick={goToBack}
-      >
-        Go To Bank Details
+        <Link to='/manager-dashboard'>Done</Link>
       </button>
     </div>
   );
