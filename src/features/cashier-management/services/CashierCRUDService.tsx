@@ -190,5 +190,4 @@ const useCashierCRUDService = () => {
     updating,
   };
 };
-
 export default useCashierCRUDService;
