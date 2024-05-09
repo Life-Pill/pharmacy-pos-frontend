@@ -8,6 +8,7 @@ const CashierBankDetails = () => {
     setCashierBankDetails,
   } = useCashierContext();
   const goToSummary = () => {
+    console.log(cashierDetails);
     setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
   };
   const goToBack = () => {
@@ -28,9 +29,13 @@ const CashierBankDetails = () => {
             type='text'
             id='bankName'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            onChange={(e) => {
-              cashierBankDetails.bankName = e.target.value;
-            }}
+            value={cashierBankDetails.bankName}
+            onChange={(e) =>
+              setCashierBankDetails({
+                ...cashierBankDetails,
+                bankName: e.target.value,
+              })
+            }
           />
 
           <label
@@ -43,9 +48,13 @@ const CashierBankDetails = () => {
             type='text'
             id='branchName'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            onChange={(e) => {
-              cashierBankDetails.bankBranchName = e.target.value;
-            }}
+            value={cashierBankDetails.bankBranchName}
+            onChange={(e) =>
+              setCashierBankDetails({
+                ...cashierBankDetails,
+                bankBranchName: e.target.value,
+              })
+            }
           />
 
           <label
@@ -58,9 +67,13 @@ const CashierBankDetails = () => {
             type='text'
             id='accountNumber'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            onChange={(e) => {
-              cashierBankDetails.bankAccountNumber = e.target.value;
-            }}
+            value={cashierBankDetails.bankAccountNumber}
+            onChange={(e) =>
+              setCashierBankDetails({
+                ...cashierBankDetails,
+                bankAccountNumber: e.target.value,
+              })
+            }
           />
 
           <label
@@ -72,9 +85,13 @@ const CashierBankDetails = () => {
           <textarea
             id='additionalNotes'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            onChange={(e) => {
-              cashierBankDetails.employerDescription = e.target.value;
-            }}
+            value={cashierBankDetails.employerDescription}
+            onChange={(e) =>
+              setCashierBankDetails({
+                ...cashierBankDetails,
+                employerDescription: e.target.value,
+              })
+            }
           ></textarea>
 
           <label
@@ -87,9 +104,13 @@ const CashierBankDetails = () => {
             type='text'
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            onChange={(e) => {
-              cashierBankDetails.monthlyPayment = parseFloat(e.target.value);
-            }}
+            value={cashierBankDetails.monthlyPayment}
+            onChange={(e) =>
+              setCashierBankDetails({
+                ...cashierBankDetails,
+                monthlyPayment: Number(e.target.value),
+              })
+            }
           />
         </div>
       </div>

@@ -6,7 +6,8 @@ import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 const CashierDetails = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const { setCurrentComponent, cashierDetails } = useCashierContext();
+  const { setCurrentComponent, cashierDetails, setCashierDetails } =
+    useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -22,6 +23,7 @@ const CashierDetails = () => {
   };
 
   const goToBankDetails = () => {
+    console.log(cashierDetails);
     setCurrentComponent(ComponentState.BankDetails);
   };
 
@@ -71,11 +73,13 @@ const CashierDetails = () => {
             type='text'
             id='nickname'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerNicName = e.target.value;
-
-              console.log(cashierDetails);
-            }}
+            value={cashierDetails.employerNicName}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerNicName: e.target.value,
+              })
+            }
           />
 
           <label
@@ -88,9 +92,13 @@ const CashierDetails = () => {
             type='text'
             id='nicNumber'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerNic = e.target.value;
-            }}
+            value={cashierDetails.employerNic}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerNic: e.target.value,
+              })
+            }
           />
 
           <label
@@ -103,9 +111,13 @@ const CashierDetails = () => {
             type='tel'
             id='telephone'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerPhone = e.target.value;
-            }}
+            value={cashierDetails.employerPhone}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerPhone: e.target.value,
+              })
+            }
           />
 
           <label
@@ -118,9 +130,13 @@ const CashierDetails = () => {
             type='email'
             id='email'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerEmail = e.target.value;
-            }}
+            value={cashierDetails.employerEmail}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerEmail: e.target.value,
+              })
+            }
           />
 
           <label
@@ -133,9 +149,13 @@ const CashierDetails = () => {
             type='text'
             id='firstName'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerFirstName = e.target.value;
-            }}
+            value={cashierDetails.employerFirstName}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerFirstName: e.target.value,
+              })
+            }
           />
 
           <label
@@ -148,9 +168,13 @@ const CashierDetails = () => {
             type='text'
             id='lastName'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerLastName = e.target.value;
-            }}
+            value={cashierDetails.employerLastName}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerLastName: e.target.value,
+              })
+            }
           />
         </div>
 
@@ -165,9 +189,13 @@ const CashierDetails = () => {
           <select
             id='branch'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.branchId = parseInt(e.target.value);
-            }}
+            value={cashierDetails.branchId}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                branchId: parseInt(e.target.value),
+              })
+            }
           >
             <option value='0'>Branch 1</option>
             <option value='1'>Branch 2</option>
@@ -183,9 +211,13 @@ const CashierDetails = () => {
           <select
             id='gender'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.gender = e.target.value;
-            }}
+            value={cashierDetails.gender}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                gender: e.target.value,
+              })
+            }
           >
             <option value='MALE'>Male</option>
             <option value='FEMALE'>Female</option>
@@ -193,48 +225,22 @@ const CashierDetails = () => {
           </select>
 
           <label
-            htmlFor='addressLine1'
+            htmlFor='addressLine'
             className='block text-sm font-medium text-black mt-4'
           >
-            Address Line 1
+            Address
           </label>
           <input
             type='text'
             id='addressLine1'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerAddress += e.target.value;
-            }}
-          />
-
-          <label
-            htmlFor='city'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            City
-          </label>
-          <input
-            type='text'
-            id='city'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerAddress += e.target.value;
-            }}
-          />
-
-          <label
-            htmlFor='province'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Province
-          </label>
-          <input
-            type='text'
-            id='province'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerAddress += e.target.value;
-            }}
+            value={cashierDetails.employerAddress}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerAddress: e.target.value,
+              })
+            }
           />
 
           <label
@@ -247,9 +253,48 @@ const CashierDetails = () => {
             type='date'
             id='dateOfBirth'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            value={cashierDetails.dateOfBirth.toISOString().split('T')[0]}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                dateOfBirth: new Date(e.target.value),
+              })
+            }
+          />
+
+          <label
+            htmlFor='phone'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Phone Number
+          </label>
+          <input
+            type='text'
+            id='phoneNumber'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            value={cashierDetails.employerPhone}
             onChange={(e) => {
-              cashierDetails.dateOfBirth = new Date(e.target.value);
+              cashierDetails.employerPhone = e.target.value;
             }}
+          />
+
+          <label
+            htmlFor='baseSalary'
+            className='block text-sm font-medium text-black mt-4'
+          >
+            Base Salary
+          </label>
+          <input
+            type='text'
+            id='baseSalary'
+            className='mt-1 p-2 border-gray rounded-md w-64'
+            value={cashierDetails.employerSalary}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerSalary: parseFloat(e.target.value),
+              })
+            }
           />
         </div>
         {/* Third Column */}
@@ -264,9 +309,13 @@ const CashierDetails = () => {
             type='text'
             id='password'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerPassword = e.target.value;
-            }}
+            value={cashierDetails.employerPassword}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerPassword: e.target.value,
+              })
+            }
           />
 
           <label
@@ -279,24 +328,13 @@ const CashierDetails = () => {
             type='text'
             id='confirmPassword'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerConfirmPassword = e.target.value;
-            }}
-          />
-
-          <label
-            htmlFor='phone'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Phone Number
-          </label>
-          <input
-            type='text'
-            id='phoneNumber'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerPhone = e.target.value;
-            }}
+            value={cashierDetails.employerConfirmPassword}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                employerConfirmPassword: e.target.value,
+              })
+            }
           />
 
           <label
@@ -309,24 +347,13 @@ const CashierDetails = () => {
             type='text'
             id='role'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.role = e.target.value;
-            }}
-          />
-
-          <label
-            htmlFor='baseSalary'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Base Salary
-          </label>
-          <input
-            type='text'
-            id='baseSalary'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.employerSalary = parseFloat(e.target.value);
-            }}
+            value={cashierDetails.role}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                role: e.target.value,
+              })
+            }
           />
 
           <label
@@ -339,9 +366,13 @@ const CashierDetails = () => {
             type='text'
             id='pin'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            onChange={(e) => {
-              cashierDetails.pin = parseInt(e.target.value);
-            }}
+            value={cashierDetails.pin}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                pin: parseInt(e.target.value),
+              })
+            }
           />
         </div>
       </div>
