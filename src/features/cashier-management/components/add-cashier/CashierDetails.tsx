@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
+import useCashierCRUDService from '../../services/CashierCRUDService';
 
 const CashierDetails = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -21,9 +22,11 @@ const CashierDetails = () => {
       reader.readAsDataURL(file);
     }
   };
+  const { createCashier, loading } = useCashierCRUDService();
 
   const goToBankDetails = () => {
     console.log(cashierDetails);
+    createCashier(cashierDetails);
     setCurrentComponent(ComponentState.BankDetails);
   };
 

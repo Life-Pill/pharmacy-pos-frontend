@@ -3,18 +3,27 @@ import { useEffect } from 'react';
 import { useUserContext } from '../../../context/UserContext';
 
 const useAxiosInstance = () => {
-  const { cookie } = useUserContext();
-  console.log(cookie);
-
   const instance = axios.create({
     baseURL: 'http://localhost:8081/lifepill/v1',
     headers: {
       'Content-type': 'application/json',
-      Authorization: `Bearer ${cookie}`,
     },
   });
 
   useEffect(() => {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split(';').reduce((acc: any, cookie) => {
+      const [name, value] = cookie.trim().split('=');
+      acc[name] = value;
+      return acc;
+    }, {});
+
+    const token = cookies.Authorization; // Assuming Authorization is the key for your token in the cookie
+    if (token) {
+      console.log('Setting token:', token);
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+
     instance.interceptors.response.use(
       (response) => {
         // Handle successful responses
