@@ -13,7 +13,9 @@ export enum ComponentState {
   DetailsSummary,
 }
 
-const CashierContext = createContext<CashierContextType | undefined>(undefined);
+export const CashierContext = createContext<CashierContextType | undefined>(
+  undefined
+);
 
 export const useCashierContext = () => {
   const context = useContext(CashierContext);

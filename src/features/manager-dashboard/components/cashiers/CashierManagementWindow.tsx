@@ -3,13 +3,15 @@ import { TbCirclePlus } from 'react-icons/tb';
 import { TbSettingsCog } from 'react-icons/tb';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import PharmacyCashiers from '../../../../assets/fakedata/cashiers';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
 import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
 import Loader from '../../../../shared/loader/Loader';
 import { BsPencilSquare, BsEye } from 'react-icons/bs';
 
 const CashierManagementWindow = () => {
+  const navigate = useNavigate();
+
   const {
     fetchEmployeeData,
     workers,
@@ -28,6 +30,16 @@ const CashierManagementWindow = () => {
   useEffect(() => {
     fetchEmployeeData();
   }, []);
+
+  const onUpdateClick = (employer: CashierDetailsType) => {
+    console.log(employer.employerId);
+    navigate(`/update-cashier/${employer.employerId}`);
+  };
+
+  const onViewClick = (employer: CashierDetailsType) => {
+    console.log(employer.employerId);
+    navigate('/view-cashier');
+  };
 
   return (
     <div className='flex flex-col' data-testid='cashier-management-window'>
@@ -151,11 +163,21 @@ const CashierManagementWindow = () => {
                     <td className='px-6 py-4'>{worker.employerSalary}</td>
                     <td className='px-6 py-4'>
                       {/* Update Button */}
-                      <button className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'>
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          onUpdateClick(worker);
+                        }}
+                      >
                         <BsPencilSquare className='text-blueDarker font-bold text-lg' />
                       </button>
                       {/* View Button */}
-                      <button className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'>
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          onViewClick(worker);
+                        }}
+                      >
                         <BsEye className='text-blueDarker font-bold text-lg' />
                       </button>
                     </td>
