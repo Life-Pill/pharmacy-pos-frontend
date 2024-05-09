@@ -1,19 +1,17 @@
-import { ComponentState, useCashierContext } from '../../layout/AddCashier';
+import { useCashierContext } from '../../layout/AddCashier';
+import useBankCRUDService from '../../services/BankDetailsCRUDService';
 
 const CashierBankDetails = () => {
-  const {
-    setCurrentComponent,
-    cashierDetails,
-    cashierBankDetails,
-    setCashierBankDetails,
-  } = useCashierContext();
+  const { cashierDetails, cashierBankDetails, setCashierBankDetails } =
+    useCashierContext();
+
+  const { updateBankDetails, loading } = useBankCRUDService();
+
   const goToSummary = () => {
     console.log(cashierDetails);
-    setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
+    updateBankDetails(cashierBankDetails, 233);
   };
-  const goToBack = () => {
-    setCurrentComponent(ComponentState.Details);
-  };
+
   return (
     <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
       <div className='grid grid-cols-1 md:grid-cols-1 gap-6'>
@@ -104,23 +102,23 @@ const CashierBankDetails = () => {
             type='text'
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierBankDetails.monthlyPayment}
-            onChange={(e) =>
-              setCashierBankDetails({
-                ...cashierBankDetails,
-                monthlyPayment: Number(e.target.value),
-              })
-            }
+            value={cashierDetails.employerSalary}
+            readOnly
           />
         </div>
       </div>
       <div className='flex items-center justify-center gap-8 w-full'>
         <button
           type='button'
-          className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+          className={`text-white py-2.5 px-5 me-2 mb-2 rounded-lg ${
+            loading
+              ? 'bg-gray-500 cursor-not-allowed'
+              : 'bg-blueDarker hover:bg-blue'
+          }`}
           onClick={goToSummary}
+          disabled={loading}
         >
-          Create & Continue
+          {loading ? 'Loading...' : 'Update'}
         </button>
       </div>
     </div>

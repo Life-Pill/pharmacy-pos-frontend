@@ -44,7 +44,7 @@ const AddCashier = () => {
     pin: 0,
     role: 'CASHIER',
     employerSalary: 0,
-    gender: 'OTHER',
+    gender: 'MALE',
   } as CashierDetailsType);
 
   const [cashierBankDetails, setCashierBankDetails] =

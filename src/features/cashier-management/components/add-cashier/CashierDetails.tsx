@@ -265,19 +265,22 @@ const CashierDetails = () => {
           />
 
           <label
-            htmlFor='phone'
+            htmlFor='role'
             className='block text-sm font-medium text-black mt-4'
           >
-            Phone Number
+            Role
           </label>
           <input
             type='text'
-            id='phoneNumber'
+            id='role'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.employerPhone}
-            onChange={(e) => {
-              cashierDetails.employerPhone = e.target.value;
-            }}
+            value={cashierDetails.role}
+            onChange={(e) =>
+              setCashierDetails({
+                ...cashierDetails,
+                role: e.target.value,
+              })
+            }
           />
 
           <label
@@ -340,25 +343,6 @@ const CashierDetails = () => {
           />
 
           <label
-            htmlFor='role'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Role
-          </label>
-          <input
-            type='text'
-            id='role'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.role}
-            onChange={(e) =>
-              setCashierDetails({
-                ...cashierDetails,
-                role: e.target.value,
-              })
-            }
-          />
-
-          <label
             htmlFor='pin'
             className='block text-sm font-medium text-black mt-4'
           >
@@ -381,11 +365,17 @@ const CashierDetails = () => {
       <div className='flex items-center justify-center gap-8 w-full mt-8'>
         <button
           type='button'
-          className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+          className={`text-white py-2.5 px-5 me-2 mb-2 rounded-lg ${
+            loading
+              ? 'bg-gray-500 cursor-not-allowed'
+              : 'bg-blueDarker hover:bg-blue'
+          }`}
           onClick={goToBankDetails}
+          disabled={loading}
         >
-          Create & Continue
+          {loading ? 'Loading...' : 'Create'}
         </button>
+
         <button
           type='button'
           className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
