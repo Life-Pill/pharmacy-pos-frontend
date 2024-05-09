@@ -12,6 +12,23 @@ const useBankCRUDService = () => {
     bankDetails: EmployerBankDetails,
     employerID: number
   ) => {
+    if (
+      !bankDetails ||
+      !employerID ||
+      !bankDetails.bankName ||
+      !bankDetails.bankBranchName ||
+      !bankDetails.bankAccountNumber
+    ) {
+      toast.error('Please fill out all required fields');
+      return;
+    }
+
+    //check bank account number type
+    if (isNaN(bankDetails.bankAccountNumber)) {
+      toast.error('Bank account number should be a number');
+      return;
+    }
+
     setLoading(true);
     try {
       console.log('Bank Details', bankDetails);

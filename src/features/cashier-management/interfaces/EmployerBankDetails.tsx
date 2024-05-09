@@ -2,7 +2,7 @@ export interface EmployerBankDetails {
   employerBankDetailsId: number;
   bankName: string;
   bankBranchName: string;
-  bankAccountNumber: string;
+  bankAccountNumber: number;
   employerDescription: string;
   monthlyPayment: number;
   monthlyPaymentStatus: boolean;

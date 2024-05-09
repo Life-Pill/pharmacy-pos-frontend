@@ -4,6 +4,8 @@ import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { CashierDetailsType } from '../interfaces/CashierDetailsType';
 import { toast } from 'react-toastify';
 import { ComponentState, useCashierContext } from '../layout/AddCashier';
+import { validateEmail } from '../../../utils/validators/EmailValidator';
+import { passwordsMatch } from '../../../utils/validators/passwordValidator';
 
 const useCashierCRUDService = () => {
   const http = useAxiosInstance();
@@ -34,8 +36,27 @@ const useCashierCRUDService = () => {
       return;
     }
 
-    if (employer.employerPassword !== employer.employerConfirmPassword) {
+    if (
+      !passwordsMatch(
+        employer.employerPassword,
+        employer.employerConfirmPassword
+      )
+    ) {
       toast.error('Passwords do not match.');
+      return;
+    }
+
+    if (
+      !['OWNER', 'CASHIER', 'MANAGER'].includes(employer.role.toUpperCase())
+    ) {
+      toast.error(
+        'Invalid role. Role should be either OWNER, CASHIER, or MANAGER.'
+      );
+      return;
+    }
+
+    if (!validateEmail(employer.employerEmail)) {
+      toast.error('Invalid email');
       return;
     }
 
@@ -61,6 +82,3 @@ const useCashierCRUDService = () => {
 };
 
 export default useCashierCRUDService;
-function setCurrentComponent(BankDetails: any) {
-  throw new Error('Function not implemented.');
-}

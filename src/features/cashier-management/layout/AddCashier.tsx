@@ -49,7 +49,7 @@ const AddCashier = () => {
 
   const [cashierBankDetails, setCashierBankDetails] =
     useState<EmployerBankDetails>({
-      bankAccountNumber: '',
+      bankAccountNumber: 0,
       bankName: '',
       bankBranchName: '',
       employerDescription: '',

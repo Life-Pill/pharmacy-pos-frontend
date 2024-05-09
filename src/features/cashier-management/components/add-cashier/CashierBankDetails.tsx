@@ -62,14 +62,14 @@ const CashierBankDetails = () => {
             Account Number
           </label>
           <input
-            type='text'
+            type='number'
             id='accountNumber'
             className='mt-1 p-2 border-gray rounded-md w-full'
             value={cashierBankDetails.bankAccountNumber}
             onChange={(e) =>
               setCashierBankDetails({
                 ...cashierBankDetails,
-                bankAccountNumber: e.target.value,
+                bankAccountNumber: parseInt(e.target.value),
               })
             }
           />
