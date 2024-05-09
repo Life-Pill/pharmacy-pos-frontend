@@ -78,7 +78,49 @@ const useCashierCRUDService = () => {
     }
   };
 
-  return { createCashier, loading };
+  const [cashierDetails, setCashierDetails] = useState({
+    employerNicName: '',
+    employerFirstName: '',
+    employerLastName: '',
+    employerEmail: '',
+    employerPhone: '',
+    employerPassword: '',
+    employerConfirmPassword: '',
+    profileImage: '',
+    branchId: 0,
+    employerNic: '',
+    dateOfBirth: new Date(),
+    employerAddress: '',
+    pin: 0,
+    role: 'CASHIER',
+    employerSalary: 0,
+    gender: 'MALE',
+  });
+
+  const fetchCashierById = async (id: Number) => {
+    try {
+      setLoading(true);
+      console.log('Fetching cashier by id', id);
+      const res = await http.get('/employers/get-by-id', { params: { id } });
+      console.log(res);
+      if (res.status === 200) {
+        setCashierDetails(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to fetch data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    createCashier,
+    loading,
+    fetchCashierById,
+    cashierDetails,
+    setCashierDetails,
+  };
 };
 
 export default useCashierCRUDService;
