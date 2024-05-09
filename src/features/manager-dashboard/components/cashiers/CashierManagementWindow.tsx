@@ -95,20 +95,9 @@ const CashierManagementWindow = () => {
                     Monthly Payment Status
                   </th>
                   <th scope='col' className='px-6 py-3'>
-                    Monthly Payment Amount
+                    Salary
                   </th>
-                  <th scope='col' className='px-6 py-3'>
-                    {/* Update Button */}
-                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                      <BsPencilSquare /> Update
-                    </button>
-                  </th>
-                  <th scope='col' className='px-6 py-3'>
-                    {/* View Button */}
-                    <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'>
-                      <BsEye /> View
-                    </button>
-                  </th>
+                  <th scope='col' className='px-6 py-3'></th>
                 </tr>
               </thead>
               <tbody>
@@ -119,7 +108,9 @@ const CashierManagementWindow = () => {
                   >
                     <td className='px-6 py-4'>{worker.employerId}</td>
                     <td className='px-6 py-4'>{worker.employerFirstName}</td>
-                    <td className='px-6 py-4'>{worker.gender}</td>
+                    <td className='px-6 py-4'>
+                      {worker.gender.toLocaleLowerCase()}
+                    </td>
                     <td className='px-6 py-4'>{worker.employerPhone}</td>
                     <td className='px-6 py-4'>
                       {
@@ -158,8 +149,16 @@ const CashierManagementWindow = () => {
                       }
                     </td>
                     <td className='px-6 py-4'>{worker.employerSalary}</td>
-                    <td className='px-6 py-4'></td>
-                    <td className='px-6 py-4'></td>
+                    <td className='px-6 py-4'>
+                      {/* Update Button */}
+                      <button className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'>
+                        <BsPencilSquare className='text-blueDarker font-bold text-lg' />
+                      </button>
+                      {/* View Button */}
+                      <button className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'>
+                        <BsEye className='text-blueDarker font-bold text-lg' />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
