@@ -36,7 +36,7 @@ const AddCashier = () => {
     employerPhone: '',
     employerPassword: '',
     employerConfirmPassword: '',
-    employerImage: '',
+    profileImage: '',
     branchId: 0,
     employerNic: '',
     dateOfBirth: new Date(),
