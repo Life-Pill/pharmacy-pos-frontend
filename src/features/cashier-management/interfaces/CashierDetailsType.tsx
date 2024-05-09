@@ -11,9 +11,9 @@ export interface CashierDetailsType {
   employerAddress: string;
   employerSalary: number;
   employerNic: string;
-  gender: 'MALE' | 'FEMALE' | 'OTHER' | string; // Assuming gender can be one of these values
+  gender: 'MALE' | 'FEMALE' | 'OTHER'; // Assuming gender can be one of these values
   dateOfBirth: Date;
-  role: 'OWNER' | 'MANAGER' | 'CASHIER' | string; // Assuming role can be one of these values
+  role: 'OWNER' | 'MANAGER' | 'CASHIER'; // Assuming role can be one of these values
   pin: number;
   activeStatus: boolean;
   employerImage: string;

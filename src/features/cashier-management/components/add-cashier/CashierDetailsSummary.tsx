@@ -78,13 +78,6 @@ function CashierDetailsSummary() {
       >
         <Link to='/'>Confirm and Create</Link>
       </button>
-      <button
-        type='button'
-        className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
-        onClick={goToBack}
-      >
-        Go To Bank Details
-      </button>
     </div>
   );
 }

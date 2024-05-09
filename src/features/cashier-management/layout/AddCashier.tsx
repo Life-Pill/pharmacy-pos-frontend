@@ -28,7 +28,7 @@ const AddCashier = () => {
     ComponentState.Details
   );
 
-  const [cashierDetails, setCashierDetails] = useState({
+  const [cashierDetails, setCashierDetails] = useState<CashierDetailsType>({
     employerNicName: '',
     employerFirstName: '',
     employerLastName: '',
@@ -44,6 +44,7 @@ const AddCashier = () => {
     pin: 0,
     role: 'CASHIER',
     employerSalary: 0,
+    gender: 'OTHER',
   } as CashierDetailsType);
 
   const [cashierBankDetails, setCashierBankDetails] =

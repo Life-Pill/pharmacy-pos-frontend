@@ -27,7 +27,6 @@ const CashierDetails = () => {
   const goToBankDetails = () => {
     console.log(cashierDetails);
     createCashier(cashierDetails);
-    setCurrentComponent(ComponentState.BankDetails);
   };
 
   return (
