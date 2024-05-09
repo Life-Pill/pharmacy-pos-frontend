@@ -117,6 +117,51 @@ const useCashierCRUDService = () => {
 
   const updateCashier = async (employer: any) => {
     try {
+      if (
+        !employer ||
+        !employer.branchId ||
+        !employer.employerNicName ||
+        !employer.employerFirstName ||
+        !employer.employerLastName ||
+        !employer.employerPassword ||
+        !employer.employerConfirmPassword ||
+        !employer.employerEmail ||
+        !employer.employerPhone ||
+        !employer.employerAddress ||
+        !employer.employerSalary ||
+        !employer.employerNic ||
+        !employer.gender ||
+        !employer.dateOfBirth ||
+        !employer.role ||
+        !employer.pin
+      ) {
+        toast.error('Please provide all required information.');
+        return;
+      }
+
+      // if (   !passwordsMatch(
+      //     employer.employerPassword,
+      //     employer.employerConfirmPassword
+      //   )
+      // ) {
+      //   toast.error('Passwords do not match.');
+      //   return;
+      // }
+
+      if (
+        !['OWNER', 'CASHIER', 'MANAGER'].includes(employer.role.toUpperCase())
+      ) {
+        toast.error(
+          'Invalid role. Role should be either OWNER, CASHIER, or MANAGER.'
+        );
+        return;
+      }
+
+      if (!validateEmail(employer.employerEmail)) {
+        toast.error('Invalid email');
+        return;
+      }
+
       setUpdating(true);
       const res = await http.put(
         `/employers/update/${employer.employerId}`,
