@@ -4,12 +4,11 @@ import { Link, useParams } from 'react-router-dom';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 import Loader from '../../../../shared/loader/Loader';
+import { CashierDetailsType } from '../../interfaces/CashierDetailsType';
 
 const UpdateCashierDetails = () => {
   const { employerId } = useParams();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-
-  const { setCurrentComponent } = useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -24,12 +23,18 @@ const UpdateCashierDetails = () => {
     }
   };
 
-  const goToBankDetails = () => {
-    setCurrentComponent(ComponentState.BankDetails);
+  const goToBankDetails = (employer: any) => {
+    updateCashier(employer);
   };
 
-  const { fetchCashierById, cashierDetails, setCashierDetails, loading } =
-    useCashierCRUDService();
+  const {
+    fetchCashierById,
+    cashierDetails,
+    setCashierDetails,
+    loading,
+    updateCashier,
+    updating,
+  } = useCashierCRUDService();
 
   useEffect(() => {
     fetchCashierById(parseInt(employerId as string));
@@ -373,18 +378,22 @@ const UpdateCashierDetails = () => {
       </div>
 
       <div className='flex items-center justify-center gap-8 w-full mt-8'>
-        <button
-          type='button'
-          className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
-          onClick={goToBankDetails}
-        >
-          Update Employer
-        </button>
+        {updating ? (
+          <Loader />
+        ) : (
+          <button
+            type='button'
+            className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+            onClick={(e) => goToBankDetails(cashierDetails)}
+          >
+            Update Employer
+          </button>
+        )}
         <button
           type='button'
           className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
         >
-          <Link to='/'>Back To Cashier Manager</Link>
+          <Link to='/manager-dashboard'>Back To Cashier Manager</Link>
         </button>
       </div>
     </div>

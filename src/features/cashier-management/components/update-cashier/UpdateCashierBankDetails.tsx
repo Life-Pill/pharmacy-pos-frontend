@@ -1,4 +1,5 @@
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
+import useBankCRUDService from '../../services/BankDetailsCRUDService';
 
 const UpdateCashierBankDetails = () => {
   const {
@@ -7,8 +8,11 @@ const UpdateCashierBankDetails = () => {
     setCashierBankDetails,
     cashierDetails,
   } = useCashierContext();
+
+  const { updateBankDetails } = useBankCRUDService();
+
   const goToSummary = () => {
-    setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
+    updateBankDetails(cashierBankDetails, cashierDetails.employerId);
   };
   const goToBack = () => {
     setCurrentComponent(ComponentState.Details);

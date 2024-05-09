@@ -12,6 +12,7 @@ const useCashierCRUDService = () => {
   const user = useUserContext();
   const [loading, setLoading] = useState(false);
   const { setCurrentComponent } = useCashierContext();
+  const [updating, setUpdating] = useState(false);
 
   const createCashier = async (employer: CashierDetailsType) => {
     if (
@@ -114,12 +115,34 @@ const useCashierCRUDService = () => {
     }
   };
 
+  const updateCashier = async (employer: any) => {
+    try {
+      setUpdating(true);
+      const res = await http.put(
+        `/employers/update/${employer.employerId}`,
+        employer
+      );
+      if (res.status === 200) {
+        toast.success('Cashier updated successfully!');
+        setCurrentComponent(ComponentState.BankDetails);
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to update cashier');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   return {
     createCashier,
     loading,
     fetchCashierById,
     cashierDetails,
     setCashierDetails,
+    updateCashier,
+    updating,
   };
 };
 
