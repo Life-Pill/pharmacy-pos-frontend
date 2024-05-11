@@ -36,18 +36,19 @@
     "sonarqube-scanner": "^3.5.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "test": "jest",
+    "test:browser": "jest --config=jest.config.js",
+    "test:node": "jest --config=jest.config.node.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://127.0.0.1:3000 && electronmon .\"",
     "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js",
     "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js",
-    "test": "vitestest"
+    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js"
   },
   "eslintConfig": {
     "extends": [
@@ -88,14 +89,22 @@
     }
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/react": "^15.0.7",
+    "@types/jest": "^29.5.12",
     "@types/js-cookie": "^3.0.6",
+    "@types/testing-library__react": "^10.2.0",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "cypress": "^13.6.6",
     "electron": "^22.0.0",
     "electron-builder": "^24.9.1",
     "electronmon": "^2.0.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-html-reporters": "^3.1.7",
     "tailwindcss": "^3.3.6",
+    "ts-jest": "^29.1.2",
     "wait-on": "^7.2.0"
   }
 }
