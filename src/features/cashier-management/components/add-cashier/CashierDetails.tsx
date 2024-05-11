@@ -386,5 +386,4 @@ const CashierDetails = () => {
     </div>
   );
 };
-
 export default CashierDetails;

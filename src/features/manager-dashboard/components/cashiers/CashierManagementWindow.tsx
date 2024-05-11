@@ -3,12 +3,19 @@ import { TbCirclePlus } from 'react-icons/tb';
 import { TbSettingsCog } from 'react-icons/tb';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import PharmacyCashiers from '../../../../assets/fakedata/cashiers';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
 import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
 import Loader from '../../../../shared/loader/Loader';
+import { BsPencilSquare, BsEye } from 'react-icons/bs';
+import {
+  calculateActiveWorkers,
+  calculateMaleFemaleWorkers,
+} from '../../utils/cashierManagementUtils';
 
 const CashierManagementWindow = () => {
+  const navigate = useNavigate();
+
   const {
     fetchEmployeeData,
     workers,
@@ -28,32 +35,48 @@ const CashierManagementWindow = () => {
     fetchEmployeeData();
   }, []);
 
+  const onUpdateClick = (employer: CashierDetailsType) => {
+    console.log(employer.employerId);
+    navigate(`/update-cashier/${employer.employerId}`);
+  };
+
+  const onViewClick = (employer: CashierDetailsType) => {
+    console.log(employer.employerId);
+    navigate('/view-cashier');
+  };
+
+  const { maleCount, femaleCount } = calculateMaleFemaleWorkers(workers);
+
   return (
     <div className='flex flex-col' data-testid='cashier-management-window'>
       {/* buttons */}
       <div className='flex flex-row items-center z-20 p-8 px-16 justify-around bg-slate-200 rounded-lg'>
+        {/* Summary Cards */}
+        <div className='flex flex-col lg:flex-row gap-4 mt-4 justify-center items-center'>
+          <div className='bg-white shadow-lg rounded-lg p-4'>
+            <h2 className='text-lg font-bold'>Total Workers</h2>
+            <p>{workers.length}</p>
+          </div>
+          <div className='bg-white shadow-lg rounded-lg p-4'>
+            <h2 className='text-lg font-bold'>Active Workers</h2>
+            <p>{calculateActiveWorkers(workers)}</p>
+          </div>
+          <div className='bg-white shadow-lg rounded-lg p-4'>
+            <h2 className='text-lg font-bold'>Male Workers</h2>
+            <p>{maleCount}</p>
+          </div>
+          <div className='bg-white shadow-lg rounded-lg p-4'>
+            <h2 className='text-lg font-bold'>Female Workers</h2>
+            <p>{femaleCount}</p>
+          </div>
+        </div>
+
         <Link
           to='/add-cashier'
           className=' bg-yellow-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
         >
           <TbCirclePlus size={25} />
           <h1 className=' font-medium'>Add cashier</h1>
-        </Link>
-
-        <Link
-          to='/update-cashier'
-          className=' bg-purple-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
-        >
-          <TbSettingsCog size={25} />
-          <h1 className='font-medium'>Manage cashier</h1>
-        </Link>
-
-        <Link
-          to='/view-cashier'
-          className=' bg-green-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
-        >
-          <LiaStreetViewSolid size={25} />
-          <h1 className='font-medium'>View cashier</h1>
         </Link>
       </div>
 
@@ -94,8 +117,9 @@ const CashierManagementWindow = () => {
                     Monthly Payment Status
                   </th>
                   <th scope='col' className='px-6 py-3'>
-                    Monthly Payment Amount
+                    Salary
                   </th>
+                  <th scope='col' className='px-6 py-3'></th>
                 </tr>
               </thead>
               <tbody>
@@ -106,7 +130,9 @@ const CashierManagementWindow = () => {
                   >
                     <td className='px-6 py-4'>{worker.employerId}</td>
                     <td className='px-6 py-4'>{worker.employerFirstName}</td>
-                    <td className='px-6 py-4'>{worker.gender}</td>
+                    <td className='px-6 py-4'>
+                      {worker.gender.toLocaleLowerCase()}
+                    </td>
                     <td className='px-6 py-4'>{worker.employerPhone}</td>
                     <td className='px-6 py-4'>
                       {
@@ -145,6 +171,26 @@ const CashierManagementWindow = () => {
                       }
                     </td>
                     <td className='px-6 py-4'>{worker.employerSalary}</td>
+                    <td className='px-6 py-4'>
+                      {/* Update Button */}
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          onUpdateClick(worker);
+                        }}
+                      >
+                        <BsPencilSquare className='text-blueDarker font-bold text-lg' />
+                      </button>
+                      {/* View Button */}
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          onViewClick(worker);
+                        }}
+                      >
+                        <BsEye className='text-blueDarker font-bold text-lg' />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

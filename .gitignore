@@ -23,3 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 /dist
+
+.scannerwork
+sonarqube/extensions
+sonarqube/data
+sonarqube/logs
+sonarqube

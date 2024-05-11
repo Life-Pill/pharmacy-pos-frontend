@@ -44,7 +44,10 @@ function App() {
               path='/cashier-bank-details'
               element={<CashierBankDetails />}
             />
-            <Route path='/update-cashier' element={<UpdateCashier />} />
+            <Route
+              path='/update-cashier/:employerId'
+              element={<UpdateCashier />}
+            />
             <Route path='/view-cashier' element={<ViewCashier />} />
             <Route path='/add-items' element={<AddItems />} />
             <Route path='/update-items' element={<UpdateItems />} />
