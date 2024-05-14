@@ -33,7 +33,7 @@ describe('mapIItemsToIMedicine function', () => {
     const mappedMedicine: IMedicine = mapIItemsToIMedicine(mockItem);
 
     expect(mappedMedicine).toEqual({
-      id: 1,
+      id: '1',
       name: 'Test Medicine',
       price: 10,
       quantity: 5,
@@ -73,7 +73,7 @@ describe('mapIItemsToIMedicine function', () => {
     const mappedMedicine: IMedicine = mapIItemsToIMedicine(mockItem);
 
     expect(mappedMedicine).toEqual({
-      id: 2,
+      id: '2',
       name: 'Out of Stock Medicine',
       price: 15,
       quantity: 0,
@@ -113,7 +113,7 @@ describe('mapIItemsToIMedicine function', () => {
     const mappedMedicine: IMedicine = mapIItemsToIMedicine(mockItem);
 
     expect(mappedMedicine).toEqual({
-      id: 3,
+      id: '3',
       name: 'Negative Price Medicine',
       price: -5,
       quantity: 10,
@@ -153,7 +153,7 @@ describe('mapIItemsToIMedicine function', () => {
     const mappedMedicine: IMedicine = mapIItemsToIMedicine(mockItem);
 
     expect(mappedMedicine).toEqual({
-      id: 4,
+      id: '4',
       name: 'Medicine without Image',
       price: 20,
       quantity: 3,
@@ -193,7 +193,7 @@ describe('mapIItemsToIMedicine function', () => {
     const mappedMedicine: IMedicine = mapIItemsToIMedicine(mockItem);
 
     expect(mappedMedicine).toEqual({
-      id: 5,
+      id: '5',
       name: '',
       price: 10,
       quantity: 2,
