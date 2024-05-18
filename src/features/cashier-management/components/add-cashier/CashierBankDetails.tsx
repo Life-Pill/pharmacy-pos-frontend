@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { useCashierContext } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
 import useCashierCRUDService from '../../services/CashierCRUDService';
+import { toast } from 'react-toastify';
 
 const CashierBankDetails = () => {
   const { cashierDetails, cashierBankDetails, setCashierBankDetails } =
@@ -11,9 +13,11 @@ const CashierBankDetails = () => {
   const { createdCashier } = useCashierCRUDService();
 
   const goToSummary = () => {
-    console.log(createdCashier);
-    if (createdCashier) {
-      updateBankDetails(cashierBankDetails, createdCashier);
+    console.log('Summary', cashierDetails, createdCashier);
+    if (createdCashier && createdCashier.employerId) {
+      updateBankDetails(cashierBankDetails, createdCashier.employerId);
+    } else {
+      toast.error('No cashier created yet.');
     }
   };
 

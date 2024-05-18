@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserContext } from '../../../context/UserContext';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { CashierDetailsType } from '../interfaces/CashierDetailsType';
@@ -13,7 +13,26 @@ const useCashierCRUDService = () => {
   const [loading, setLoading] = useState(false);
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);
-  const [createdCashier, setCreatedCashier] = useState(270);
+  // const [createdCashier, setCreatedCashier] = useState<number | null>(null);
+
+  const [createdCashier, setCreatedCashier] = useState({
+    employerId: 0,
+    branchId: 0,
+    employerNicName: '',
+    employerFirstName: '',
+    employerLastName: '',
+    employerPassword: '',
+    employerEmail: '',
+    employerPhone: '',
+    employerAddress: '',
+    employerSalary: 0,
+    employerNic: '',
+    gender: 'MALE',
+    dateOfBirth: '1990-01-01T00:00:00.000+00:00',
+    role: 'OWNER',
+    pin: 1234,
+    activeStatus: true,
+  });
 
   const createCashier = async (employer: CashierDetailsType) => {
     if (
@@ -64,15 +83,12 @@ const useCashierCRUDService = () => {
 
     setLoading(true);
     try {
-      // console.log('Employer', employer);
       const res = await http.post('/employers/save-without-image', employer);
-      const { employerId } = res.data;
-      console.log('data' + employerId);
-      setCreatedCashier(employerId);
 
+      console.log(res.data);
       if (res.data.code === 201) {
-        toast.success(`${employer.employerFirstName} created successfully!`);
-        // console.log('created' + createdCashier);
+        const createdCashierData = res.data.data;
+        setCreatedCashier(createdCashierData);
         setCurrentComponent(ComponentState.BankDetails);
       }
     } catch (error) {
