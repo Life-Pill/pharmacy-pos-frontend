@@ -29,7 +29,7 @@ const SportsTable = () => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  });
+  }, []);
   //
 
   const fetchMedicine = async () => {

@@ -30,7 +30,7 @@ const PersonalCareTable = () => {
     //fetchMedicine from server
     console.log('fetching medicine');
     fetchMedicine();
-  });
+  }, []);
   //
 
   const fetchMedicine = async () => {

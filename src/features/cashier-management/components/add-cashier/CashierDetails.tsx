@@ -25,7 +25,7 @@ const CashierDetails = () => {
   const { createCashier, loading } = useCashierCRUDService();
 
   const goToBankDetails = () => {
-    console.log(cashierDetails);
+    // console.log(cashierDetails);
     createCashier(cashierDetails);
   };
 

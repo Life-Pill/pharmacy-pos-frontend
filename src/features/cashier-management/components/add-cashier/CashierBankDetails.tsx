@@ -1,5 +1,6 @@
 import { useCashierContext } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
+import useCashierCRUDService from '../../services/CashierCRUDService';
 
 const CashierBankDetails = () => {
   const { cashierDetails, cashierBankDetails, setCashierBankDetails } =
@@ -7,9 +8,13 @@ const CashierBankDetails = () => {
 
   const { updateBankDetails, loading } = useBankCRUDService();
 
+  const { createdCashier } = useCashierCRUDService();
+
   const goToSummary = () => {
-    console.log(cashierDetails);
-    updateBankDetails(cashierBankDetails, 233);
+    console.log(createdCashier);
+    if (createdCashier) {
+      updateBankDetails(cashierBankDetails, createdCashier);
+    }
   };
 
   return (

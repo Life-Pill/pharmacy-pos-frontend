@@ -13,6 +13,7 @@ const useCashierCRUDService = () => {
   const [loading, setLoading] = useState(false);
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);
+  const [createdCashier, setCreatedCashier] = useState(270);
 
   const createCashier = async (employer: CashierDetailsType) => {
     if (
@@ -65,10 +66,13 @@ const useCashierCRUDService = () => {
     try {
       // console.log('Employer', employer);
       const res = await http.post('/employers/save-without-image', employer);
-      console.log(res);
+      const { employerId } = res.data;
+      console.log('data' + employerId);
+      setCreatedCashier(employerId);
 
-      if (res.status === 200) {
+      if (res.data.code === 201) {
         toast.success(`${employer.employerFirstName} created successfully!`);
+        // console.log('created' + createdCashier);
         setCurrentComponent(ComponentState.BankDetails);
       }
     } catch (error) {
@@ -188,6 +192,7 @@ const useCashierCRUDService = () => {
     setCashierDetails,
     updateCashier,
     updating,
+    createdCashier,
   };
 };
 export default useCashierCRUDService;
