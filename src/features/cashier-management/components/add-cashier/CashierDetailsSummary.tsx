@@ -76,7 +76,7 @@ function CashierDetailsSummary() {
         type='button'
         className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
       >
-        <Link to='/cashier-management-window'>Done</Link>
+        <Link to='/manager-dashboard/Cashiers'>Done</Link>
       </button>
     </div>
   );
