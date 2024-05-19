@@ -1,11 +1,20 @@
+import { useState } from 'react';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { Item } from '../interfaces/Item';
 
 const useItemService = () => {
   const http = useAxiosInstance();
-  const fetchItems = async () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
+
+  const fetchAllItems = async () => {
     try {
-      // const res = await http.get()
+      const res = await http.get('/item/get-all-items');
+      const data: Item[] = res.data.data;
+      console.log(res.data.data);
+      setItems(data);
+      setFilteredItems(data);
+      console.log(items);
     } catch (error) {}
   };
   const createItem = (item: Item) => {
@@ -21,8 +30,11 @@ const useItemService = () => {
   };
 
   return {
-    createItem,
-    updateItem,
-    deleteItem,
+    fetchAllItems,
+    items,
+    filteredItems,
+    setFilteredItems,
   };
 };
+
+export default useItemService;

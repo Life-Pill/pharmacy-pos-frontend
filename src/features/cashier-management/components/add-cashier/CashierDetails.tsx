@@ -26,7 +26,14 @@ const CashierDetails = () => {
 
   const goToBankDetails = () => {
     // console.log(cashierDetails);
-    createCashier(cashierDetails);
+    createCashier(cashierDetails).then((res) => {
+      if (res) {
+        setCashierDetails({
+          ...cashierDetails,
+          employerId: res,
+        });
+      }
+    });
   };
 
   return (

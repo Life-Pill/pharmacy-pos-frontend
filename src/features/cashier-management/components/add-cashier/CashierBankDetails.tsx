@@ -10,12 +10,18 @@ const CashierBankDetails = () => {
 
   const { updateBankDetails, loading } = useBankCRUDService();
 
-  const { createdCashier } = useCashierCRUDService();
+  useEffect(() => {
+    setCashierBankDetails({
+      ...cashierBankDetails,
+      employerId: cashierDetails.employerId,
+      monthlyPayment: cashierDetails.employerSalary,
+    });
+  }, []);
 
   const goToSummary = () => {
-    console.log('Summary', cashierDetails, createdCashier);
-    if (createdCashier && createdCashier.employerId) {
-      updateBankDetails(cashierBankDetails, createdCashier.employerId);
+    console.log('Summary', cashierDetails);
+    if (cashierDetails && cashierDetails.employerId) {
+      updateBankDetails(cashierBankDetails, cashierDetails.employerId);
     } else {
       toast.error('No cashier created yet.');
     }

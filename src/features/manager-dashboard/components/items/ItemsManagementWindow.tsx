@@ -1,17 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import { TbCirclePlus, TbSettingsCog } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import Medicine from '../../../../assets/fakedata/medicine';
+import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
+import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 
 const ItemsManagementWindow = () => {
-  const [filteredItems, setfilteredItems] = useState(Medicine);
+  const { fetchAllItems, items, filteredItems, setFilteredItems } =
+    useItemService();
+
   const handleSearch = (searchName: string) => {
-    const filtered = Medicine.filter((medicine) =>
-      medicine.name.includes(searchName)
+    const filtered = items.filter((medicine) =>
+      medicine.itemName.toLowerCase().includes(searchName.toLowerCase())
     );
-    setfilteredItems(filtered);
+    setFilteredItems(filtered);
   };
+
+  useEffect(() => {
+    fetchAllItems();
+  }, []);
+
   return (
     <div className='flex flex-col' data-testid='items-management-window'>
       {/* buttons */}
@@ -74,32 +83,35 @@ const ItemsManagementWindow = () => {
                 <th scope='col' className='px-6 py-3'>
                   Quantity
                 </th>
+                <th scope='col' className='px-6 py-3'></th>
               </tr>
             </thead>
             <tbody>
               {filteredItems.map((medicine) => (
                 <tr className='bg-slate-50 border-b'>
-                  <td className='px-6 py-4'>{medicine.id}</td>
-                  <td className='px-6 py-4'>{medicine.image}</td>
-                  <td className='px-6 py-4'>{medicine.name}</td>
-                  <td className='px-6 py-4'>{medicine.price}</td>
+                  <td className='px-6 py-4'>{medicine.itemId}</td>
+                  <td className='px-6 py-4'>{medicine.itemImage}</td>
+                  <td className='px-6 py-4'>{medicine.itemName}</td>
+                  <td className='px-6 py-4'>{medicine.sellingPrice}</td>
                   <td className='px-6 py-4'>
                     {
                       <div
                         className={`rounded-full p-1 w-24 flex items-center justify-center ${
-                          medicine.status === 'In Stock'
+                          medicine.itemQuantity > 0
                             ? 'bg-green-500'
                             : 'bg-yellow-500'
                         }`}
                       >
                         <span
                           className={`${
-                            medicine.status === 'In Stock'
+                            medicine.itemQuantity > 0
                               ? 'text-white'
                               : 'text-black'
                           }`}
                         >
-                          {medicine.status}
+                          {medicine.itemQuantity > 0
+                            ? 'In stock'
+                            : 'Out of stock'}
                         </span>
                       </div>
                     }
@@ -108,20 +120,45 @@ const ItemsManagementWindow = () => {
                     {
                       <div
                         className={`rounded-full p-1 w-24 flex items-center justify-center ${
-                          medicine.quantity > 0
+                          medicine.itemQuantity > 0
                             ? 'bg-green-500'
                             : 'bg-yellow-500'
                         }`}
                       >
                         <span
                           className={`${
-                            medicine.quantity > 0 ? 'text-white' : 'text-black'
+                            medicine.itemQuantity > 0
+                              ? 'text-white'
+                              : 'text-black'
                           }`}
                         >
-                          {medicine.quantity}
+                          {medicine.itemQuantity}
                         </span>
                       </div>
                     }
+                  </td>
+                  <td className='px-6 py-4'>
+                    {/* Update Button */}
+                    <button
+                      className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                      onClick={(e) => {}}
+                    >
+                      <BsPencilSquare className='text-blueDarker font-bold text-lg' />
+                    </button>
+                    {/* View Button */}
+                    <button
+                      className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                      onClick={(e) => {}}
+                    >
+                      <BsEye className='text-blueDarker font-bold text-lg' />
+                    </button>
+
+                    <button
+                      className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                      onClick={(e) => {}}
+                    >
+                      <BsTrash className='text-red font-bold text-lg' />
+                    </button>
                   </td>
                 </tr>
               ))}

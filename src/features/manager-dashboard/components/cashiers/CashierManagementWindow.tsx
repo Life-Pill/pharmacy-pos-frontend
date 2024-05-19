@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
 import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
 import Loader from '../../../../shared/loader/Loader';
-import { BsPencilSquare, BsEye } from 'react-icons/bs';
+import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 import {
   calculateActiveWorkers,
   calculateMaleFemaleWorkers,
@@ -43,6 +43,11 @@ const CashierManagementWindow = () => {
   const onViewClick = (employer: CashierDetailsType) => {
     console.log(employer.employerId);
     navigate('/view-cashier');
+  };
+
+  const onDeleteClick = (employer: CashierDetailsType) => {
+    console.log(employer.employerId);
+    // navigate('/view-cashier');
   };
 
   const { maleCount, femaleCount } = calculateMaleFemaleWorkers(workers);
@@ -189,6 +194,15 @@ const CashierManagementWindow = () => {
                         }}
                       >
                         <BsEye className='text-blueDarker font-bold text-lg' />
+                      </button>
+
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          onDeleteClick(worker);
+                        }}
+                      >
+                        <BsTrash className='text-red font-bold text-lg' />
                       </button>
                     </td>
                   </tr>
