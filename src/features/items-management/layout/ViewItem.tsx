@@ -3,9 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import useItemUpdateService from '../services/ItemUpdateService';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
 
-type Props = {};
-
-function ViewItem({}: Props) {
+function ViewItem() {
   const { itemId } = useParams();
   const { fetchItemById, itemDetails } = useItemUpdateService();
 
