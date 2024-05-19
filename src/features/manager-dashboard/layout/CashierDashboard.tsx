@@ -16,6 +16,7 @@ const CashierDashboard = () => {
     setSelectedItem(itemName);
   };
 
+  ////
   const renderSelectedItem = () => {
     switch (selectedItem) {
       case 'Dashboard':
