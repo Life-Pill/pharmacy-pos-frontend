@@ -152,7 +152,9 @@ const ItemsManagementWindow = () => {
                     {/* View Button */}
                     <button
                       className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {}}
+                      onClick={(e) => {
+                        navigate(`/view-item/${medicine.itemId}`);
+                      }}
                     >
                       <BsEye className='text-blueDarker font-bold text-lg' />
                     </button>
