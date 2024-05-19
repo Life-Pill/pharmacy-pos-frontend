@@ -1,41 +1,53 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { IItemInterface } from '../../../interfaces/IItemInterface';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
+import useItemUpdateService from '../services/ItemUpdateService';
 
 const UpdateItems = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [item, setItem] = useState<IItemInterface>({} as IItemInterface);
   const navigate = useNavigate();
+  const { itemId } = useParams();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
-          setItem({
-            ...item,
-            itemImage: reader.result,
-          });
-        }
-      };
-      reader.readAsDataURL(file);
-    }
+    // const file: File | null = e.target.files ? e.target.files[0] : null;
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onloadend = () => {
+    //     if (typeof reader.result === 'string') {
+    //       setPreviewImage(reader.result);
+    //       setItem({
+    //         ...item,
+    //         itemImage: reader.result,
+    //       });
+    //     }
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
   };
 
+  const { fetchItemById, itemDetails, item, setItem, updateItem, updating } =
+    useItemUpdateService();
+
   const handleConfirm = () => {
-    navigate('/');
+    // console.log('confirm', item);
+    updateItem(item);
+    // navigate('/');
   };
+
+  useEffect(() => {
+    if (itemId) {
+      fetchItemById(parseInt(itemId));
+    }
+  }, []);
 
   return (
     <div className=' bg-indigo-100 h-screen font-poppins'>
-      <CashierManagerNavBar topic='Add Items' />
+      <CashierManagerNavBar topic='Updating Items' />
       <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
         <p className='text-2xl font-bold text-center mb-4'>
-          Creating A New Item
+          Updating Item With Id: {itemId}
         </p>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
           <div className='flex items-center justify-center gap-4 flex-col'>
@@ -78,6 +90,7 @@ const UpdateItems = () => {
               type='text'
               id='name'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.itemName}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -96,6 +109,7 @@ const UpdateItems = () => {
               type='text'
               id='sellingPrice'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.sellingPrice}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -114,10 +128,11 @@ const UpdateItems = () => {
               type='date'
               id='supplyDate'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.supplyDate?.slice(0, 10)}
               onChange={(e) => {
                 setItem({
                   ...item,
-                  supplyDate: new Date(e.target.value),
+                  supplyDate: e.target.value,
                 });
               }}
             />
@@ -132,6 +147,7 @@ const UpdateItems = () => {
               type='text'
               id='supplierPrice'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.supplierPrice}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -150,6 +166,7 @@ const UpdateItems = () => {
               type='text'
               id='itemManufacturer'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.itemManufacture}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -168,6 +185,7 @@ const UpdateItems = () => {
               type='number'
               id='itemQuantity'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.itemQuantity}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -188,18 +206,19 @@ const UpdateItems = () => {
             <select
               id='itemCategory'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.categoryId}
               onChange={(e) => {
                 setItem({
                   ...item,
-                  itemCategory: e.target.value,
+                  categoryId: parseInt(e.target.value),
                 });
               }}
             >
-              <option value='medicine'>Medicine</option>
-              <option value='nutritions'>Nutritions</option>
-              <option value='sports'>Sports</option>
-              <option value='equipment'>Equipment</option>
-              <option value='firstAid'>First Aid</option>
+              <option value='1'>Medicine</option>
+              <option value='2'>Nutritions</option>
+              <option value='3'>Sports</option>
+              <option value='4'>Equipment</option>
+              <option value='5'>First Aid</option>
             </select>
 
             <label
@@ -208,17 +227,21 @@ const UpdateItems = () => {
             >
               Measuring Unit Type
             </label>
-            <input
-              type='text'
+            <select
               id='measuringUnitType'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.measuringUnitType}
               onChange={(e) => {
                 setItem({
                   ...item,
                   measuringUnitType: e.target.value,
                 });
               }}
-            />
+            >
+              <option value='KILO_GRAM'>Kilo gram</option>
+              <option value='LITER'>Liter</option>
+              <option value='PIECE'>Piece</option>
+            </select>
 
             <label
               htmlFor='manufactureDate'
@@ -230,10 +253,11 @@ const UpdateItems = () => {
               type='date'
               id='manufactureDate'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.manufactureDate?.slice(0, 10)}
               onChange={(e) => {
                 setItem({
                   ...item,
-                  manufactureDate: new Date(e.target.value),
+                  manufactureDate: e.target.value,
                 });
               }}
             />
@@ -248,10 +272,11 @@ const UpdateItems = () => {
               type='date'
               id='expireDate'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.expireDate?.slice(0, 10)}
               onChange={(e) => {
                 setItem({
                   ...item,
-                  expireDate: new Date(e.target.value),
+                  expireDate: e.target.value,
                 });
               }}
             />
@@ -266,10 +291,11 @@ const UpdateItems = () => {
               type='date'
               id='purchaseDate'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.purchaseDate?.slice(0, 10)}
               onChange={(e) => {
                 setItem({
                   ...item,
-                  purchaseDate: new Date(e.target.value),
+                  purchaseDate: e.target.value,
                 });
               }}
             />
@@ -284,6 +310,7 @@ const UpdateItems = () => {
               type='text'
               id='warrantyPeriod'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.warrantyPeriod}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -304,6 +331,7 @@ const UpdateItems = () => {
               type='text'
               id='rackNumber'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.rackNumber}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -322,6 +350,7 @@ const UpdateItems = () => {
               type='number'
               id='discountedPercentage'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.discountedPercentage}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -340,7 +369,13 @@ const UpdateItems = () => {
               type='text'
               id='warehouseName'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              value={item.warehouseName}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  warehouseName: e.target.value,
+                });
+              }}
             />
 
             <label
@@ -353,6 +388,7 @@ const UpdateItems = () => {
               type='text'
               id='itemDescription'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.itemDescription}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -370,6 +406,7 @@ const UpdateItems = () => {
             <select
               id='specialCondition'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              value={item.specialCondition ? 'true' : 'false'}
               onChange={(e) => {
                 setItem({
                   ...item,
@@ -388,13 +425,13 @@ const UpdateItems = () => {
             className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
             onClick={handleConfirm}
           >
-            Create & Continue
+            {updating ? 'Updating...' : 'Update'}
           </button>
           <button
             type='button'
             className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
           >
-            <Link to='/'>Back To Cashier Manager</Link>
+            <Link to='/manager-dashboard/Items'>Back To Item Manager</Link>
           </button>
         </div>
       </div>
