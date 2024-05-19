@@ -8,9 +8,11 @@ import SalesManagementWindow from '../components/sales/SalesManagementWindow';
 import ItemsManagementWindow from '../components/items/ItemsManagementWindow';
 import SavedReportsWindow from '../components/reports/SavedReportsWindow';
 import FeedbacksManagementWindow from '../components/feedbacks/FeedbacksManagementWindow';
+import { useParams } from 'react-router-dom';
 
 const MainDashboard = () => {
-  const [selectedItem, setSelectedItem] = useState<String>('Dashboard');
+  const { item } = useParams();
+  const [selectedItem, setSelectedItem] = useState<String>(item || 'Dashboard');
 
   const handleItemClick = (itemName: String) => {
     setSelectedItem(itemName);

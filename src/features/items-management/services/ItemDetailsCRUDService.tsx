@@ -105,7 +105,7 @@ const useItemService = () => {
       const res = await http.post('/item/save-item', item);
       if (res.data.code === 201) {
         toast.success(res.data.message);
-        navigate('/item-management-window');
+        navigate('/manager-dashboard/Items');
       }
       console.log(res);
     } catch (error) {
