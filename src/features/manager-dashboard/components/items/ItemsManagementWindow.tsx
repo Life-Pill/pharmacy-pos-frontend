@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import { TbCirclePlus, TbSettingsCog } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import Medicine from '../../../../assets/fakedata/medicine';
 import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
+import useItemUpdateService from '../../../items-management/services/ItemUpdateService';
 
 const ItemsManagementWindow = () => {
   const { fetchAllItems, items, filteredItems, setFilteredItems, deleteItem } =
@@ -17,9 +18,11 @@ const ItemsManagementWindow = () => {
     setFilteredItems(filtered);
   };
 
+  const { fetchItemById } = useItemUpdateService();
+
   useEffect(() => {
     fetchAllItems();
-  }, [deleteItem]);
+  }, []);
 
   return (
     <div className='flex flex-col' data-testid='items-management-window'>
@@ -141,7 +144,9 @@ const ItemsManagementWindow = () => {
                     {/* Update Button */}
                     <button
                       className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {}}
+                      onClick={(e) => {
+                        fetchItemById(medicine.itemId);
+                      }}
                     >
                       <BsPencilSquare className='text-blueDarker font-bold text-lg' />
                     </button>

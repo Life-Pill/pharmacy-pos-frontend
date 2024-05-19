@@ -140,6 +140,7 @@ const useItemService = () => {
         console.log(res);
 
         toast.success(`Item deleted successfully: ${itemId}`);
+        fetchAllItems();
       } catch (error) {
         console.log(error);
         toast.error(`Could not delete item: ${itemId}`);

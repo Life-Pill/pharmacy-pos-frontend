@@ -1,21 +1,17 @@
-import { ItemCategoryDTO } from './ItemCategoryDTO';
-import { SupplierCompanyDTO } from './SupplierCompanyDTO';
-import { SupplierDTO } from './SupplierDTO';
-
 export interface Item {
   itemId: number;
+  branchId: number;
   itemName: string;
   sellingPrice: number;
   itemBarCode: string;
-  supplyDate: string;
+  supplyDate: string; // Assuming ISO 8601 format string
   supplierPrice: number;
   itemManufacture: string;
   itemQuantity: number;
   measuringUnitType: 'KILO_GRAM' | 'LITER' | 'PIECE' | string; // Enum type for measuring units
-
-  manufactureDate: string;
-  expireDate: string;
-  purchaseDate: string;
+  manufactureDate: string; // Assuming ISO 8601 format string
+  expireDate: string; // Assuming ISO 8601 format string
+  purchaseDate: string; // Assuming ISO 8601 format string
   warrantyPeriod: string;
   rackNumber: string;
   discountedPrice: number;
@@ -23,11 +19,10 @@ export interface Item {
   warehouseName: string;
   itemImage: string;
   itemDescription: string;
-  itemCategoryDTO: ItemCategoryDTO;
-  supplierDTO: SupplierDTO | null;
-  supplierCompanyDTO: SupplierCompanyDTO | null;
-  freeIssued: boolean;
-  discounted: boolean;
+  categoryId: number;
+  supplierId: number;
   specialCondition: boolean;
   stock: boolean;
+  discounted: boolean;
+  freeIssued: boolean;
 }
