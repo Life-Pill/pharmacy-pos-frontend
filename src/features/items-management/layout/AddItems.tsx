@@ -414,7 +414,7 @@ const AddItems = () => {
             type='button'
             className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
           >
-            <Link to='/'>Back To Cashier Manager</Link>
+            <Link to='/item-management-window'>Back To Items Manager</Link>
           </button>
         </div>
       </div>

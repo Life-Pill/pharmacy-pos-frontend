@@ -4,6 +4,7 @@ import { Item } from '../interfaces/Item';
 import { toast } from 'react-toastify';
 import { useUserContext } from '../../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import validateItem from '../utils/validation';
 
 const useItemService = () => {
   const http = useAxiosInstance();
@@ -94,6 +95,12 @@ const useItemService = () => {
   const createItem = async () => {
     console.log('createItem', item);
     setCreating(true);
+
+    if (!validateItem(item)) {
+      setCreating(false);
+      return;
+    }
+
     try {
       const res = await http.post('/item/save-item', item);
       if (res.data.code === 201) {
