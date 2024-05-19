@@ -29,7 +29,7 @@ const MedicalDeviceTable = () => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  });
+  },[]);
   //
 
   const fetchMedicine = async () => {

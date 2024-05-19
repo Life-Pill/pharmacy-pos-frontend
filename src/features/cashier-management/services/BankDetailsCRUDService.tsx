@@ -33,7 +33,7 @@ const useBankCRUDService = () => {
     try {
       console.log('Bank Details', bankDetails);
       const res = await http.put(
-        `/employers/updateBankAccountDetails/${employerID}`,
+        `/employers/updateEmployerBankAccountDetailsWithId/${employerID}`,
         bankDetails
       );
       if (res.status === 200) {

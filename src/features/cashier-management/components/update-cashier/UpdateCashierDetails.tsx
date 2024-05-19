@@ -269,7 +269,6 @@ const UpdateCashierDetails = () => {
                 type='date'
                 id='dateOfBirth'
                 className='mt-1 p-2 border-gray rounded-md w-64'
-                value={cashierDetails.dateOfBirth.toString()}
                 onChange={(e) =>
                   setCashierDetails({
                     ...cashierDetails,

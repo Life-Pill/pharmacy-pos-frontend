@@ -18,7 +18,7 @@ const useAxiosInstance = () => {
       return acc;
     }, {});
 
-    const token = cookies.Authorization; // Assuming Authorization is the key for your token in the cookie
+    const token = cookies.Authorization;
     if (token) {
       console.log('Setting token:', token);
       instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;

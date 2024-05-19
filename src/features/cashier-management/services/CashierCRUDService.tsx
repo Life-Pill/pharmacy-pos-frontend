@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserContext } from '../../../context/UserContext';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { CashierDetailsType } from '../interfaces/CashierDetailsType';
@@ -63,13 +63,15 @@ const useCashierCRUDService = () => {
 
     setLoading(true);
     try {
-      // console.log('Employer', employer);
       const res = await http.post('/employers/save-without-image', employer);
-      console.log(res);
 
-      if (res.status === 200) {
-        toast.success(`${employer.employerFirstName} created successfully!`);
+      console.log(res.data);
+      if (res.data.code === 201) {
+        const createdCashierData = res.data.data;
         setCurrentComponent(ComponentState.BankDetails);
+        console.log('Created cashier:', createdCashierData.employerId);
+        toast.success('Cashier created successfully!');
+        return createdCashierData.employerId;
       }
     } catch (error) {
       console.log(error);

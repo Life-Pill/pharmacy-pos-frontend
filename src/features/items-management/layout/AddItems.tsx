@@ -3,31 +3,56 @@ import CashierManagerNavBar from '../../cashier-management/components/navbar/Cas
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link, useNavigate } from 'react-router-dom';
 import { IItemInterface } from '../../../interfaces/IItemInterface';
+import { Item } from '../interfaces/Item';
+import useItemService from '../services/ItemDetailsCRUDService';
 
 const AddItems = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [item, setItem] = useState<IItemInterface>({} as IItemInterface);
   const navigate = useNavigate();
+  const { item, setItem, preSet, creating } = useItemService();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file: File | null = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
-          setItem({
-            ...item,
-            itemImage: reader.result,
-          });
-        }
-      };
-      reader.readAsDataURL(file);
-    }
+    // const file: File | null = e.target.files ? e.target.files[0] : null;
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onloadend = () => {
+    //     if (typeof reader.result === 'string') {
+    //       setPreviewImage(reader.result);
+    //       setItem({
+    //         ...item,
+    //         itemImage: reader.result,
+    //       });
+    //     }
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
   };
 
   const handleConfirm = () => {
-    navigate('/');
+    preSet();
+    // navigate('/');
+  };
+
+  const handleSpecialConditionChange = (e: any) => {
+    const value = e.target.value === 'true';
+    setItem((prevItem) => ({
+      ...prevItem,
+      specialCondition: value,
+    }));
+  };
+
+  const handleMeasuringUnitChange = (e: any) => {
+    setItem({
+      ...item,
+      measuringUnitType: e.target.value,
+    });
+  };
+
+  const handleCategoryChange = (e: any) => {
+    setItem({
+      ...item,
+      categoryId: parseInt(e.target.value),
+    });
   };
 
   return (
@@ -117,7 +142,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  supplyDate: new Date(e.target.value),
+                  supplyDate: new Date(e.target.value).toISOString(),
                 });
               }}
             />
@@ -171,7 +196,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  itemQuantity: parseFloat(e.target.value),
+                  itemQuantity: parseInt(e.target.value),
                 });
               }}
             />
@@ -188,18 +213,14 @@ const AddItems = () => {
             <select
               id='itemCategory'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {
-                setItem({
-                  ...item,
-                  itemCategory: e.target.value,
-                });
-              }}
+              value={item.categoryId}
+              onChange={handleCategoryChange}
             >
-              <option value='medicine'>Medicine</option>
-              <option value='nutritions'>Nutritions</option>
-              <option value='sports'>Sports</option>
-              <option value='equipment'>Equipment</option>
-              <option value='firstAid'>First Aid</option>
+              <option value='1'>Medicine</option>
+              <option value='2'>Nutritions</option>
+              <option value='3'>Sports</option>
+              <option value='4'>Equipment</option>
+              <option value='5'>First Aid</option>
             </select>
 
             <label
@@ -208,17 +229,16 @@ const AddItems = () => {
             >
               Measuring Unit Type
             </label>
-            <input
-              type='text'
+            <select
               id='measuringUnitType'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {
-                setItem({
-                  ...item,
-                  measuringUnitType: e.target.value,
-                });
-              }}
-            />
+              value={item.measuringUnitType}
+              onChange={handleMeasuringUnitChange}
+            >
+              <option value='KILO_GRAM'>Kilo gram</option>
+              <option value='LITER'>Liter</option>
+              <option value='PIECE'>Piece</option>
+            </select>
 
             <label
               htmlFor='manufactureDate'
@@ -233,7 +253,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  manufactureDate: new Date(e.target.value),
+                  manufactureDate: new Date(e.target.value).toISOString(),
                 });
               }}
             />
@@ -251,7 +271,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  expireDate: new Date(e.target.value),
+                  expireDate: new Date(e.target.value).toISOString(),
                 });
               }}
             />
@@ -269,7 +289,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  purchaseDate: new Date(e.target.value),
+                  purchaseDate: new Date(e.target.value).toISOString(),
                 });
               }}
             />
@@ -340,7 +360,12 @@ const AddItems = () => {
               type='text'
               id='warehouseName'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {}}
+              onChange={(e) => {
+                setItem({
+                  ...item,
+                  warehouseName: e.target.value,
+                });
+              }}
             />
 
             <label
@@ -370,12 +395,7 @@ const AddItems = () => {
             <select
               id='specialCondition'
               className='mt-1 p-2 border-gray rounded-md w-64'
-              onChange={(e) => {
-                setItem({
-                  ...item,
-                  specialCondition: e.target.value === 'true' ? true : false,
-                });
-              }}
+              onChange={handleSpecialConditionChange}
             >
               <option value='true'>Yes</option>
               <option value='false'>No</option>
@@ -388,13 +408,13 @@ const AddItems = () => {
             className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
             onClick={handleConfirm}
           >
-            Create & Continue
+            {creating ? 'Creating ...' : 'Create'}
           </button>
           <button
             type='button'
             className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
           >
-            <Link to='/'>Back To Cashier Manager</Link>
+            <Link to='/item-management-window'>Back To Items Manager</Link>
           </button>
         </div>
       </div>

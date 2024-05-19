@@ -25,8 +25,15 @@ const CashierDetails = () => {
   const { createCashier, loading } = useCashierCRUDService();
 
   const goToBankDetails = () => {
-    console.log(cashierDetails);
-    createCashier(cashierDetails);
+    // console.log(cashierDetails);
+    createCashier(cashierDetails).then((res) => {
+      if (res) {
+        setCashierDetails({
+          ...cashierDetails,
+          employerId: res,
+        });
+      }
+    });
   };
 
   return (
@@ -380,7 +387,7 @@ const CashierDetails = () => {
           type='button'
           className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
         >
-          <Link to='/'>Back To Cashier Manager</Link>
+          <Link to='/cashier-management-window'>Back To Cashier Manager</Link>
         </button>
       </div>
     </div>

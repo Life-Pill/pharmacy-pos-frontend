@@ -30,7 +30,7 @@ const NutritionTable = () => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  });
+  }, []);
   //
 
   const fetchMedicine = async () => {
