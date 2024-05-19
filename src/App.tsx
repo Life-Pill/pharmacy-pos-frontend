@@ -55,7 +55,7 @@ function App() {
             />
             <Route path='/view-cashier' element={<ViewCashier />} />
             <Route path='/add-items' element={<AddItems />} />
-            <Route path='/update-items' element={<UpdateItems />} />
+            <Route path='/update-items/:itemId' element={<UpdateItems />} />
             <Route path='/remove-items' element={<RemoveItems />} />
           </>
         ) : (

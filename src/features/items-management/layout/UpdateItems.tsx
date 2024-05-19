@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { IItemInterface } from '../../../interfaces/IItemInterface';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
+import useItemUpdateService from '../services/ItemUpdateService';
 
 const UpdateItems = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -30,13 +31,20 @@ const UpdateItems = () => {
   const handleConfirm = () => {
     navigate('/');
   };
+  const { fetchItemById, itemDetails } = useItemUpdateService();
+
+  useEffect(() => {
+    if (itemId) {
+      fetchItemById(parseInt(itemId));
+    }
+  }, []);
 
   return (
     <div className=' bg-indigo-100 h-screen font-poppins'>
-      <CashierManagerNavBar topic='Add Items' />
+      <CashierManagerNavBar topic='Updating Items' />
       <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
         <p className='text-2xl font-bold text-center mb-4'>
-          Creating A New Item
+          Updating Item With Id: {itemId}
         </p>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
           <div className='flex items-center justify-center gap-4 flex-col'>
@@ -395,7 +403,7 @@ const UpdateItems = () => {
             type='button'
             className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
           >
-            <Link to='/'>Back To Cashier Manager</Link>
+            <Link to='/manager-dashboard/Items'>Back To Item Manager</Link>
           </button>
         </div>
       </div>

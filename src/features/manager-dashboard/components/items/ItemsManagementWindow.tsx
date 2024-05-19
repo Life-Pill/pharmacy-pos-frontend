@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { LiaStreetViewSolid } from 'react-icons/lia';
 import { TbCirclePlus, TbSettingsCog } from 'react-icons/tb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Medicine from '../../../../assets/fakedata/medicine';
 import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
@@ -17,12 +17,11 @@ const ItemsManagementWindow = () => {
     );
     setFilteredItems(filtered);
   };
-
-  const { fetchItemById } = useItemUpdateService();
-
   useEffect(() => {
     fetchAllItems();
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <div className='flex flex-col' data-testid='items-management-window'>
@@ -145,7 +144,7 @@ const ItemsManagementWindow = () => {
                     <button
                       className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
                       onClick={(e) => {
-                        fetchItemById(medicine.itemId);
+                        navigate(`/update-items/${medicine.itemId}`);
                       }}
                     >
                       <BsPencilSquare className='text-blueDarker font-bold text-lg' />
