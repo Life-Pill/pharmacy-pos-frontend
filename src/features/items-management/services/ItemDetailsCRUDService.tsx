@@ -15,6 +15,7 @@ const useItemService = () => {
   const [shouldCreate, setShouldCreate] = useState(false); // New state to trigger item creation
   const { user } = useUserContext();
   const navigate = useNavigate();
+  const [deleting, setDeleting] = useState(false);
 
   const [item, setItem] = useState<Item>({
     itemId: 0,
@@ -116,12 +117,37 @@ const useItemService = () => {
     }
   };
 
+  const fetchItemByName = async (itemName: string) => {
+    try {
+      const res = await http.get('/item/get-by-name');
+    } catch (error) {}
+  };
+
   const updateItem = (item: Item) => {
     // Update item logic
   };
 
-  const deleteItem = (itemId: string) => {
-    // Delete item logic
+  const deleteItem = async (itemId: number) => {
+    // Prompt a confirmation dialog
+    const confirmed = window.confirm(
+      `Are you sure you want to delete item ${itemId}?`
+    );
+
+    if (confirmed) {
+      try {
+        // Send delete request if user confirms
+        const res = await http.delete(`/item/delete-item/${itemId}`);
+        console.log(res);
+
+        toast.success(`Item deleted successfully: ${itemId}`);
+      } catch (error) {
+        console.log(error);
+        toast.error(`Could not delete item: ${itemId}`);
+      }
+    } else {
+      // Show message if user cancels deletion
+      toast.info('Deletion canceled.');
+    }
   };
 
   return {
@@ -135,6 +161,7 @@ const useItemService = () => {
     loading,
     creating,
     preSet,
+    deleteItem,
   };
 };
 

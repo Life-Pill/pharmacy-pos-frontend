@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { IItemInterface } from '../../../interfaces/IItemInterface';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
 
@@ -8,6 +8,7 @@ const UpdateItems = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [item, setItem] = useState<IItemInterface>({} as IItemInterface);
   const navigate = useNavigate();
+  const { itemId } = useParams();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;

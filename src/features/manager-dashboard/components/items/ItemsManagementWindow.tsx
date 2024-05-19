@@ -7,7 +7,7 @@ import useItemService from '../../../items-management/services/ItemDetailsCRUDSe
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 
 const ItemsManagementWindow = () => {
-  const { fetchAllItems, items, filteredItems, setFilteredItems } =
+  const { fetchAllItems, items, filteredItems, setFilteredItems, deleteItem } =
     useItemService();
 
   const handleSearch = (searchName: string) => {
@@ -19,7 +19,7 @@ const ItemsManagementWindow = () => {
 
   useEffect(() => {
     fetchAllItems();
-  }, []);
+  }, [deleteItem]);
 
   return (
     <div className='flex flex-col' data-testid='items-management-window'>
@@ -155,7 +155,9 @@ const ItemsManagementWindow = () => {
 
                     <button
                       className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {}}
+                      onClick={(e) => {
+                        deleteItem(medicine.itemId);
+                      }}
                     >
                       <BsTrash className='text-red font-bold text-lg' />
                     </button>
