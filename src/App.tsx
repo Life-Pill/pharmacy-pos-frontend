@@ -17,6 +17,8 @@ import {
 } from './features/items-management';
 import MainDashboard from './features/manager-dashboard';
 import { useUserContext } from './context/UserContext';
+import ItemsManagementWindow from './features/manager-dashboard/components/items/ItemsManagementWindow';
+import ItemDashboard from './features/manager-dashboard/layout/ItemDashboard';
 
 function App() {
   const { user } = useUserContext();
@@ -48,6 +50,7 @@ function App() {
               path='/update-cashier/:employerId'
               element={<UpdateCashier />}
             />
+            <Route path='/item-management-window' element={<ItemDashboard />} />
             <Route path='/view-cashier' element={<ViewCashier />} />
             <Route path='/add-items' element={<AddItems />} />
             <Route path='/update-items' element={<UpdateItems />} />
