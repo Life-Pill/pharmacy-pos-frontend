@@ -6,6 +6,7 @@ import Medicine from '../../../../assets/fakedata/medicine';
 import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 import useItemUpdateService from '../../../items-management/services/ItemUpdateService';
+import { BsBoxSeam, BsBoxes, BsExclamationTriangle } from 'react-icons/bs';
 
 const ItemsManagementWindow = () => {
   const { fetchAllItems, items, filteredItems, setFilteredItems, deleteItem } =
@@ -23,33 +24,55 @@ const ItemsManagementWindow = () => {
 
   const navigate = useNavigate();
 
+  // Calculate summary information
+  const totalItems = items.length;
+  const inStockItems = items.reduce(
+    (acc, item) => acc + (item.itemQuantity > 0 ? 1 : 0),
+    0
+  );
+  const outOfStockItems = items.reduce(
+    (acc, item) => acc + (item.itemQuantity === 0 ? 1 : 0),
+    0
+  );
+  const averagePrice = (
+    items.reduce((acc, item) => acc + item.sellingPrice, 0) / totalItems
+  ).toFixed(2);
+
   return (
     <div className='flex flex-col' data-testid='items-management-window'>
       {/* buttons */}
+
+      {/* Summary Cards */}
       <div className='flex flex-row items-center z-20 p-8 px-16 justify-around bg-slate-200 rounded-lg'>
-        <Link
-          to='/add-items'
-          className=' bg-yellow-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
-        >
-          <TbCirclePlus size={25} />
-          <h1 className=' font-medium'>Add Items</h1>
-        </Link>
-
-        <Link
-          to='/update-items'
-          className=' bg-purple-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
-        >
-          <TbSettingsCog size={25} />
-          <h1 className='font-medium'>Update Items</h1>
-        </Link>
-
-        <Link
-          to='/delete-items'
-          className=' bg-green-300 p-8 rounded-lg flex flex-row gap-2 items-center cursor-pointer'
-        >
-          <LiaStreetViewSolid size={25} />
-          <h1 className='font-medium'>Delete Items</h1>
-        </Link>
+        <div className='flex flex-row items-center z-20 p-2 px-16 justify-around bg-slate-200 rounded-lg space-x-12'>
+          <div className='summary-card bg-yellow-300 p-8 rounded-lg flex flex-col items-center'>
+            <BsBoxSeam size={25} />
+            <h1 className='font-medium'>Total Items</h1>
+            <h2 className='text-xl font-bold'>{totalItems}</h2>
+          </div>
+          <div className='summary-card bg-green-300 p-8 rounded-lg flex flex-col items-center'>
+            <BsBoxes size={25} />
+            <h1 className='font-medium'>In Stock</h1>
+            <h2 className='text-xl font-bold'>{inStockItems}</h2>
+          </div>
+          <div className='summary-card bg-orange-500 p-8 rounded-lg flex flex-col items-center'>
+            <BsExclamationTriangle size={25} />
+            <h1 className='font-medium'>Out of Stock</h1>
+            <h2 className='text-xl font-bold'>{outOfStockItems}</h2>
+          </div>
+          <div className='summary-card bg-purple-300 p-8 rounded-lg flex flex-col items-center'>
+            <TbCirclePlus size={25} />
+            <h1 className='font-medium'>Average Price</h1>
+            <h2 className='text-xl font-bold'>${averagePrice}</h2>
+          </div>
+          <Link
+            to='/add-items'
+            className='summary-card bg-yellow-300 gap-2 cursor-pointer p-8 py-10 rounded-lg flex flex-col items-center'
+          >
+            <TbCirclePlus size={25} />
+            <h1 className=' font-medium'>Add Items</h1>
+          </Link>
+        </div>
       </div>
 
       {/* table */}
