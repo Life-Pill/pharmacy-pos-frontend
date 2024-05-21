@@ -266,7 +266,7 @@ const CashierDetails = () => {
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,
-                dateOfBirth: new Date(e.target.value),
+                dateOfBirth: e.target.value,
               })
             }
           />

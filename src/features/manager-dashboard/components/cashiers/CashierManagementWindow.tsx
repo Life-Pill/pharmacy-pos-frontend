@@ -12,6 +12,7 @@ import {
   calculateActiveWorkers,
   calculateMaleFemaleWorkers,
 } from '../../utils/cashierManagementUtils';
+import useCashierCRUDService from '../../../cashier-management/services/CashierCRUDService';
 
 const CashierManagementWindow = () => {
   const navigate = useNavigate();
