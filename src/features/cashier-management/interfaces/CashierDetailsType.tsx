@@ -12,7 +12,7 @@ export interface CashierDetailsType {
   employerSalary: number;
   employerNic: string;
   gender: 'MALE' | 'FEMALE' | 'OTHER'; // Assuming gender can be one of these values
-  dateOfBirth: Date;
+  dateOfBirth: string;
   role: 'OWNER' | 'MANAGER' | 'CASHIER' | 'OTHER'; // Assuming role can be one of these values
   pin: number;
   activeStatus: boolean;

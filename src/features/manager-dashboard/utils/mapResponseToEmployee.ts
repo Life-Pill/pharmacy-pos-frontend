@@ -15,7 +15,7 @@ export const mapResponseToEmployee = (employee: any): CashierDetailsType => {
     employerSalary: employee.employerSalary,
     employerNic: employee.employerNic,
     gender: employee.gender,
-    dateOfBirth: new Date(employee.dateOfBirth),
+    dateOfBirth: employee.dateOfBirth,
     role: employee.role,
     pin: employee.pin,
     activeStatus: employee.activeStatus,

@@ -270,11 +270,11 @@ const UpdateCashierDetails = () => {
                 type='date'
                 id='dateOfBirth'
                 className='mt-1 p-2 border-gray rounded-md w-64'
-                value={cashierDetails.dateOfBirth.toISOString().slice(0, 10)}
+                value={cashierDetails.dateOfBirth?.slice(0, 10)}
                 onChange={(e) =>
                   setCashierDetails({
                     ...cashierDetails,
-                    dateOfBirth: new Date(e.target.value),
+                    dateOfBirth: e.target.value,
                   })
                 }
               />

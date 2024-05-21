@@ -36,7 +36,7 @@ function CashierDetailsSummary() {
         </p>
         <p>
           <span className='font-semibold'>Date of Birth:</span>{' '}
-          {cashierDetails.dateOfBirth.toDateString()}
+          {cashierDetails.dateOfBirth?.slice(0, 10)}
         </p>
       </div>
       <div className='bg-gray-100 p-4 rounded-lg'>

@@ -262,7 +262,7 @@ const CashierDetails = () => {
             type='date'
             id='dateOfBirth'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.dateOfBirth.toISOString().split('T')[0]}
+            value={cashierDetails.dateOfBirth?.slice(0, 10)}
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,
