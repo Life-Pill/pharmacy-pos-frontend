@@ -1,22 +1,41 @@
+import { useEffect } from 'react';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
+import useCashierCRUDService from '../../services/CashierCRUDService';
+import { useParams } from 'react-router-dom';
+import Loader from '../../../../shared/loader/Loader';
 
 const UpdateCashierBankDetails = () => {
-  const {
-    setCurrentComponent,
-    cashierBankDetails,
-    setCashierBankDetails,
-    cashierDetails,
-  } = useCashierContext();
+  const { employerId } = useParams();
 
-  const { updateBankDetails } = useBankCRUDService();
+  const {
+    fetchCashierById,
+    cashierDetails,
+    setCashierDetails,
+    loading,
+    updateCashier,
+    updating,
+  } = useCashierCRUDService();
+
+  const { setCurrentComponent } = useCashierContext();
+
+  const {
+    updateBankDetails,
+    setCashierBankDetails,
+    cashierBankDetails,
+    fetchBankDetailsById,
+  } = useBankCRUDService();
 
   const goToSummary = () => {
-    updateBankDetails(cashierBankDetails, cashierDetails.employerId);
+    updateBankDetails(cashierBankDetails, parseInt(employerId as string) || 0);
   };
   const goToBack = () => {
     setCurrentComponent(ComponentState.Details);
   };
+
+  useEffect(() => {
+    fetchBankDetailsById(parseInt(employerId as string));
+  }, []);
   return (
     <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
       {/* First Column */}
@@ -109,20 +128,25 @@ const UpdateCashierBankDetails = () => {
             type='text'
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierDetails.employerSalary}
+            value={cashierBankDetails.monthlyPayment}
             readOnly
           />
         </div>
       </div>
 
       <div className='flex items-center justify-center gap-8 w-full'>
-        <button
-          type='button'
-          className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
-          onClick={goToSummary}
-        >
-          Create & Continue
-        </button>
+        {loading ? (
+          <Loader />
+        ) : (
+          <button
+            type='button'
+            className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+            onClick={goToSummary}
+          >
+            Create & Continue
+          </button>
+        )}
+
         <button
           type='button'
           className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
