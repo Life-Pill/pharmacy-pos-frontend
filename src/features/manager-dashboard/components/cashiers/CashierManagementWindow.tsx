@@ -12,6 +12,7 @@ import {
   calculateActiveWorkers,
   calculateMaleFemaleWorkers,
 } from '../../utils/cashierManagementUtils';
+import useCashierCRUDService from '../../../cashier-management/services/CashierCRUDService';
 
 const CashierManagementWindow = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const CashierManagementWindow = () => {
 
   const onViewClick = (employer: CashierDetailsType) => {
     console.log(employer.employerId);
-    navigate('/view-cashier');
+    navigate(`/view-cashier/${employer.employerId}`);
   };
 
   const onDeleteClick = (employer: CashierDetailsType) => {

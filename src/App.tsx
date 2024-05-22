@@ -53,7 +53,7 @@ function App() {
               path='/manager-dashboard/:item'
               element={<MainDashboard />}
             />
-            <Route path='/view-cashier' element={<ViewCashier />} />
+            <Route path='/view-cashier/:employerId' element={<ViewCashier />} />
             <Route path='/add-items' element={<AddItems />} />
             <Route path='/update-items/:itemId' element={<UpdateItems />} />
             <Route path='/view-item/:itemId' element={<ViewItem />} />

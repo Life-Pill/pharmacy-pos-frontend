@@ -5,6 +5,7 @@ import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 import Loader from '../../../../shared/loader/Loader';
 import { CashierDetailsType } from '../../interfaces/CashierDetailsType';
+import useBankCRUDService from '../../services/BankDetailsCRUDService';
 
 const UpdateCashierDetails = () => {
   const { employerId } = useParams();
@@ -269,10 +270,11 @@ const UpdateCashierDetails = () => {
                 type='date'
                 id='dateOfBirth'
                 className='mt-1 p-2 border-gray rounded-md w-64'
+                value={cashierDetails.dateOfBirth?.slice(0, 10)}
                 onChange={(e) =>
                   setCashierDetails({
                     ...cashierDetails,
-                    dateOfBirth: new Date(e.target.value),
+                    dateOfBirth: e.target.value,
                   })
                 }
               />
@@ -345,6 +347,7 @@ const UpdateCashierDetails = () => {
                 type='text'
                 id='confirmPassword'
                 className='mt-1 p-2 border-gray rounded-md w-64'
+                value={cashierDetails.employerConfirmPassword}
                 onChange={(e) =>
                   setCashierDetails({
                     ...cashierDetails,

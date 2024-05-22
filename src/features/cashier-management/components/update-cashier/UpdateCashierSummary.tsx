@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
+import useBankCRUDService from '../../services/BankDetailsCRUDService';
+import useCashierCRUDService from '../../services/CashierCRUDService';
 
 const UpdateCashierSummary = () => {
-  const { cashierDetails, setCurrentComponent, cashierBankDetails } =
-    useCashierContext();
+  const { setCurrentComponent } = useCashierContext();
 
   const goToBack = () => {
     setCurrentComponent(ComponentState.BankDetails);
   };
+
+  //
+  //
+  const { cashierBankDetails } = useBankCRUDService();
+  const { cashierDetails } = useCashierCRUDService();
 
   return (
     <div className='grid grid-cols-2 gap-4'>
@@ -30,12 +36,12 @@ const UpdateCashierSummary = () => {
           {cashierDetails.employerPhone}
         </p>
         <p>
-          <span className='font-semibold'>Address Line 1:</span>{' '}
+          <span className='font-semibold'>Address:</span>{' '}
           {cashierDetails.employerAddress}
         </p>
         <p>
           <span className='font-semibold'>Date of Birth:</span>{' '}
-          {cashierDetails.dateOfBirth.toDateString()}
+          {cashierDetails.dateOfBirth?.slice(0, 10)}
         </p>
       </div>
       <div className='bg-gray-100 p-4 rounded-lg'>
@@ -79,7 +85,9 @@ const UpdateCashierSummary = () => {
         type='button'
         className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
       >
-        <Link to='/'>Confirm and Update</Link>
+        <Link to='/manager-dashboard/Cashiers'>
+          Continue to cashier manager
+        </Link>
       </button>
       <button
         type='button'

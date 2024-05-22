@@ -23,7 +23,7 @@ const UpdateCashier = () => {
     profileImage: '',
     branchId: 0,
     employerNic: '',
-    dateOfBirth: new Date(),
+    dateOfBirth: '',
     employerAddress: '',
     pin: 0,
     role: 'CASHIER',

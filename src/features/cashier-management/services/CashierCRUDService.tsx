@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { ComponentState, useCashierContext } from '../layout/AddCashier';
 import { validateEmail } from '../../../utils/validators/EmailValidator';
 import { passwordsMatch } from '../../../utils/validators/passwordValidator';
+import { useNavigate } from 'react-router-dom';
 
 const useCashierCRUDService = () => {
   const http = useAxiosInstance();
@@ -13,6 +14,7 @@ const useCashierCRUDService = () => {
   const [loading, setLoading] = useState(false);
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);
+  const navigate = useNavigate();
 
   const createCashier = async (employer: CashierDetailsType) => {
     if (
@@ -92,7 +94,7 @@ const useCashierCRUDService = () => {
     profileImage: '',
     branchId: 0,
     employerNic: '',
-    dateOfBirth: new Date(),
+    dateOfBirth: '',
     employerAddress: '',
     pin: 0,
     role: 'CASHIER',
@@ -182,6 +184,30 @@ const useCashierCRUDService = () => {
     }
   };
 
+  const deleteCashierById = async (id: number) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete cashier ${id}?`
+    );
+    if (confirmed) {
+      try {
+        setLoading(true);
+        console.log('Deleting cashier by id', id);
+        const res = await http.delete(`/employers/delete-employerId/${id}`);
+        console.log(res);
+        toast.success('Cashier deleted successfully');
+      } catch (error) {
+        console.log(error);
+        toast.error('Failed to delete cashier');
+      } finally {
+        setLoading(false);
+        navigate('/manager-dashboard/Cashiers');
+      }
+    } else {
+      // Show message if user cancels deletion
+      toast.info('Deletion canceled.');
+    }
+  };
+
   return {
     createCashier,
     loading,
@@ -190,6 +216,7 @@ const useCashierCRUDService = () => {
     setCashierDetails,
     updateCashier,
     updating,
+    deleteCashierById,
   };
 };
 export default useCashierCRUDService;
