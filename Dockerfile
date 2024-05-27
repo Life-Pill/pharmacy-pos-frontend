@@ -1,4 +1,4 @@
-FROM node:19.04.0-alpine
+FROM node:19-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
