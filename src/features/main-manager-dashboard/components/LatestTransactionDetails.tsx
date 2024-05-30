@@ -1,4 +1,4 @@
-import transactionDetails from '../../../../assets/fakedata/transactiondetails';
+import transactionDetails from '../../../assets/fakedata/transactiondetails';
 
 const LatestTransactionDetails = () => {
   return (
