@@ -9,6 +9,7 @@ const useOrderService = () => {
 
   const fetchOrderData = async () => {
     try {
+      setLoading(true);
       const res = await http.get('/order/getAllOrdersWithDetails');
       console.log(res.data.data);
       setOrderData(res.data.data);
@@ -16,12 +17,14 @@ const useOrderService = () => {
       console.log(error);
     } finally {
       console.log(orderData);
+      setLoading(false);
     }
   };
 
   return {
     fetchOrderData,
     orderData,
+    loading,
   };
 };
 
