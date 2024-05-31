@@ -5,7 +5,7 @@ import {
   GiWalk,
   GiFactory,
 } from 'react-icons/gi';
-import useBranchService from '../../services/BranchService';
+import useBranchService from '../../manager-dashboard/services/BranchService';
 
 function SummaryCard() {
   const { fetchBranchData, branchData } = useBranchService();

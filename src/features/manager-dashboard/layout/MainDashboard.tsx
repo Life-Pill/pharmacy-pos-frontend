@@ -3,12 +3,12 @@ import ManagerNavbar from '../components/navbar/ManagerNavbar';
 import ManagerSidebar from '../components/sidebar/ManagerSidebar';
 import Dashboard from '../components/main/Dashboard';
 import CashierManagementWindow from '../components/cashiers/CashierManagementWindow';
-import BranchManagementWindow from '../components/branches/BranchManagementWindow';
 import SalesManagementWindow from '../components/sales/SalesManagementWindow';
 import ItemsManagementWindow from '../components/items/ItemsManagementWindow';
 import SavedReportsWindow from '../components/reports/SavedReportsWindow';
 import FeedbacksManagementWindow from '../components/feedbacks/FeedbacksManagementWindow';
 import { useParams } from 'react-router-dom';
+import SellerManagementWindow from '../components/seller/SellerManagementWindow';
 
 const MainDashboard = () => {
   const { item } = useParams();
@@ -25,7 +25,7 @@ const MainDashboard = () => {
       case 'Cashiers':
         return <CashierManagementWindow />;
       case 'Branches':
-        return <BranchManagementWindow />;
+        return <SellerManagementWindow />;
       case 'Summary':
         return <SalesManagementWindow />;
       case 'Items':

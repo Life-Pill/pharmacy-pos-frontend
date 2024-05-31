@@ -1,4 +1,4 @@
-import cashierReport from '../../../../assets/fakedata/managerdashboardrecenttransactiondata';
+import cashierReport from '../../../assets/fakedata/managerdashboardrecenttransactiondata';
 
 const CashierRecentTransactionCard = () => {
   return (
