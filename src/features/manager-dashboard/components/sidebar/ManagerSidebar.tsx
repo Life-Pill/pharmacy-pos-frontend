@@ -43,7 +43,7 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
       />
       <ButtonWithIconAndTextVertical
         icon={<AiOutlineBranches size={25} />}
-        text='Branches'
+        text='Sellers'
         onClick={() => onItemClick('Branches')}
         testid='branches'
       />

@@ -16,6 +16,12 @@ module.exports = {
       },
     },
     extend: {
+      inputBox: {
+        DEFAULT: {
+          base: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5',
+          dark: 'dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+        },
+      },
       fontFamily: {
         poppins: ['poppins', 'sans-serif'],
       },
@@ -28,9 +34,20 @@ module.exports = {
         blueDarker: '#277CF4', //button
         black: '#19191C',
         grayLight: '#828487',
-        gray: '#C2C2C2',
         red: '#D70015',
         numberpadbutton: '#F8F9FD',
+        'blue-700': '#1D4ED8', // Add the hex value or modify as needed
+        'blue-800': '#1E40AF', // Add the hex value or modify as needed
+        'blue-300': '#93C5FD', // Add the hex value or modify as needed
+        'blue-600': '#2563EB', // Add the hex value or modify as needed
+        'blue-700': '#1D4ED8', // Add the hex value or modify as needed
+        'blue-800': '#1E3A8A', // Add the hex value or modify as needed
+
+        'red-700': '#B91C1C', // Add the hex value or modify as needed
+        'red-800': '#991B1B', // Add the hex value or modify as needed
+        'red-300': '#FCA5A5', // Add the hex value or modify as needed
+        'red-600': '#DC2626', // Add the hex value or modify as needed
+        'red-900': '#7F1D1D', // Add the hex value or modify as needed
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -87,5 +104,20 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.input-box': {
+          '@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white':
+            {},
+        },
+        '.label-text': {
+          '@apply block mb-2 text-sm font-medium text-white dark:text-white':
+            {},
+        },
+      };
+      addUtilities(newUtilities, ['responsive', 'hover', 'focus']);
+    },
+  ],
 };

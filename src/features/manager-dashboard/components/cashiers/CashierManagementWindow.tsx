@@ -218,3 +218,4 @@ const CashierManagementWindow = () => {
 };
 
 export default CashierManagementWindow;
+// this is sample
