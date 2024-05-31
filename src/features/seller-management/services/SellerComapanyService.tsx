@@ -13,6 +13,7 @@ const useSellerCompanyService = () => {
     useState<boolean>(false);
   const [adding, setAdding] = useState<boolean>(false);
   const [updating, setUpdating] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const fetchCompanies = async () => {
     try {
@@ -106,7 +107,30 @@ const useSellerCompanyService = () => {
     }
   };
 
-  const deleteCompany = async () => {};
+  const deleteCompany = async (id: number) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete company ${id}?`
+    );
+
+    if (confirmed) {
+      try {
+        setDeleting(true);
+        const res = await http.delete(
+          `supplierCompanies/delete-supplier-company/${id}`
+        );
+        console.log(res);
+        toast.success('Company deleted successfully');
+        fetchCompanies();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setDeleting(false);
+      }
+    } else {
+      // Show message if user cancels deletion
+      toast.info('Deletion canceled.');
+    }
+  };
 
   return {
     fetchCompanies,
@@ -125,6 +149,8 @@ const useSellerCompanyService = () => {
     setShowUpdateCompanyModal,
     updating,
     adding,
+    deleting,
+    deleteCompany,
   };
 };
 

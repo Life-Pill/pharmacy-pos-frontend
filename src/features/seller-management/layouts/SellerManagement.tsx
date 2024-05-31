@@ -18,6 +18,8 @@ function SellerManagement({}: Props) {
     setShowAddCompanyModal,
     showUpdateCompanyModal,
     setShowUpdateCompanyModal,
+    deleteCompany,
+    deleting,
   } = useSellerCompanyService();
 
   useEffect(() => {
@@ -108,9 +110,15 @@ function SellerManagement({}: Props) {
 
                     <button
                       className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {}}
+                      onClick={(e) => {
+                        deleteCompany(company.companyId);
+                      }}
                     >
-                      <BsTrash className='text-red font-bold text-lg' />
+                      {deleting ? (
+                        <Loader />
+                      ) : (
+                        <BsTrash className='text-red font-bold text-lg' />
+                      )}
                     </button>
                     {/* Add more cells with company details as needed */}
                   </td>
