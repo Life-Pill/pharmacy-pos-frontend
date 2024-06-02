@@ -5,6 +5,8 @@ import OrdersChart from '../components/OrdersChart';
 import salesSummary from '../utils/FakeData';
 import { getToday } from '../utils/getToday';
 import { generateMonthlySalesSummary } from '../utils/monthlySalesSummary';
+import { exportToExcel, exportToPDF } from '../utils/exportUtils';
+import { AiFillFileExcel, AiFillFilePdf } from 'react-icons/ai';
 
 function BranchSalesSummary() {
   const { getSalesSummary } = useSalesSummary();
@@ -123,6 +125,21 @@ function BranchSalesSummary() {
             Orders
           </button>
         </div>
+        <button
+          className='bg-green-800 text-white px-4 py-2 font-bold rounded-lg ml-4 flex items-center justify-center'
+          onClick={() => exportToExcel(filteredSalesData)}
+          data-tip='Export to Excel'
+        >
+          <AiFillFileExcel size={24} />
+        </button>
+        <button
+          className='bg-red-800 text-white px-4 py-2 font-bold rounded-lg ml-4 flex items-center justify-center'
+          onClick={() => exportToPDF(filteredSalesData)}
+          data-tooltip-content={'Export to PDF'}
+          data-tip='Export to PDF'
+        >
+          <AiFillFilePdf size={24} />
+        </button>
       </div>
 
       <div className='flex flex-col justify-between space-y-8'>
