@@ -1,11 +1,11 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -16,7 +16,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -34,7 +34,7 @@ function OrdersChart({ salesData }: Props) {
     labels: labels,
     datasets: [
       {
-        label: 'Sales',
+        label: 'Orders',
         data: orders,
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -52,9 +52,9 @@ function OrdersChart({ salesData }: Props) {
   };
 
   return (
-    <div className='max-h-[250px]'>
+    <div className=' pb-8'>
       <h2>Orders Chart</h2>
-      <Line data={data} options={options} />
+      <Bar data={data} options={options} width={1200} />
     </div>
   );
 }

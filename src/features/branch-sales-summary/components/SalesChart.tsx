@@ -1,11 +1,11 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -16,7 +16,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -26,7 +26,7 @@ interface Props {
   salesData: BranchSalesDetails[];
 }
 
-function SalesChart({ salesData }: Props) {
+const SalesChart: React.FC<Props> = ({ salesData }) => {
   const labels = salesData.map((data) => data.date);
   const sales = salesData.map((data) => data.sales);
 
@@ -36,8 +36,8 @@ function SalesChart({ salesData }: Props) {
       {
         label: 'Sales',
         data: sales,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(255, 192, 203, 0.2)', // Pink background color
+        borderColor: 'rgba(255, 192, 203, 1)', // Pink border color
         borderWidth: 1,
       },
     ],
@@ -45,18 +45,18 @@ function SalesChart({ salesData }: Props) {
 
   const options = {
     scales: {
-      y: {
+      x: {
         beginAtZero: true,
       },
     },
   };
 
   return (
-    <div className='max-h-[250px]'>
+    <div className=' pb-8'>
       <h2>Sales Chart</h2>
-      <Line data={data} options={options} />
+      <Bar data={data} options={options} width={1200} />
     </div>
   );
-}
+};
 
 export default SalesChart;
