@@ -4,7 +4,7 @@ import { useUserContext } from '../../../context/UserContext';
 
 const useAxiosInstance = () => {
   const instance = axios.create({
-    baseURL: 'http://localhost:8081/lifepill/v1',
+    baseURL: 'http://localhost:8079/lifepill/v1',
     headers: {
       'Content-type': 'application/json',
     },
