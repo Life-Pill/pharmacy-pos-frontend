@@ -54,7 +54,7 @@ function OrdersChart({ salesData }: Props) {
   return (
     <div className=' pb-8'>
       <h2>Orders Chart</h2>
-      <Bar data={data} options={options} width={1200} />
+      <Bar data={data} options={options} width={1200} height={500} />
     </div>
   );
 }
