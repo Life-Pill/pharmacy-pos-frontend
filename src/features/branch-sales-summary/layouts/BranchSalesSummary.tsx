@@ -18,7 +18,7 @@ function BranchSalesSummary() {
 
   useEffect(() => {
     getSalesSummary();
-  }, []);
+  }, [getSalesSummary]);
 
   const handleStartDateChange = (e: any) => {
     setStartDate(e.target.value);

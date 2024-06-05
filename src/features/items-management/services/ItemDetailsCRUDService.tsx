@@ -15,7 +15,7 @@ const useItemService = () => {
   const [shouldCreate, setShouldCreate] = useState(false); // New state to trigger item creation
   const { user } = useUserContext();
   const navigate = useNavigate();
-  const [deleting, setDeleting] = useState(false);
+  // const [deleting, setDeleting] = useState(false);
 
   const [item, setItem] = useState<Item>({
     itemId: 0,
@@ -117,15 +117,15 @@ const useItemService = () => {
     }
   };
 
-  const fetchItemByName = async (itemName: string) => {
-    try {
-      const res = await http.get('/item/get-by-name');
-    } catch (error) {}
-  };
+  // const fetchItemByName = async (itemName: string) => {
+  //   try {
+  //     const res = await http.get('/item/get-by-name');
+  //   } catch (error) {}
+  // };
 
-  const updateItem = (item: Item) => {
-    // Update item logic
-  };
+  // const updateItem = (item: Item) => {
+  //   // Update item logic
+  // };
 
   const deleteItem = async (itemId: number) => {
     // Prompt a confirmation dialog

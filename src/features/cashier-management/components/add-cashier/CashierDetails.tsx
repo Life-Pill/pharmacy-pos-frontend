@@ -1,14 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { ComponentState, useCashierContext } from '../../layout/AddCashier';
+import { useCashierContext } from '../../layout/AddCashier';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 
 const CashierDetails = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const { setCurrentComponent, cashierDetails, setCashierDetails } =
-    useCashierContext();
+  const { cashierDetails, setCashierDetails } = useCashierContext();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;

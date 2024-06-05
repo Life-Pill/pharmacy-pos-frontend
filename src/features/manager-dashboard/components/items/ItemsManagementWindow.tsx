@@ -1,11 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
-import { LiaStreetViewSolid } from 'react-icons/lia';
-import { TbCirclePlus, TbSettingsCog } from 'react-icons/tb';
+import { useEffect } from 'react';
+import { TbCirclePlus } from 'react-icons/tb';
 import { Link, useNavigate } from 'react-router-dom';
-import Medicine from '../../../../assets/fakedata/medicine';
 import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
-import useItemUpdateService from '../../../items-management/services/ItemUpdateService';
 import { BsBoxSeam, BsBoxes, BsExclamationTriangle } from 'react-icons/bs';
 
 const ItemsManagementWindow = () => {

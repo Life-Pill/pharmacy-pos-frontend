@@ -12,7 +12,7 @@ function SummaryCard() {
 
   useEffect(() => {
     fetchBranchData();
-  }, []);
+  }, [fetchBranchData, branchData]);
 
   return (
     <div className=' flex gap-4 w-full'>

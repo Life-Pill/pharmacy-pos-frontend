@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import useSellerCompanyService from '../services/SellerComapanyService';
 import { Loader } from 'lucide-react';
 import AddCompanyModal from '../components/AddCompanyModal';
-import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
+import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import UpdateCompanyModal from '../components/UpdateCompanyModal';
 
-type Props = {};
-
-function SellerManagement({}: Props) {
+function SellerManagement() {
   const {
     fetchCompanies,
     companies,
@@ -24,7 +22,7 @@ function SellerManagement({}: Props) {
 
   useEffect(() => {
     fetchCompanies();
-  }, []);
+  }, [fetchCompanies]);
 
   const handleSearch = (searchName: string) => {
     const filtered = companies?.filter((company) =>

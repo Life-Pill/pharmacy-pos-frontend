@@ -7,7 +7,7 @@ const LatestTransactionDetails = () => {
   useEffect(() => {
     fetchOrderData();
     console.log('Fetching order data', orderData);
-  }, []);
+  }, [fetchOrderData]);
 
   return (
     <div className='w-[600px]'>

@@ -1,31 +1,29 @@
 import { ChangeEvent, useState } from 'react';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
 import { IoCloudUploadOutline } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
-import { IItemInterface } from '../../../interfaces/IItemInterface';
-import { Item } from '../interfaces/Item';
+import { Link } from 'react-router-dom';
 import useItemService from '../services/ItemDetailsCRUDService';
 
 const AddItems = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { item, setItem, preSet, creating } = useItemService();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // const file: File | null = e.target.files ? e.target.files[0] : null;
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //     if (typeof reader.result === 'string') {
-    //       setPreviewImage(reader.result);
-    //       setItem({
-    //         ...item,
-    //         itemImage: reader.result,
-    //       });
-    //     }
-    //   };
-    //   reader.readAsDataURL(file);
-    // }
+    const file: File | null = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setPreviewImage(reader.result);
+          setItem({
+            ...item,
+            itemImage: reader.result,
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleConfirm = () => {

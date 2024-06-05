@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { CashierContextType } from '../../context/CashierContextType';
-import { ComponentState } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 import Loader from '../../../../shared/loader/Loader';
@@ -20,7 +18,7 @@ function ViewCashierComponent({}: Props) {
       fetchBankDetailsById(parseInt(employerId));
       fetchCashierById(parseInt(employerId));
     }
-  }, []);
+  }, [employerId]);
 
   const deleteCashier = () => {
     if (employerId) {

@@ -3,9 +3,7 @@ import CashierRecentTransactionCard from '../components/CashierRecentTransaction
 import LatestTransactionDetails from '../components/LatestTransactionDetails';
 import SummaryCard from '../components/SummaryCard';
 
-type Props = {};
-
-function MainManagerDashboard({}: Props) {
+function MainManagerDashboard() {
   return (
     <div
       className=' w-full max-h-screen overflow-hidden flex flex-col'

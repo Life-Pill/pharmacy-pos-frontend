@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useUserContext } from '../../../context/UserContext';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { CashierDetailsType } from '../interfaces/CashierDetailsType';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const useCashierCRUDService = () => {
   const http = useAxiosInstance();
-  const user = useUserContext();
+  // const user = useUserContext();
   const [loading, setLoading] = useState(false);
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);

@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { TbCirclePlus } from 'react-icons/tb';
-import { TbSettingsCog } from 'react-icons/tb';
-import { LiaStreetViewSolid } from 'react-icons/lia';
-import PharmacyCashiers from '../../../../assets/fakedata/cashiers';
 import { Link, useNavigate } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
 import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
@@ -12,7 +9,6 @@ import {
   calculateActiveWorkers,
   calculateMaleFemaleWorkers,
 } from '../../utils/cashierManagementUtils';
-import useCashierCRUDService from '../../../cashier-management/services/CashierCRUDService';
 
 const CashierManagementWindow = () => {
   const navigate = useNavigate();
@@ -34,7 +30,7 @@ const CashierManagementWindow = () => {
 
   useEffect(() => {
     fetchEmployeeData();
-  }, []);
+  }, [fetchEmployeeData]);
 
   const onUpdateClick = (employer: CashierDetailsType) => {
     console.log(employer.employerId);

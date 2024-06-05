@@ -25,14 +25,6 @@ const PersonalCareTable = () => {
     ]);
   };
 
-  //
-  useEffect(() => {
-    //fetchMedicine from server
-    console.log('fetching medicine');
-    fetchMedicine();
-  }, []);
-  //
-
   const fetchMedicine = async () => {
     const allItems = await getAllItems();
     //filter only personal care
@@ -41,6 +33,15 @@ const PersonalCareTable = () => {
     );
     setMedicine(medicine);
   };
+
+  //
+  useEffect(() => {
+    //fetchMedicine from server
+    console.log('fetching medicine');
+    fetchMedicine();
+  }, [fetchMedicine]);
+  //
+
 
   return (
     <div className='max-h-[750px] overflow-y-scroll w-full'>

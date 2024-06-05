@@ -25,13 +25,6 @@ const SportsTable = () => {
     ]);
   };
 
-  //
-  useEffect(() => {
-    //fetchMedicine from server
-    fetchMedicine();
-  }, []);
-  //
-
   const fetchMedicine = async () => {
     const allItems = await getAllItems();
     //filter only personal care
@@ -40,6 +33,13 @@ const SportsTable = () => {
     );
     setMedicine(medicine);
   };
+
+  //
+  useEffect(() => {
+    //fetchMedicine from server
+    fetchMedicine();
+  }, [fetchMedicine]);
+  //
 
   return (
     <div className='max-h-[750px] overflow-y-scroll w-full'>

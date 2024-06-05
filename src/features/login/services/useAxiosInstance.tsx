@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useUserContext } from '../../../context/UserContext';
+// import { useUserContext } from '../../../context/UserContext';
 
 const useAxiosInstance = () => {
   const instance = axios.create({
