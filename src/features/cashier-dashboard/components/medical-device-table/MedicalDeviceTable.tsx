@@ -37,7 +37,7 @@ const MedicalDeviceTable = () => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, [fetchMedicine]);
+  }, []);
   //
 
   return (

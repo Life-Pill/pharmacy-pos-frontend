@@ -42,7 +42,7 @@ const Medicine = () => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, [fetchMedicine]);
+  }, []);
   //
 
   return (

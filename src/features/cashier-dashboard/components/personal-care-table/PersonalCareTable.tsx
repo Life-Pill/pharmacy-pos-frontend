@@ -39,9 +39,8 @@ const PersonalCareTable = () => {
     //fetchMedicine from server
     console.log('fetching medicine');
     fetchMedicine();
-  }, [fetchMedicine]);
+  }, []);
   //
-
 
   return (
     <div className='max-h-[750px] overflow-y-scroll w-full'>

@@ -38,6 +38,8 @@ const useOrderService = () => {
       // Display success toast
       toast.success('Order placed successfully!');
 
+      //print a bill
+
       return res.data;
     } catch (error) {
       console.log(error);

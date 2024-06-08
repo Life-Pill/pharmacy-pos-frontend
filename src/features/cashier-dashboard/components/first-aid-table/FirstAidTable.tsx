@@ -41,7 +41,7 @@ const FirstAidTable = (props: Props) => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, [fetchMedicine]);
+  }, []);
   //
 
   return (

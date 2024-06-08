@@ -26,7 +26,6 @@ const NutritionTable = () => {
     ]);
   };
 
-  
   const fetchMedicine = async () => {
     const allItems = await getAllItems();
     //filter only personal care
@@ -40,7 +39,7 @@ const NutritionTable = () => {
   useEffect(() => {
     //fetchMedicine from server
     fetchMedicine();
-  }, [fetchMedicine]);
+  }, []);
   //
 
   return (
