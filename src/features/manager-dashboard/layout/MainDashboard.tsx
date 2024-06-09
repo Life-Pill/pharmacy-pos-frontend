@@ -9,6 +9,7 @@ import SavedReportsWindow from '../components/reports/SavedReportsWindow';
 import FeedbacksManagementWindow from '../components/feedbacks/FeedbacksManagementWindow';
 import { useParams } from 'react-router-dom';
 import SellerManagementWindow from '../components/seller/SellerManagementWindow';
+import OrderManagementWindow from '../../order-management/layouts/OrderManagementWindow';
 
 const MainDashboard = () => {
   const { item } = useParams();
@@ -32,8 +33,8 @@ const MainDashboard = () => {
         return <ItemsManagementWindow />;
       case 'Reports':
         return <SavedReportsWindow />;
-      case 'Feedbacks':
-        return <FeedbacksManagementWindow />;
+      case 'Orders':
+        return <OrderManagementWindow />;
       default:
         return <Dashboard />;
     }

@@ -11,7 +11,7 @@ function ViewItem() {
     if (itemId) {
       fetchItemById(parseInt(itemId));
     }
-  }, [itemId, fetchItemById]);
+  }, []);
 
   return (
     <div className='bg-indigo-100 h-screen font-poppins'>

@@ -22,7 +22,7 @@ function SellerManagement() {
 
   useEffect(() => {
     fetchCompanies();
-  }, [fetchCompanies]);
+  }, []);
 
   const handleSearch = (searchName: string) => {
     const filtered = companies?.filter((company) =>

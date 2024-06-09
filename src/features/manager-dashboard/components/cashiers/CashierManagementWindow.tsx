@@ -30,7 +30,7 @@ const CashierManagementWindow = () => {
 
   useEffect(() => {
     fetchEmployeeData();
-  }, [fetchEmployeeData]);
+  }, []);
 
   const onUpdateClick = (employer: CashierDetailsType) => {
     console.log(employer.employerId);
