@@ -27,13 +27,6 @@ const Medicine = () => {
     ]);
   };
 
-  //
-  useEffect(() => {
-    //fetchMedicine from server
-    fetchMedicine();
-  }, []);
-  //
-
   const fetchMedicine = async () => {
     try {
       const medicineData = await getAllItems();
@@ -44,6 +37,13 @@ const Medicine = () => {
       console.error('Error fetching medicine data:', error);
     }
   };
+
+  //
+  useEffect(() => {
+    //fetchMedicine from server
+    fetchMedicine();
+  }, []);
+  //
 
   return (
     <div className='max-h-[750px] overflow-y-scroll w-full'>

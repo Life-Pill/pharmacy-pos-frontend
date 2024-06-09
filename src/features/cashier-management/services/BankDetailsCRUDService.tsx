@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { EmployerBankDetails } from '../interfaces/EmployerBankDetails';
 import { toast } from 'react-toastify';

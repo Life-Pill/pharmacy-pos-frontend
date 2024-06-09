@@ -5,6 +5,7 @@ import {
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
 import useOrderService from '../../services/OrderService';
+import electron from 'electron';
 
 const ConfirmPaymentPopUp = () => {
   const {

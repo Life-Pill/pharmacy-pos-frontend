@@ -12,7 +12,6 @@ import {
 import ErrorRoutePage from './pages/error-route-page';
 import {
   AddItems,
-  RemoveItems,
   UpdateItems,
 } from './features/items-management';
 import MainDashboard from './features/manager-dashboard';

@@ -49,7 +49,7 @@ const useItemUpdateService = () => {
     try {
       const res = await http.get(`/item/get-item-details-by-id/${id}`);
       const data = mapResponseToItemDTO(res.data);
-      // console.log(res.data.data);
+      console.log(data);
       console.log('data', data);
       setItemDetails(data);
       const itemData = mapItemResponseToItem(data);

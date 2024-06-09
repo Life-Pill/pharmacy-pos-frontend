@@ -55,9 +55,9 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
       />
       <ButtonWithIconAndTextVertical
         icon={<VscFeedback size={25} />}
-        text='Feedbacks'
-        onClick={() => onItemClick('Feedbacks')}
-        testid='feedbacks'
+        text='Orders'
+        onClick={() => onItemClick('Orders')}
+        testid='orders'
       />
     </div>
   );

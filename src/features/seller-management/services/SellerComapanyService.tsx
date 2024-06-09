@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SellerCompany } from '../interfaces/SellerCompany';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { toast } from 'react-toastify';
+
 const useSellerCompanyService = () => {
   const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState<SellerCompany[]>();

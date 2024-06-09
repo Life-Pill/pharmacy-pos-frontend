@@ -1,8 +1,5 @@
-import { Link, useParams } from 'react-router-dom';
 import CashierManagerNavBar from '../components/navbar/CashierManagerNavBar';
-import useBankCRUDService from '../services/BankDetailsCRUDService';
-import useCashierCRUDService from '../services/CashierCRUDService';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CashierContext, ComponentState } from './AddCashier';
 import { CashierContextType } from '../context/CashierContextType';
 import ViewCashierComponent from '../components/view-cashier/ViewCashier';

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useCashierContext } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
-import useCashierCRUDService from '../../services/CashierCRUDService';
 import { toast } from 'react-toastify';
 
 const CashierBankDetails = () => {
@@ -16,7 +15,7 @@ const CashierBankDetails = () => {
       employerId: cashierDetails.employerId,
       monthlyPayment: cashierDetails.employerSalary,
     });
-  }, []);
+  }, [cashierBankDetails]);
 
   const goToSummary = () => {
     console.log('Summary', cashierDetails);

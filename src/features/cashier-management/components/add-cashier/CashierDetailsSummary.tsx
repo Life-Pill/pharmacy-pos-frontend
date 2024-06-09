@@ -1,8 +1,6 @@
 import React from 'react';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import { Link } from 'react-router-dom';
-import useBankCRUDService from '../../services/BankDetailsCRUDService';
-import useCashierCRUDService from '../../services/CashierCRUDService';
 
 function CashierDetailsSummary() {
   const { cashierDetails, setCurrentComponent, cashierBankDetails } =

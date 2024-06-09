@@ -6,7 +6,7 @@ interface AddCompanyModalProps {
 }
 
 const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
-  const { setFormData, addCompany, formData, loading, adding } =
+  const { setFormData, addCompany, formData, adding } =
     useSellerCompanyService();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

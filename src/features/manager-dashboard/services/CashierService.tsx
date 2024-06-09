@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { CashierDetailsType } from '../../cashier-management/interfaces/CashierDetailsType';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { toast } from 'react-toastify';
-import { EmployerData } from '../interfaces/ICashierData';
 
 const useCashierService = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +12,7 @@ const useCashierService = () => {
   >([]);
 
   const fetchEmployeeData = async () => {
+    setLoading(true);
     try {
       const res = await http.get('/employers/get-all-employers');
       console.log(res);
@@ -24,6 +24,8 @@ const useCashierService = () => {
     } catch (error) {
       console.error(error);
       toast.error('Error while fetching all employers');
+    } finally {
+      setLoading(false);
     }
   };
 

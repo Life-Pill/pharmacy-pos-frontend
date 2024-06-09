@@ -8,14 +8,7 @@ import Loader from '../../../../shared/loader/Loader';
 const UpdateCashierBankDetails = () => {
   const { employerId } = useParams();
 
-  const {
-    fetchCashierById,
-    cashierDetails,
-    setCashierDetails,
-    loading,
-    updateCashier,
-    updating,
-  } = useCashierCRUDService();
+  const { loading } = useCashierCRUDService();
 
   const { setCurrentComponent } = useCashierContext();
 
@@ -35,7 +28,7 @@ const UpdateCashierBankDetails = () => {
 
   useEffect(() => {
     fetchBankDetailsById(parseInt(employerId as string));
-  }, []);
+  }, [employerId]);
   return (
     <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
       {/* First Column */}

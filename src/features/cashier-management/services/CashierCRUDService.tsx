@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useUserContext } from '../../../context/UserContext';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { CashierDetailsType } from '../interfaces/CashierDetailsType';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const useCashierCRUDService = () => {
   const http = useAxiosInstance();
-  const user = useUserContext();
+  // const user = useUserContext();
   const [loading, setLoading] = useState(false);
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);
@@ -84,6 +84,7 @@ const useCashierCRUDService = () => {
   };
 
   const [cashierDetails, setCashierDetails] = useState({
+    employerId: 0,
     employerNicName: '',
     employerFirstName: '',
     employerLastName: '',
@@ -100,16 +101,19 @@ const useCashierCRUDService = () => {
     role: 'CASHIER',
     employerSalary: 0,
     gender: 'MALE',
+    activeStatus: true,
   });
 
-  const fetchCashierById = async (id: Number) => {
+  const fetchCashierById = async (employerId: Number) => {
     try {
       setLoading(true);
-      console.log('Fetching cashier by id', id);
-      const res = await http.get('/employers/get-by-id', { params: { id } });
-      console.log(res);
+      console.log('Fetching cashier by id', employerId);
+      const res = await http.get('/employers/get-by-id', {
+        params: { employerId },
+      });
+      console.log(res.data.data);
       if (res.status === 200) {
-        setCashierDetails(res.data);
+        setCashierDetails(res.data.data);
       }
     } catch (error) {
       console.log(error);
