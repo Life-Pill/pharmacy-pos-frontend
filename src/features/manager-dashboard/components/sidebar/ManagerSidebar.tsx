@@ -6,15 +6,18 @@ import { FaRegKeyboard } from 'react-icons/fa';
 import { PiNoteLight } from 'react-icons/pi';
 import { RxDashboard } from 'react-icons/rx';
 import { AiOutlineBranches } from 'react-icons/ai';
+import { RiLogoutCircleLine } from 'react-icons/ri'; // Import the logout icon
+import useAuthService from '../../services/AuthService';
 
 type Props = {
   onItemClick: (itemName: string) => void;
 };
 
 const ManagerSidebar = ({ onItemClick }: Props) => {
+  const { logOut, logging } = useAuthService();
   return (
     <div
-      className='left-0 max-w-24 p-4 font-poppins flex flex-col'
+      className='left-0 max-w-24 p-4 font-poppins flex flex-col relative'
       data-testid='cypress-manager-sidebar'
     >
       <ButtonWithIconAndTextVertical
@@ -59,6 +62,15 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
         onClick={() => onItemClick('Orders')}
         testid='orders'
       />
+      {/* Logout Button */}
+      <div className='absolute bottom-4 left-auto w-full'>
+        <ButtonWithIconAndTextVertical
+          icon={<RiLogoutCircleLine size={25} />} // Use the logout icon
+          text='Logout'
+          onClick={logOut} // Implement logout functionality here
+          testid='logout'
+        />
+      </div>
     </div>
   );
 };
