@@ -51,3 +51,4 @@ const LogInCashierPasswordPage = () => {
 };
 
 export default LogInCashierPasswordPage;
+//

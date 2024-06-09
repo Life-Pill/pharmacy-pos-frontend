@@ -24,6 +24,8 @@ const useAuthService = () => {
       if (res.status === 200) {
         toast.success('Successfully logged out');
         navigate('/');
+        // Remove user data from local storage
+        localStorage.removeItem('user');
       }
     } catch (error) {
       console.log(error);
