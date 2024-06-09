@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DateAndClock from '../shared/clock/DateAndClock';
 import RecentCashier from '../features/login/components/RecentCashier';
 import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext';
 
 type Props = {};
 

@@ -6,7 +6,7 @@ import useAxiosInstance from './useAxiosInstance';
 
 const useSignIn = () => {
   const [loading, setLoading] = useState(false);
-  const { setCookie } = useUserContext(); // Assuming you have a setUser function in your context for setting user data
+  const { setCookie, setUser } = useUserContext(); // Assuming you have a setUser function in your context for setting user data
   const http = useAxiosInstance();
 
   const signIn = async (
@@ -29,7 +29,9 @@ const useSignIn = () => {
         const employee = mapEmployeeReponseToIEmployee(
           res.data.employerDetails
         );
+
         console.log(employee);
+        localStorage.setItem('user', JSON.stringify(employee));
 
         // Set user data or store cookie if needed
         setCookie(res.data.authenticationResponse.access_token);
