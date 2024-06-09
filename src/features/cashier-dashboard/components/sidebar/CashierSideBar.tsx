@@ -8,6 +8,7 @@ import { CiMedicalClipboard } from 'react-icons/ci';
 import ButtonWithIconAndTextVertical from '../../../../shared/buttons/ButtonWithIconAndTextVertical';
 import { RiLogoutCircleLine } from 'react-icons/ri';
 import useAuthService from '../../services/AuthService';
+import { BiTimeFive } from 'react-icons/bi';
 
 type Props = {
   //pass setactivetable
@@ -15,7 +16,8 @@ type Props = {
 };
 
 const CashierSideBar = (props: Props) => {
-  const { logOutCashier, logging } = useAuthService();
+  const { logOutCashier, logging, temporaryLogOutCashier, temporayLogout } =
+    useAuthService();
   return (
     <div className='left-0 max-w-24 p-4 font-poppins flex flex-col relative'>
       <ButtonWithIconAndTextVertical
@@ -55,12 +57,18 @@ const CashierSideBar = (props: Props) => {
         testid='nutrition'
       />
 
-      <div className='absolute bottom-4 left-auto w-full'>
+      <div className='absolute bottom-4 right-4'>
         <ButtonWithIconAndTextVertical
-          icon={<RiLogoutCircleLine size={25} />} // Use the logout icon
-          text={logging ? 'Logging out' : 'LogOut'}
-          onClick={logOutCashier} // Implement logout functionality here
-          testid='logout'
+          icon={<BiTimeFive size={25} />}
+          text={temporayLogout ? 'Wait ...' : 'Temoprary LogOut'}
+          onClick={temporaryLogOutCashier}
+          testid='test'
+        />
+        <ButtonWithIconAndTextVertical
+          icon={<RiLogoutCircleLine size={25} />}
+          text={logging ? 'Wait ...' : 'LogOut'}
+          onClick={logOutCashier}
+          testid='testtemporary'
         />
       </div>
     </div>
