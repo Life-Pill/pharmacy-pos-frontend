@@ -66,7 +66,7 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
       <div className='absolute bottom-4 left-auto w-full'>
         <ButtonWithIconAndTextVertical
           icon={<RiLogoutCircleLine size={25} />} // Use the logout icon
-          text='Logout'
+          text={logging ? 'Logging Out' : 'LogOut'}
           onClick={logOut} // Implement logout functionality here
           testid='logout'
         />
