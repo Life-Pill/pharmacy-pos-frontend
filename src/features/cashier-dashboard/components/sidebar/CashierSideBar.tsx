@@ -6,6 +6,9 @@ import { IoIosFitness } from 'react-icons/io';
 import { PiFirstAidKit } from 'react-icons/pi';
 import { CiMedicalClipboard } from 'react-icons/ci';
 import ButtonWithIconAndTextVertical from '../../../../shared/buttons/ButtonWithIconAndTextVertical';
+import { RiLogoutCircleLine } from 'react-icons/ri';
+import useAuthService from '../../services/AuthService';
+import { BiTimeFive } from 'react-icons/bi';
 
 type Props = {
   //pass setactivetable
@@ -13,8 +16,10 @@ type Props = {
 };
 
 const CashierSideBar = (props: Props) => {
+  const { logOutCashier, logging, temporaryLogOutCashier, temporayLogout } =
+    useAuthService();
   return (
-    <div className='left-0 max-w-24 p-4 font-poppins flex flex-col'>
+    <div className='left-0 max-w-24 p-4 font-poppins flex flex-col relative'>
       <ButtonWithIconAndTextVertical
         icon={<PiSyringeLight size={25} />}
         text='Medical Devices'
@@ -51,6 +56,21 @@ const CashierSideBar = (props: Props) => {
         onClick={() => props.setActiveTable('nutrition')}
         testid='nutrition'
       />
+
+      <div className='absolute bottom-4 right-4'>
+        <ButtonWithIconAndTextVertical
+          icon={<BiTimeFive size={25} />}
+          text={temporayLogout ? 'Wait ...' : 'Temoprary LogOut'}
+          onClick={temporaryLogOutCashier}
+          testid='test'
+        />
+        <ButtonWithIconAndTextVertical
+          icon={<RiLogoutCircleLine size={25} />}
+          text={logging ? 'Wait ...' : 'LogOut'}
+          onClick={logOutCashier}
+          testid='testtemporary'
+        />
+      </div>
     </div>
   );
 };

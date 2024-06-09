@@ -36,7 +36,7 @@ const ItemsManagementWindow = () => {
   ).toFixed(2);
 
   return (
-    <div className='flex flex-col' data-testid='items-management-window'>
+    <div className=' flex flex-col' data-testid='items-management-window'>
       {/* buttons */}
 
       {/* Summary Cards */}
@@ -82,9 +82,9 @@ const ItemsManagementWindow = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
-      <div className='overflow-y-auto max-h-[500px]'>
+      <div className='overflow-y-auto max-h-[450px]'>
         <div className='relative'>
-          <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+          <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 '>
             <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
               <tr>
                 <th scope='col' className='px-6 py-3'>

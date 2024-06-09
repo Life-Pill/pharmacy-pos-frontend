@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RecentLogBar from '../features/login/components/RecentLogBar';
 import NumberPad from '../shared/cashier_login_numberpad/NumberPad';
 import { useNavigate } from 'react-router-dom';
+import useAuthenticationService from '../services/AuthenticationService';
 
 const LogInCashierPasswordPage = () => {
   const navigate = useNavigate();
@@ -16,9 +17,8 @@ const LogInCashierPasswordPage = () => {
       setPin((prevPin) => prevPin + key);
     }
   };
-  const navigateToCashierDashBoard = () => {
-    navigate('/cashier-dashboard');
-  };
+  const { logInUsingPin, log, logOut, logging } = useAuthenticationService();
+
   return (
     <div className='flex items-center justify-center flex-col h-screen space-y-4'>
       <RecentLogBar />
@@ -36,15 +36,19 @@ const LogInCashierPasswordPage = () => {
       </div>
       <button
         className='signup_button w-64 border border-solid border-blueDarker rounded-full'
-        onClick={navigateToCashierDashBoard}
+        onClick={() => logInUsingPin(pin)}
       >
-        Unlock
+        {log ? 'Wait ...' : 'Unlock'}
       </button>
-      <button className='login_button text-center w-64 border border-solid border-blueDarker'>
-        LogIn / LogOut
+      <button
+        className='login_button text-center w-64 border border-solid border-blueDarker'
+        onClick={logOut}
+      >
+        {logging ? 'Wait...' : 'LogOut'}
       </button>
     </div>
   );
 };
 
 export default LogInCashierPasswordPage;
+//

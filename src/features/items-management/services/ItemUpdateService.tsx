@@ -47,7 +47,8 @@ const useItemUpdateService = () => {
   const navigate = useNavigate();
   const fetchItemById = async (id: number) => {
     try {
-      const res = await http.get(`/item/get-item-details-by-id/${id}`);
+      const res = await http.get(`/item/get-item-all-details-by-id-old/${id}`);
+      console.log(res);
       const data = mapResponseToItemDTO(res.data);
       console.log(data);
       console.log('data', data);

@@ -10,10 +10,7 @@ import {
   ViewCashier,
 } from './features/cashier-management';
 import ErrorRoutePage from './pages/error-route-page';
-import {
-  AddItems,
-  UpdateItems,
-} from './features/items-management';
+import { AddItems, UpdateItems } from './features/items-management';
 import MainDashboard from './features/manager-dashboard';
 import { useUserContext } from './context/UserContext';
 import ViewItem from './features/items-management/layout/ViewItem';
