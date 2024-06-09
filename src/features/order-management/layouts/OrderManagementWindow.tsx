@@ -45,7 +45,7 @@ function OrderManagementWindow({}: Props) {
   };
 
   return (
-    <div className='max-h-screen overflow-y-scroll'>
+    <div className='max-h-screen overflow-y-scroll pb-36'>
       <div className='bg-white flex flex-wrap items-center space-x-4 justify-between'>
         <div className='flex items-center'>
           <label htmlFor='startDate' className='mb-1'>

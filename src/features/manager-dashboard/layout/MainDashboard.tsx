@@ -45,7 +45,7 @@ const MainDashboard = () => {
       <ManagerNavbar />
       <div className='flex flex-row'>
         <ManagerSidebar onItemClick={handleItemClick} />
-        <div className='flex flex-col w-full p-4 font-poppins'>
+        <div className='flex flex-col w-full p-4 font-poppins scroll-mb-8'>
           {renderSelectedItem()}
         </div>
       </div>
