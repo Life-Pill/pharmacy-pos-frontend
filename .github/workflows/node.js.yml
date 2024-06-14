@@ -1,53 +1,37 @@
-name: Electron CI/CD
+name: Build/release
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  release:
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        node-version: [19.x]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Check out Git repository
+        uses: actions/checkout@v1
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Install Node.js, NPM, and Yarn
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          node-version: 19
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Install Wine
-        run: sudo apt update && sudo apt install -y wine
-
-      - name: Package Electron App
-        run: |
-          # Ignore ESLint warnings for the entire script execution
-          # eslint-disable
-          yarn electron:package:win
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run build script
+        run: npm run build  
+        
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
-          draft: false
-          prerelease: false
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
 
-      - name: Upload Windows Package
-        uses: actions/upload-artifact@v2
-        with:
-          name: Windows Package
-          path: ./dist/*.exe
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
