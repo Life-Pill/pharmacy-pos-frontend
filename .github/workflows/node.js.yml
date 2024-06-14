@@ -28,8 +28,12 @@ jobs:
 
       - name: Package Electron App
         run: |
+          # Ignore ESLint warnings
+          # eslint-disable-next-line
           yarn electron:package:mac
+          # eslint-disable-next-line
           yarn electron:package:win
+          # eslint-disable-next-line
           yarn electron:package:linux
       - name: Create Release
         id: create_release
