@@ -30,9 +30,7 @@ jobs:
         run: |
           # Ignore ESLint warnings for the entire script execution
           # eslint-disable
-          yarn electron:package:mac
           yarn electron:package:win
-          yarn electron:package:linux
 
       - name: Create Release
         id: create_release
@@ -45,20 +43,8 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload macOS Package
-        uses: actions/upload-artifact@v2
-        with:
-          name: macOS Package
-          path: ./dist/*.dmg
-
       - name: Upload Windows Package
         uses: actions/upload-artifact@v2
         with:
           name: Windows Package
           path: ./dist/*.exe
-
-      - name: Upload Linux Package
-        uses: actions/upload-artifact@v2
-        with:
-          name: Linux Package
-          path: ./dist/*.deb
