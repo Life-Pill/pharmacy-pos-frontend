@@ -83,12 +83,12 @@ const MainCashierDashboard = () => {
   const [activeTable, setActiveTable] = useState('medicine');
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col h-screen'>
       <div>
         <CashierNavBar />
       </div>
 
-      <div className='flex flex-row'>
+      <div className='flex flex-row min-h-[90%]'>
         <CashierSideBar setActiveTable={setActiveTable} />
         <Divider />
         <PaymentContext.Provider value={contextValue}>
