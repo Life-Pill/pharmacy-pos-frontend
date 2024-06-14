@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ windows-latest,macos-latest]
+        os: [ windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -27,7 +27,7 @@ jobs:
 
       - name: Package and publish Electron app
         run: |
-          yarn electron:package:mac && yarn electron:package:win
+          yarn electron:package:win
 
       - name: Upload Windows Package
         if: matrix.os == 'windows-latest'
@@ -35,11 +35,3 @@ jobs:
         with:
           name: Windows Package
           path: ./dist/*.exe
-
-      - name: Upload macOS Package
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v2
-        with:
-          name: macOS Package
-          path: ./dist/*.dmg
-        
