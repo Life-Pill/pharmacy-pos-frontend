@@ -26,6 +26,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Install Wine
+        run: sudo apt update && sudo apt install -y wine
+
       - name: Package Electron App
         run: |
           # Ignore ESLint warnings for the entire script execution
