@@ -1,0 +1,65 @@
+name: Electron CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Package Electron App
+        run: |
+          yarn electron:package:mac
+          yarn electron:package:win
+          yarn electron:package:linux
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload macOS Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: macOS Package
+          path: ./dist/*.dmg
+
+      - name: Upload Windows Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows Package
+          path: ./dist/*.exe
+
+      - name: Upload Linux Package
+        uses: actions/upload-artifact@v2
+        with:
+          name: Linux Package
+          path: ./dist/*.deb
