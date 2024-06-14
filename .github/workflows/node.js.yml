@@ -26,9 +26,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Application
-        run: npm run build
-
       - name: Package Electron App
         run: |
           yarn electron:package:mac
