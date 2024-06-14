@@ -35,3 +35,5 @@ jobs:
         with:
           name: Windows Package
           path: ./dist/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
