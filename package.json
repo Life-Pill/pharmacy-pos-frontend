@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "LifePill",
+  "author_email": "tharinduimalka915@gmail.com",
   "description": "pharmacy-pos-frontend is the frontend application for a modern Pharmacy Point of Sale (POS) system, developed by LifePill. This user-friendly desktop application provides an intuitive interface for managing pharmacy sales, inventory, and customer interactions. Empower your pharmacy staff with efficient tools for processing transactions, tracking product availability, and enhancing customer service. Built with the latest web technologies, our frontend ensures a seamless and responsive experience, making it an essential component of a comprehensive Pharmacy POS solution.",
   "homepage": "./",
   "main": "./src/electron/electron.js",
