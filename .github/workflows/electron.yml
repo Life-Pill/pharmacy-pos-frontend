@@ -33,7 +33,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           tag_name: v${{ github.run_number }}  # You can customize the tag name if needed
           release_name: Release ${{ github.run_number }}  # Customize the release name as per your needs
