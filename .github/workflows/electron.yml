@@ -29,15 +29,15 @@ jobs:
         run: |
           yarn electron:package:win
 
-      - name: Upload Windows Package
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v2
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
-          name: Windows Package
-          path: ./dist/*.exe
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: true
+          tag_name: v${{ github.run_number }}  # You can customize the tag name if needed
+          release_name: Release ${{ github.run_number }}  # Customize the release name as per your needs
+          body: |
+            Release ${{ github.run_number }} of your Electron app.  
+          draft: false
+          prerelease: false
