@@ -41,5 +41,4 @@ jobs:
           asset_path: ./dist/*.exe
           asset_name: lifepillpos-setup-${{ github.run_number }}.exe
           asset_content_type: application/octet-stream
-          asset_label: lifepillpos Windows Installer
 
