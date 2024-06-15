@@ -2,17 +2,6 @@ name: Build
 on: [push, pull_request]
 
 jobs:
-  build_on_linux:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@master
-      with:
-        node-version: 19
-    - name: install dependencies
-      run: npm install
-    - name: build
-      run: npm run electron:package:linux
 
   build_on_mac:
     runs-on: macos-latest
@@ -25,6 +14,8 @@ jobs:
       run: npm install
     - name: build
       run: npm run electron:package:mac
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
   build_on_win:
     runs-on: windows-latest
@@ -37,3 +28,5 @@ jobs:
       run: npm install
     - name: build
       run: npm run electron:package:win
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
