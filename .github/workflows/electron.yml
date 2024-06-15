@@ -28,6 +28,8 @@ jobs:
       - name: Package Electron app
         run: |
           yarn electron:package:win
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Create GitHub Release
         id: create_release
