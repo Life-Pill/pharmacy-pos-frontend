@@ -1,5 +1,5 @@
-# Pharmacy POS System
 [![Build and Release Electron App](https://github.com/Life-Pill/pharmacy-pos-frontend/actions/workflows/build.yml/badge.svg)](https://github.com/Life-Pill/pharmacy-pos-frontend/actions/workflows/build.yml)
+# Pharmacy POS System
 ![logo](https://avatars.githubusercontent.com/u/149755096?s=200&v=4)
 
 ## Description
