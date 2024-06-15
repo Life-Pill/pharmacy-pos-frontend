@@ -99,7 +99,23 @@
       "target": "deb"
     }
   },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "thetharz",
+              "name": "pharmacy-pos-frontend"
+            }
+          }
+        }
+      ]
+    }
+  },
   "devDependencies": {
+    "@electron-forge/publisher-github": "^7.4.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@types/jest": "^29.5.12",
