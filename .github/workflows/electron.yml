@@ -31,15 +31,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Upload release asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.run_number }}  # You can customize the tag name if needed
-          release_name: Release ${{ github.run_number }}  # Customize the release name as per your needs
-          body: |
-            Release ${{ github.run_number }} of your Electron app.  
-          draft: false
-          prerelease: false
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./dist/*.exe
+          asset_name: lifepillpos-setup-${{ github.run_number }}.exe
+          asset_content_type: application/octet-stream
+          asset_label: lifepillpos Windows Installer
+
