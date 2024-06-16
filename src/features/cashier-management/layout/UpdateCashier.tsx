@@ -12,23 +12,9 @@ const UpdateCashier = () => {
     ComponentState.Details
   );
 
-  const [cashierDetails, setCashierDetails] = useState({
-    employerNicName: '',
-    employerFirstName: '',
-    employerLastName: '',
-    employerEmail: '',
-    employerPhone: '',
-    employerPassword: '',
-    employerConfirmPassword: '',
-    profileImage: '',
-    branchId: 0,
-    employerNic: '',
-    dateOfBirth: '',
-    employerAddress: '',
-    pin: 0,
-    role: 'CASHIER',
-    employerSalary: 0,
-  } as CashierDetailsType);
+  const [cashierDetails, setCashierDetails] = useState(
+    {} as CashierDetailsType
+  );
 
   const [cashierBankDetails, setCashierBankDetails] = useState({
     bankAccountNumber: 0,

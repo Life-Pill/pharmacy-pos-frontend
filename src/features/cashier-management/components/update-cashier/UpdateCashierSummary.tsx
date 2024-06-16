@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
 import useCashierCRUDService from '../../services/CashierCRUDService';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const UpdateCashierSummary = () => {
   const { setCurrentComponent } = useCashierContext();
+  const { employerId } = useParams();
 
   const goToBack = () => {
     setCurrentComponent(ComponentState.BankDetails);
@@ -12,13 +15,32 @@ const UpdateCashierSummary = () => {
 
   //
   //
-  const { cashierBankDetails } = useBankCRUDService();
-  const { cashierDetails } = useCashierCRUDService();
+  const { cashierBankDetails, fetchBankDetailsById } = useBankCRUDService();
+  const { cashierDetails, fetchCashierById, fetchImageOfEmployer,profileImageUrl } =
+    useCashierCRUDService();
+
+  useEffect(() => {
+    if (employerId) {
+      fetchImageOfEmployer(parseInt(employerId as string));
+      fetchCashierById(parseInt(employerId as string));
+      fetchBankDetailsById(parseInt(employerId as string));
+    } else {
+      toast.error('Employer id is not found');
+    }
+  }, []);
 
   return (
     <div className='grid grid-cols-2 gap-4'>
       <div className='bg-gray-100 p-4 rounded-lg'>
         <p className='text-lg font-bold mb-2'>Personal Information</p>
+        <img
+            src={
+              profileImageUrl ||
+              'https://static-00.iconduck.com/assets.00/person-icon-1901x2048-a9h70k71.png'
+            }
+            alt='Profile'
+            className='w-64 h-64 rounded-full'
+          />
         <p>
           <span className='font-semibold'>Name:</span>{' '}
           {cashierDetails.employerFirstName} {cashierDetails.employerLastName}

@@ -6,10 +6,27 @@ import useCashierCRUDService from '../../services/CashierCRUDService';
 import Loader from '../../../../shared/loader/Loader';
 import { CashierDetailsType } from '../../interfaces/CashierDetailsType';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
+import { LoaderIcon } from 'lucide-react';
 
 const UpdateCashierDetails = () => {
   const { employerId } = useParams();
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [updateImage, setUpdateImage] = useState<boolean>(false);
+
+  const {
+    fetchCashierById,
+    cashierDetails,
+    setCashierDetails,
+    loading,
+    updateCashier,
+    updating,
+    setProfilePicture,
+    fetchImageOfEmployer,
+    fetchProfilePicture,
+    profileImageUrl,
+    profilePicture,
+    updateEmployerImage,
+    updateState,
+  } = useCashierCRUDService();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -17,7 +34,8 @@ const UpdateCashierDetails = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
+          setProfilePicture(file);
+          setUpdateImage(true);
         }
       };
       reader.readAsDataURL(file);
@@ -28,17 +46,9 @@ const UpdateCashierDetails = () => {
     updateCashier(employer);
   };
 
-  const {
-    fetchCashierById,
-    cashierDetails,
-    setCashierDetails,
-    loading,
-    updateCashier,
-    updating,
-  } = useCashierCRUDService();
-
   useEffect(() => {
     fetchCashierById(parseInt(employerId as string));
+    fetchImageOfEmployer(parseInt(employerId as string));
   }, []);
 
   return (
@@ -50,23 +60,27 @@ const UpdateCashierDetails = () => {
         ) : (
           <>
             <div className='flex items-center justify-center gap-4 flex-col'>
-              {previewImage ? (
-                <div className='mt-4'>
+              <div className='mt-4'>
+                {updateImage ? (
                   <img
-                    src={previewImage}
+                    src={profilePicture?.path}
                     alt='Preview'
                     className='w-64 h-64 rounded-full'
                   />
-                </div>
-              ) : (
-                <div className='mt-4'>
+                ) : fetchProfilePicture ? (
+                  <Loader />
+                ) : (
                   <img
-                    src='https://randomuser.me/api/portraits/men/1.jpg'
-                    alt='Preview'
+                    src={
+                      profileImageUrl ||
+                      'https://static-00.iconduck.com/assets.00/person-icon-1901x2048-a9h70k71.png'
+                    }
+                    alt='Profile'
                     className='w-64 h-64 rounded-full'
                   />
-                </div>
-              )}
+                )}
+              </div>
+
               <label className='w-64 flex flex-row items-center p-2 justify-center gap-2 bg-white rounded-lg'>
                 <IoCloudUploadOutline size={25} />
                 <span className='text-base leading-normal'>
@@ -76,8 +90,19 @@ const UpdateCashierDetails = () => {
                   type='file'
                   className='hidden'
                   onChange={handleImageChange}
+                  accept='image/*'
                 />
               </label>
+
+              <button
+                type='button'
+                className='text-white bg-blueDarker hover:bg-blue-600 font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+                onClick={(e) =>
+                  updateEmployerImage(parseInt(employerId as string))
+                }
+              >
+                {updateState ? 'Updating...' : 'Update Image'}
+              </button>
             </div>
 
             <div>
@@ -198,28 +223,6 @@ const UpdateCashierDetails = () => {
 
             <div>
               <label
-                htmlFor='branch'
-                className='block text-sm font-medium text-black'
-              >
-                Branch
-              </label>
-              <select
-                id='branch'
-                className='mt-1 p-2 border-gray rounded-md w-64'
-                value={cashierDetails.branchId}
-                onChange={(e) =>
-                  setCashierDetails({
-                    ...cashierDetails,
-                    branchId: parseInt(e.target.value),
-                  })
-                }
-              >
-                <option value='0'>Branch 1</option>
-                <option value='1'>Branch 2</option>
-                <option value='2'>Branch 3</option>
-              </select>
-
-              <label
                 htmlFor='gender'
                 className='block text-sm font-medium text-black'
               >
@@ -338,32 +341,14 @@ const UpdateCashierDetails = () => {
               />
 
               <label
-                htmlFor='confirmPassword'
-                className='block text-sm font-medium text-black mt-4'
-              >
-                Confirm Password
-              </label>
-              <input
-                type='text'
-                id='confirmPassword'
-                className='mt-1 p-2 border-gray rounded-md w-64'
-                value={cashierDetails.employerConfirmPassword}
-                onChange={(e) =>
-                  setCashierDetails({
-                    ...cashierDetails,
-                    employerConfirmPassword: e.target.value,
-                  })
-                }
-              />
-
-              <label
                 htmlFor='pin'
                 className='block text-sm font-medium text-black mt-4'
               >
                 Pin
               </label>
               <input
-                type='text'
+                type='number'
+                accept='number'
                 id='pin'
                 className='mt-1 p-2 border-gray rounded-md w-64'
                 value={cashierDetails.pin}

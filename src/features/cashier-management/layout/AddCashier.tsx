@@ -30,24 +30,9 @@ const AddCashier = () => {
     ComponentState.Details
   );
 
-  const [cashierDetails, setCashierDetails] = useState<CashierDetailsType>({
-    employerNicName: '',
-    employerFirstName: '',
-    employerLastName: '',
-    employerEmail: '',
-    employerPhone: '',
-    employerPassword: '',
-    employerConfirmPassword: '',
-    profileImage: '',
-    branchId: 0,
-    employerNic: '',
-    dateOfBirth: '',
-    employerAddress: '',
-    pin: 0,
-    role: 'CASHIER',
-    employerSalary: 0,
-    gender: 'MALE',
-  } as CashierDetailsType);
+  const [cashierDetails, setCashierDetails] = useState<CashierDetailsType>(
+    {} as CashierDetailsType
+  );
 
   const [cashierBankDetails, setCashierBankDetails] =
     useState<EmployerBankDetails>({

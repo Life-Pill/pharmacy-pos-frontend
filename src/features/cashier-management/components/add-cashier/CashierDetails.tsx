@@ -5,23 +5,28 @@ import { useCashierContext } from '../../layout/AddCashier';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 
 const CashierDetails = () => {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-
   const { cashierDetails, setCashierDetails } = useCashierContext();
+  const { createCashier, loading, profilePicture, setProfilePicture } =
+    useCashierCRUDService();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        // reader.result should now be a string containing the data URL
         if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
+          // If you need the File object itself, you can set it directly
+          setProfilePicture(file);
+          setCashierDetails((prev: any) => ({
+            ...prev,
+            profileImageUrl: file.path,
+          }));
         }
       };
       reader.readAsDataURL(file);
     }
   };
-  const { createCashier, loading } = useCashierCRUDService();
 
   const goToBankDetails = () => {
     // console.log(cashierDetails);
@@ -42,10 +47,10 @@ const CashierDetails = () => {
       </p>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
         <div className='flex items-center justify-center gap-4 flex-col'>
-          {previewImage ? (
+          {profilePicture ? (
             <div className='mt-4'>
               <img
-                src={previewImage}
+                src={profilePicture.path}
                 alt='Preview'
                 className='w-64 h-64 rounded-full'
               />
@@ -66,6 +71,7 @@ const CashierDetails = () => {
               type='file'
               className='hidden'
               onChange={handleImageChange}
+              accept='image/*'
             />
           </label>
         </div>
@@ -189,28 +195,6 @@ const CashierDetails = () => {
         {/* Second Column */}
         <div>
           <label
-            htmlFor='branch'
-            className='block text-sm font-medium text-black'
-          >
-            Branch
-          </label>
-          <select
-            id='branch'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.branchId}
-            onChange={(e) =>
-              setCashierDetails({
-                ...cashierDetails,
-                branchId: parseInt(e.target.value),
-              })
-            }
-          >
-            <option value='0'>Branch 1</option>
-            <option value='1'>Branch 2</option>
-            <option value='2'>Branch 3</option>
-          </select>
-
-          <label
             htmlFor='gender'
             className='block text-sm font-medium text-black'
           >
@@ -219,7 +203,7 @@ const CashierDetails = () => {
           <select
             id='gender'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.gender}
+            value={cashierDetails.gender && cashierDetails.gender}
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,
@@ -261,7 +245,7 @@ const CashierDetails = () => {
             type='date'
             id='dateOfBirth'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.dateOfBirth?.slice(0, 10)}
+            value={cashierDetails.dateOfBirth?.toString().slice(0, 10)}
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,
@@ -329,7 +313,7 @@ const CashierDetails = () => {
             }
           />
 
-          <label
+          {/* <label
             htmlFor='confirmPassword'
             className='block text-sm font-medium text-black mt-4'
           >
@@ -346,7 +330,7 @@ const CashierDetails = () => {
                 employerConfirmPassword: e.target.value,
               })
             }
-          />
+          /> */}
 
           <label
             htmlFor='pin'
@@ -355,7 +339,7 @@ const CashierDetails = () => {
             Pin
           </label>
           <input
-            type='text'
+            type='number'
             id='pin'
             className='mt-1 p-2 border-gray rounded-md w-64'
             value={cashierDetails.pin}

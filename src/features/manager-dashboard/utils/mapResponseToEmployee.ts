@@ -8,7 +8,6 @@ export const mapResponseToEmployee = (employee: any): CashierDetailsType => {
     employerFirstName: employee.employerFirstName,
     employerLastName: employee.employerLastName,
     employerPassword: employee.employerPassword,
-    employerConfirmPassword: '',
     employerEmail: employee.employerEmail,
     employerPhone: employee.employerPhone,
     employerAddress: employee.employerAddress,
@@ -19,6 +18,6 @@ export const mapResponseToEmployee = (employee: any): CashierDetailsType => {
     role: employee.role,
     pin: employee.pin,
     activeStatus: employee.activeStatus,
-    profileImage: employee.profileImage,
+    profileImageUrl: employee.profileImage,
   };
 };
