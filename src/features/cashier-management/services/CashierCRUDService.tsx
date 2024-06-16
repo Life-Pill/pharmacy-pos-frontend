@@ -251,12 +251,10 @@ const useCashierCRUDService = () => {
     try {
       if (
         !employer ||
-        !employer.branchId ||
         !employer.employerNicName ||
         !employer.employerFirstName ||
         !employer.employerLastName ||
         !employer.employerPassword ||
-        !employer.employerConfirmPassword ||
         !employer.employerEmail ||
         !employer.employerPhone ||
         !employer.employerAddress ||

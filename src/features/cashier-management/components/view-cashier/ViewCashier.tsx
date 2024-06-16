@@ -64,18 +64,17 @@ function ViewCashierComponent({}: Props) {
           <span className='font-semibold'>Date of Birth:</span>{' '}
           {cashierDetails.dateOfBirth?.slice(0, 10)}
         </p>
-        {profileImageUrl && fetchProfilePicture ? (
-          <div className='mt-4'>
-            <img
-              src={profileImageUrl}
-              alt='Profile'
-              className='w-40 h-40 rounded-full object-cover'
-            />
-          </div>
+        {fetchProfilePicture ? (
+          <Loader />
         ) : (
-          <div className='mt-4'>
-            <LoaderIcon />
-          </div>
+          <img
+            src={
+              profileImageUrl ||
+              'https://static-00.iconduck.com/assets.00/person-icon-1901x2048-a9h70k71.png'
+            }
+            alt='Profile'
+            className='w-64 h-64 rounded-full'
+          />
         )}
       </div>
       <div className='bg-gray-100 p-4 rounded-lg'>
