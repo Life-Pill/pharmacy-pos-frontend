@@ -91,13 +91,16 @@ const ItemsManagementWindow = () => {
                   Medicine ID
                 </th>
                 <th scope='col' className='px-6 py-3'>
-                  Image
-                </th>
-                <th scope='col' className='px-6 py-3'>
                   Name
                 </th>
                 <th scope='col' className='px-6 py-3'>
-                  Price
+                  Selling Price (LKR)
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Purchase Date
+                </th>
+                <th scope='col' className='px-6 py-3'>
+                  Expire Date
                 </th>
                 <th scope='col' className='px-6 py-3'>
                   Status
@@ -112,9 +115,21 @@ const ItemsManagementWindow = () => {
               {filteredItems.map((medicine) => (
                 <tr className='bg-slate-50 border-b'>
                   <td className='px-6 py-4'>{medicine.itemId}</td>
-                  <td className='px-6 py-4'>{medicine.itemImage}</td>
                   <td className='px-6 py-4'>{medicine.itemName}</td>
-                  <td className='px-6 py-4'>{medicine.sellingPrice}</td>
+                  <td className='px-6 py-4'>{medicine.sellingPrice} per {medicine.measuringUnitType}</td>
+                  <td className='px-6 py-4'>
+                    {medicine.purchaseDate.slice(0, 10)}
+                  </td>
+                  <td
+                    className={`px-6 py-4 ${
+                      new Date(medicine.expireDate) < new Date()
+                        ? 'text-red-600'
+                        : ''
+                    }`}
+                  >
+                    {medicine.expireDate.slice(0, 10)}
+                  </td>
+
                   <td className='px-6 py-4'>
                     {
                       <div

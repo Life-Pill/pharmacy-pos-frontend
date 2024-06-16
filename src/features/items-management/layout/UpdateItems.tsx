@@ -82,6 +82,7 @@ const UpdateItems = () => {
                 type='file'
                 className='hidden'
                 onChange={handleImageChange}
+                accept='image/*'
               />
             </label>
             <button
@@ -120,9 +121,10 @@ const UpdateItems = () => {
               Selling Price
             </label>
             <input
-              type='text'
+              type='number'
               id='sellingPrice'
               className='mt-1 p-2 border-gray rounded-md w-64'
+              accept='number'
               value={item.sellingPrice}
               onChange={(e) => {
                 setItem({
@@ -158,10 +160,11 @@ const UpdateItems = () => {
               Supplier Price
             </label>
             <input
-              type='text'
+              type='number'
               id='supplierPrice'
               className='mt-1 p-2 border-gray rounded-md w-64'
               value={item.supplierPrice}
+              accept='number'
               onChange={(e) => {
                 setItem({
                   ...item,
