@@ -6,7 +6,7 @@ function CashierDetailsSummary() {
   const { cashierDetails, setCurrentComponent, cashierBankDetails } =
     useCashierContext();
 
-  const goToBack = () => {
+  const goToBankDetails = () => {
     setCurrentComponent(ComponentState.BankDetails);
   };
 
@@ -14,24 +14,33 @@ function CashierDetailsSummary() {
     <div className='grid grid-cols-2 gap-4'>
       <div className='bg-gray-100 p-4 rounded-lg'>
         <p className='text-lg font-bold mb-2'>Personal Information</p>
-        <p>
-          <span className='font-semibold'>Name:</span>{' '}
-          {cashierDetails.employerFirstName} {cashierDetails.employerLastName}
-        </p>
+
+        {/* Example of including an image */}
+        <div className='flex items-center mb-4'>
+          <img
+            src={cashierDetails.profileImage[0]} // Assuming profileImage is an array of strings (URLs)
+            alt='Profile'
+            className='h-16 w-16 rounded-full object-cover mr-2'
+          />
+          <div>
+            <p className='font-semibold'>
+              {cashierDetails.employerFirstName}{' '}
+              {cashierDetails.employerLastName}
+            </p>
+            <p>{cashierDetails.employerEmail}</p>
+          </div>
+        </div>
+
         <p>
           <span className='font-semibold'>Nickname:</span>{' '}
           {cashierDetails.employerNicName}
-        </p>
-        <p>
-          <span className='font-semibold'>Email:</span>{' '}
-          {cashierDetails.employerEmail}
         </p>
         <p>
           <span className='font-semibold'>Phone Number:</span>{' '}
           {cashierDetails.employerPhone}
         </p>
         <p>
-          <span className='font-semibold'>Address </span>{' '}
+          <span className='font-semibold'>Address:</span>{' '}
           {cashierDetails.employerAddress}
         </p>
         <p>
@@ -81,7 +90,7 @@ function CashierDetailsSummary() {
       <button
         type='button'
         className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
-        onClick={goToBack}
+        onClick={goToBankDetails}
       >
         Go To Bank Details
       </button>

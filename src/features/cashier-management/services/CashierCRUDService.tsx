@@ -15,6 +15,87 @@ const useCashierCRUDService = () => {
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
+  const [profilePicture, setProfilePicture] = useState<File>(
+    new File([], 'profile')
+  );
+
+  // const createCashier = async (employer: CashierDetailsType) => {
+  //   if (
+  //     !employer ||
+  //     !employer.branchId ||
+  //     !employer.employerNicName ||
+  //     !employer.employerFirstName ||
+  //     !employer.employerLastName ||
+  //     !employer.employerPassword ||
+  //     !employer.employerConfirmPassword ||
+  //     !employer.employerEmail ||
+  //     !employer.employerPhone ||
+  //     !employer.employerAddress ||
+  //     !employer.employerSalary ||
+  //     !employer.employerNic ||
+  //     !employer.gender ||
+  //     !employer.dateOfBirth ||
+  //     !employer.role ||
+  //     !employer.pin
+  //   ) {
+  //     toast.error('Please provide all required information.');
+  //     return;
+  //   }
+
+  //   if (
+  //     !passwordsMatch(
+  //       employer.employerPassword,
+  //       employer.employerConfirmPassword
+  //     )
+  //   ) {
+  //     toast.error('Passwords do not match.');
+  //     return;
+  //   }
+
+  //   if (
+  //     !['OWNER', 'CASHIER', 'MANAGER'].includes(employer.role.toUpperCase())
+  //   ) {
+  //     toast.error(
+  //       'Invalid role. Role should be either OWNER, CASHIER, or MANAGER.'
+  //     );
+  //     return;
+  //   }
+
+  //   if (!validateEmail(employer.employerEmail)) {
+  //     toast.error('Invalid email');
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   try {
+  //     const res = await http.post('/employers/save-without-image', employer);
+
+  //     console.log(res.data);
+  //     if (res.data.code === 201) {
+  //       const createdCashierData = res.data.data;
+  //       setCurrentComponent(ComponentState.BankDetails);
+  //       console.log('Created cashier:', createdCashierData.employerId);
+  //       toast.success('Cashier created successfully!');
+  //       return createdCashierData.employerId;
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error('Failed to create a cashier');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const updateProfileImage = async (employerId: number) => {
+    try {
+      const res = await http.put(
+        `/lifepill/v1/employers/update-employer-image/${employerId}`
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const createCashier = async (employer: CashierDetailsType) => {
     if (
@@ -24,7 +105,6 @@ const useCashierCRUDService = () => {
       !employer.employerFirstName ||
       !employer.employerLastName ||
       !employer.employerPassword ||
-      !employer.employerConfirmPassword ||
       !employer.employerEmail ||
       !employer.employerPhone ||
       !employer.employerAddress ||
@@ -39,15 +119,15 @@ const useCashierCRUDService = () => {
       return;
     }
 
-    if (
-      !passwordsMatch(
-        employer.employerPassword,
-        employer.employerConfirmPassword
-      )
-    ) {
-      toast.error('Passwords do not match.');
-      return;
-    }
+    // if (
+    //   !passwordsMatch(
+    //     employer.employerPassword,
+    //     employer.employerConfirmPassword
+    //   )
+    // ) {
+    //   toast.error('Passwords do not match.');
+    //   return;
+    // }
 
     if (
       !['OWNER', 'CASHIER', 'MANAGER'].includes(employer.role.toUpperCase())
@@ -91,7 +171,6 @@ const useCashierCRUDService = () => {
     employerEmail: '',
     employerPhone: '',
     employerPassword: '',
-    employerConfirmPassword: '',
     profileImage: '',
     branchId: 0,
     employerNic: '',
@@ -221,6 +300,8 @@ const useCashierCRUDService = () => {
     updateCashier,
     updating,
     deleteCashierById,
+    profilePicture,
+    setProfilePicture,
   };
 };
 export default useCashierCRUDService;

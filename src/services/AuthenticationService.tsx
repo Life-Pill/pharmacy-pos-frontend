@@ -43,6 +43,7 @@ const useAuthenticationService = () => {
 
     try {
       setLogging(true);
+      console.log(user);
       const res = await http.post('session/logout/permanent', {
         user: user.user?.employerEmail,
       });
@@ -62,7 +63,7 @@ const useAuthenticationService = () => {
     logInUsingPin,
     log,
     logOut,
-    logging
+    logging,
   };
 };
 

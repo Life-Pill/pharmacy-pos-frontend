@@ -5,23 +5,28 @@ import { useCashierContext } from '../../layout/AddCashier';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 
 const CashierDetails = () => {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-
   const { cashierDetails, setCashierDetails } = useCashierContext();
+  const { createCashier, loading, profilePicture, setProfilePicture } =
+    useCashierCRUDService();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        // reader.result should now be a string containing the data URL
         if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
+          // If you need the File object itself, you can set it directly
+          setProfilePicture(file);
+          setCashierDetails((prev: any) => ({
+            ...prev,
+            profileImage: [file.path],
+          }));
         }
       };
       reader.readAsDataURL(file);
     }
   };
-  const { createCashier, loading } = useCashierCRUDService();
 
   const goToBankDetails = () => {
     // console.log(cashierDetails);
@@ -42,10 +47,10 @@ const CashierDetails = () => {
       </p>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
         <div className='flex items-center justify-center gap-4 flex-col'>
-          {previewImage ? (
+          {profilePicture ? (
             <div className='mt-4'>
               <img
-                src={previewImage}
+                src={profilePicture.path}
                 alt='Preview'
                 className='w-64 h-64 rounded-full'
               />
@@ -329,7 +334,7 @@ const CashierDetails = () => {
             }
           />
 
-          <label
+          {/* <label
             htmlFor='confirmPassword'
             className='block text-sm font-medium text-black mt-4'
           >
@@ -346,7 +351,7 @@ const CashierDetails = () => {
                 employerConfirmPassword: e.target.value,
               })
             }
-          />
+          /> */}
 
           <label
             htmlFor='pin'

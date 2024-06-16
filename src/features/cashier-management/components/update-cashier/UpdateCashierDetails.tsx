@@ -338,25 +338,6 @@ const UpdateCashierDetails = () => {
               />
 
               <label
-                htmlFor='confirmPassword'
-                className='block text-sm font-medium text-black mt-4'
-              >
-                Confirm Password
-              </label>
-              <input
-                type='text'
-                id='confirmPassword'
-                className='mt-1 p-2 border-gray rounded-md w-64'
-                value={cashierDetails.employerConfirmPassword}
-                onChange={(e) =>
-                  setCashierDetails({
-                    ...cashierDetails,
-                    employerConfirmPassword: e.target.value,
-                  })
-                }
-              />
-
-              <label
                 htmlFor='pin'
                 className='block text-sm font-medium text-black mt-4'
               >

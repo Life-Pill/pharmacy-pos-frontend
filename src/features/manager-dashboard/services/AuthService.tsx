@@ -17,6 +17,7 @@ const useAuthService = () => {
 
     try {
       setLogging(true);
+      console.log(user);
       const res = await http.post('session/logout/permanent', {
         user: user.user?.employerEmail,
       });
