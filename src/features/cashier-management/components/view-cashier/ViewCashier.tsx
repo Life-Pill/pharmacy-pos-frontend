@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
 import useCashierCRUDService from '../../services/CashierCRUDService';
 import Loader from '../../../../shared/loader/Loader';
+import { LoaderIcon } from 'lucide-react';
 
 type Props = {};
 
@@ -10,13 +11,22 @@ function ViewCashierComponent({}: Props) {
   const { employerId } = useParams();
 
   const { cashierBankDetails, fetchBankDetailsById } = useBankCRUDService();
-  const { cashierDetails, fetchCashierById, deleteCashierById, loading } =
-    useCashierCRUDService();
+
+  const {
+    cashierDetails,
+    fetchCashierById,
+    deleteCashierById,
+    loading,
+    fetchProfilePicture,
+    profileImageUrl,
+    fetchImageOfEmployer,
+  } = useCashierCRUDService();
 
   useEffect(() => {
     if (employerId) {
       fetchBankDetailsById(parseInt(employerId));
       fetchCashierById(parseInt(employerId));
+      fetchImageOfEmployer(parseInt(employerId)); // Ensure this method fetches the profile picture URL
     }
   }, [employerId]);
 
@@ -54,6 +64,19 @@ function ViewCashierComponent({}: Props) {
           <span className='font-semibold'>Date of Birth:</span>{' '}
           {cashierDetails.dateOfBirth?.slice(0, 10)}
         </p>
+        {profileImageUrl && fetchProfilePicture ? (
+          <div className='mt-4'>
+            <img
+              src={profileImageUrl}
+              alt='Profile'
+              className='w-40 h-40 rounded-full object-cover'
+            />
+          </div>
+        ) : (
+          <div className='mt-4'>
+            <LoaderIcon />
+          </div>
+        )}
       </div>
       <div className='bg-gray-100 p-4 rounded-lg'>
         <p className='text-lg font-bold mb-2'>Employment Details</p>
