@@ -339,7 +339,7 @@ const CashierDetails = () => {
             Pin
           </label>
           <input
-            type='text'
+            type='number'
             id='pin'
             className='mt-1 p-2 border-gray rounded-md w-64'
             value={cashierDetails.pin}
