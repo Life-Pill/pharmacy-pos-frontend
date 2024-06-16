@@ -18,6 +18,6 @@ export const mapResponseToEmployee = (employee: any): CashierDetailsType => {
     role: employee.role,
     pin: employee.pin,
     activeStatus: employee.activeStatus,
-    profileImage: employee.profileImage,
+    profileImageUrl: employee.profileImage,
   };
 };

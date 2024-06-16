@@ -18,7 +18,7 @@ function CashierDetailsSummary() {
         {/* Example of including an image */}
         <div className='flex items-center mb-4'>
           <img
-            src={cashierDetails.profileImage[0]} // Assuming profileImage is an array of strings (URLs)
+            src={cashierDetails.profileImageUrl[0]} // Assuming profileImage is an array of strings (URLs)
             alt='Profile'
             className='h-16 w-16 rounded-full object-cover mr-2'
           />
@@ -45,7 +45,7 @@ function CashierDetailsSummary() {
         </p>
         <p>
           <span className='font-semibold'>Date of Birth:</span>{' '}
-          {cashierDetails.dateOfBirth?.slice(0, 10)}
+          {cashierDetails.dateOfBirth.toString().slice(0, 10)}
         </p>
       </div>
       <div className='bg-gray-100 p-4 rounded-lg'>

@@ -32,9 +32,9 @@ export interface CashierDetailsType {
   employerSalary: number;
   employerNic: string;
   gender: 'MALE' | 'FEMALE' | 'OTHER'; // Assuming gender can be MALE, FEMALE, or OTHER
-  dateOfBirth: string; // Date string in ISO 8601 format, e.g., "2024-06-15T17:01:10.445Z"
+  dateOfBirth: Date; // Date string in ISO 8601 format, e.g., "2024-06-15T17:01:10.445Z"
   role: 'OWNER' | 'EMPLOYEE' | 'MANAGER' | 'OTHER_ROLE'; // Define other possible roles as needed
   pin: number;
-  profileImage: string[]; // Array of strings representing image URLs
+  profileImageUrl: string; // Array of strings representing image URLs
   activeStatus: boolean;
 }

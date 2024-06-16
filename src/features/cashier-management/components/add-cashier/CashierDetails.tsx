@@ -20,7 +20,7 @@ const CashierDetails = () => {
           setProfilePicture(file);
           setCashierDetails((prev: any) => ({
             ...prev,
-            profileImage: [file.path],
+            profileImageUrl: file.path,
           }));
         }
       };
@@ -71,6 +71,7 @@ const CashierDetails = () => {
               type='file'
               className='hidden'
               onChange={handleImageChange}
+              accept='image/*'
             />
           </label>
         </div>
@@ -266,7 +267,7 @@ const CashierDetails = () => {
             type='date'
             id='dateOfBirth'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.dateOfBirth?.slice(0, 10)}
+            value={cashierDetails.dateOfBirth?.toString().slice(0, 10)}
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,

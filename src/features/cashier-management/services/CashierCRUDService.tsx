@@ -15,9 +15,8 @@ const useCashierCRUDService = () => {
   const { setCurrentComponent } = useCashierContext();
   const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
-  const [profilePicture, setProfilePicture] = useState<File>(
-    new File([], 'profile')
-  );
+  const [profilePicture, setProfilePicture] = useState<File | null>();
+  const user = useUserContext();
 
   // const createCashier = async (employer: CashierDetailsType) => {
   //   if (
@@ -119,6 +118,44 @@ const useCashierCRUDService = () => {
       return;
     }
 
+    const formData = new FormData();
+    console.log('Employer object:', employer);
+    console.log('FormData before append:', formData);
+    if (user && user.user) {
+      formData.append('branchId', user.user.branchId.toString());
+      formData.append('employerFirstName', employer.employerFirstName);
+      formData.append('employerNicName', employer.employerNicName);
+      formData.append('employerLastName', employer.employerLastName);
+      formData.append('employerPassword', employer.employerPassword);
+      formData.append('employerEmail', employer.employerEmail);
+      formData.append('employerPhone', employer.employerPhone);
+      formData.append('employerAddress', employer.employerAddress);
+      formData.append('employerSalary', String(employer.employerSalary));
+      formData.append('employerNic', employer.employerNic);
+      formData.append('gender', employer.gender);
+      formData.append(
+        'dateOfBirth',
+        String(employer.dateOfBirth.toString().split('-').join('/'))
+      );
+      formData.append('role', employer.role);
+      formData.append('pin', String(employer.pin));
+      formData.append(
+        'profileImageUrl',
+        JSON.stringify(employer.profileImageUrl)
+      ); // Assuming profileImage is an array of strings
+      formData.append('isActiveStatus', String(employer.activeStatus));
+
+      if (profilePicture) {
+        formData.append('file', profilePicture, profilePicture.name);
+      }
+    }
+
+    console.log('FormData after append:', formData);
+
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
     // if (
     //   !passwordsMatch(
     //     employer.employerPassword,
@@ -145,7 +182,15 @@ const useCashierCRUDService = () => {
 
     setLoading(true);
     try {
-      const res = await http.post('/employers/save-without-image', employer);
+      const res = await http.post(
+        '/employers/save-employer-with-image',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       console.log(res.data);
       if (res.data.code === 201) {
