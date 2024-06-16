@@ -18,7 +18,7 @@ function CashierDetailsSummary() {
         {/* Example of including an image */}
         <div className='flex items-center mb-4'>
           <img
-            src={cashierDetails.profileImageUrl[0]} // Assuming profileImage is an array of strings (URLs)
+            src={cashierDetails.profileImageUrl} // Assuming profileImage is an array of strings (URLs)
             alt='Profile'
             className='h-16 w-16 rounded-full object-cover mr-2'
           />

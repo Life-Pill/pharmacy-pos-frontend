@@ -195,28 +195,6 @@ const CashierDetails = () => {
         {/* Second Column */}
         <div>
           <label
-            htmlFor='branch'
-            className='block text-sm font-medium text-black'
-          >
-            Branch
-          </label>
-          <select
-            id='branch'
-            className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.branchId}
-            onChange={(e) =>
-              setCashierDetails({
-                ...cashierDetails,
-                branchId: parseInt(e.target.value),
-              })
-            }
-          >
-            <option value='0'>Branch 1</option>
-            <option value='1'>Branch 2</option>
-            <option value='2'>Branch 3</option>
-          </select>
-
-          <label
             htmlFor='gender'
             className='block text-sm font-medium text-black'
           >
@@ -225,7 +203,7 @@ const CashierDetails = () => {
           <select
             id='gender'
             className='mt-1 p-2 border-gray rounded-md w-64'
-            value={cashierDetails.gender}
+            value={cashierDetails.gender && cashierDetails.gender}
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,

@@ -336,6 +336,22 @@ const useCashierCRUDService = () => {
     }
   };
 
+  const [profileImageUrl, setProfileImageUrl] = useState<string>('');
+  const [fetchProfilePicture, setFetchProfilePicture] =
+    useState<boolean>(false);
+  const fetchImageOfEmployer = async (employerId: number) => {
+    try {
+      setFetchProfilePicture(true);
+      const res = await http.get(`/employers/view-image/${employerId}`);
+      console.log(res);
+      setProfileImageUrl(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFetchProfilePicture(false);
+    }
+  };
+
   return {
     createCashier,
     loading,
@@ -347,6 +363,9 @@ const useCashierCRUDService = () => {
     deleteCashierById,
     profilePicture,
     setProfilePicture,
+    fetchImageOfEmployer,
+    profileImageUrl,
+    fetchProfilePicture,
   };
 };
 export default useCashierCRUDService;
