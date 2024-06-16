@@ -3,23 +3,30 @@ import { IoCloudUploadOutline } from 'react-icons/io5';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
 import useItemUpdateService from '../services/ItemUpdateService';
+import useItemService from '../services/ItemDetailsCRUDService';
+import Loader from '../../../shared/loader/Loader';
 
 const UpdateItems = () => {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-  // const navigate = useNavigate();
   const { itemId } = useParams();
+  const {
+    itemString,
+    fetchItemImage,
+    fetchItemString,
+    itemImage,
+    setItemImage,
+    updatingItemImage,
+    updateItemImage,
+  } = useItemService();
 
+  const [updateImage, setUpdateImage] = useState<boolean>(false);
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
-          setItem({
-            ...item,
-            itemImage: reader.result,
-          });
+          setItemImage(file);
+          setUpdateImage(true);
         }
       };
       reader.readAsDataURL(file);
@@ -38,6 +45,7 @@ const UpdateItems = () => {
   useEffect(() => {
     if (itemId) {
       fetchItemById(parseInt(itemId));
+      fetchItemImage(itemId);
     }
   }, [itemId]);
 
@@ -50,23 +58,23 @@ const UpdateItems = () => {
         </p>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
           <div className='flex items-center justify-center gap-4 flex-col'>
-            {previewImage ? (
-              <div className='mt-4'>
+            <div className='mt-4'>
+              {fetchItemString ? (
+                <Loader />
+              ) : updateImage ? (
                 <img
-                  src={previewImage}
+                  src={itemImage?.path || 'https://via.placeholder.com/150'}
                   alt='Preview'
                   className='w-32 h-32 rounded-full'
                 />
-              </div>
-            ) : (
-              <div className='mt-4'>
+              ) : (
                 <img
-                  src='https://randomuser.me/api/portraits/men/1.jpg'
+                  src={itemString || 'https://via.placeholder.com/150'}
                   alt='Preview'
                   className='w-32 h-32 rounded-full'
                 />
-              </div>
-            )}
+              )}
+            </div>
             <label className='w-64 flex flex-row items-center p-2 justify-center gap-2 bg-white rounded-lg'>
               <IoCloudUploadOutline size={25} />
               <span className='text-base leading-normal'>Select an image</span>
@@ -76,6 +84,13 @@ const UpdateItems = () => {
                 onChange={handleImageChange}
               />
             </label>
+            <button
+              type='button'
+              className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+              onClick={() => updateItemImage(itemId as string)}
+            >
+              {updatingItemImage ? 'Updating...' : 'Update'}
+            </button>
           </div>
           {/* First Column */}
           <div>

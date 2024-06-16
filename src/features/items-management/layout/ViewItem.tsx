@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useItemUpdateService from '../services/ItemUpdateService';
 import CashierManagerNavBar from '../../cashier-management/components/navbar/CashierManagerNavBar';
+import useItemService from '../services/ItemDetailsCRUDService';
 
 function ViewItem() {
   const { itemId } = useParams();
   const { fetchItemById, itemDetails } = useItemUpdateService();
+  const { itemString, fetchItemImage, fetchItemString } = useItemService();
 
   useEffect(() => {
     if (itemId) {
       fetchItemById(parseInt(itemId));
+      fetchItemImage(itemId);
     }
   }, []);
 
@@ -24,7 +27,7 @@ function ViewItem() {
           {/* Image Column */}
           <div className='flex flex-col items-center'>
             <img
-              src={itemDetails.itemImage || 'https://via.placeholder.com/150'}
+              src={itemString || 'https://via.placeholder.com/150'}
               alt={itemDetails.itemName || 'Placeholder Image'}
               className='w-40 h-40 object-cover rounded-md shadow-md mb-4'
             />
