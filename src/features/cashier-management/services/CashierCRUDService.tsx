@@ -336,19 +336,64 @@ const useCashierCRUDService = () => {
     }
   };
 
-  const [profileImageUrl, setProfileImageUrl] = useState<string>('');
+  const [profileImageUrl, setProfileImageUrl] = useState<any>();
   const [fetchProfilePicture, setFetchProfilePicture] =
     useState<boolean>(false);
   const fetchImageOfEmployer = async (employerId: number) => {
     try {
       setFetchProfilePicture(true);
-      const res = await http.get(`/employers/view-image/${employerId}`);
-      console.log(res);
-      setProfileImageUrl(res.data);
+      const res = await http.get(
+        `/employers/view-profile-image/${employerId}`,
+        {
+          responseType: 'arraybuffer', // Ensure response type is set correctly
+        }
+      );
+      console.log(res); // Check the response in console if needed
+
+      // Convert array buffer to Base64 string
+      const base64String = btoa(
+        new Uint8Array(res.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
+
+      setProfileImageUrl(`data:image/jpeg;base64,${base64String}`);
     } catch (error) {
       console.log(error);
     } finally {
       setFetchProfilePicture(false);
+    }
+  };
+
+  const [updateState, setUpdateState] = useState<boolean>(false);
+  const updateEmployerImage = async (employerId: number) => {
+    const updateImageFormData = new FormData();
+    if (profilePicture) {
+      updateImageFormData.append('file', profilePicture, profilePicture?.name);
+    } else {
+      toast.warning('Please select a image');
+    }
+    try {
+      setUpdateState(true);
+      const res = await http.put(
+        `/employers/update-employer-image/${employerId}`,
+        updateImageFormData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(res);
+      if (res.status === 200) {
+        toast.success('Image updated successfully');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to update profile picture');
+    } finally {
+      setUpdateState(false);
     }
   };
 
@@ -366,6 +411,8 @@ const useCashierCRUDService = () => {
     fetchImageOfEmployer,
     profileImageUrl,
     fetchProfilePicture,
+    updateEmployerImage,
+    updateState,
   };
 };
 export default useCashierCRUDService;
