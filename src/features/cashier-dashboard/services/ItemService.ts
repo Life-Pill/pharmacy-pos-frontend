@@ -4,6 +4,7 @@ import { mapIItemsToIMedicine } from '../utils/mapIItemsToIMedicine';
 import { useUserContext } from '../../../context/UserContext';
 import { toast } from 'react-toastify';
 import { IMedicine } from '../../../interfaces/IMedicine';
+import { usePaymentContext } from '../layout/MainCashierDashboard';
 
 const useItemService = () => {
   const http = useAxiosInstance();
@@ -24,9 +25,12 @@ const useItemService = () => {
   //   }
   // };
   const user = useUserContext();
-  const [medicine, setMedicine] = useState<IMedicine[]>([]);
-  const [filteredMedicine, setFilteredMedicine] = useState<IMedicine[]>([]);
+  // const [medicine, setMedicine] = useState<IMedicine[]>([]);
+  // const [filteredMedicine, setFilteredMedicine] = useState<IMedicine[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { setMedicine, medicine, setFilteredMedicine, filteredMedicine } =
+    usePaymentContext();
 
   const getAllItems = async () => {
     try {

@@ -83,10 +83,12 @@ const Medicine = () => {
                 </td>
                 <td className='px-6 py-4'>{cashier.status}</td>
                 <td className='px-6 py-4'>
-                  <CountRoundButton
-                    onClick={() => handleAddClick(cashier)}
-                    icon={<IoIosAdd />}
-                  />
+                  {cashier.quantity > 0 && (
+                    <CountRoundButton
+                      onClick={() => handleAddClick(cashier)}
+                      icon={<IoIosAdd />}
+                    />
+                  )}
                 </td>
               </tr>
             ))}

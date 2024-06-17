@@ -20,6 +20,8 @@ const MedicineGrid = () => {
 
   const handleAddAmount = (index: number) => {
     const updatedMedicines = [...orderedMedicine];
+    console.log(updatedMedicines);
+    console.log(filteredMedicine);
 
     if (updatedMedicines[index].availableQuantity > 0) {
       updatedMedicines[index].amount += 1;
