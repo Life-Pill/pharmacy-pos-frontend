@@ -24,7 +24,10 @@ const ProfileNameCard = (props: Props) => {
       {/* Image */}
       <div className='w-[60px] h-[60px] rounded-full overflow-hidden relative'>
         <img
-          src={itemString || 'https://randomuser.me/api/portraits/men/1.jpg'}
+          src={
+            itemString ||
+            'https://static-00.iconduck.com/assets.00/person-icon-1901x2048-a9h70k71.png'
+          }
           alt='Recent'
           className='w-full h-full object-cover'
         />
