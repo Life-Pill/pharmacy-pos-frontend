@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUserContext } from '../../context/UserContext';
+import useItemService from '../../features/items-management/services/ItemDetailsCRUDService';
 
 type Props = {};
 
 const ProfileNameCard = (props: Props) => {
   const { user } = useUserContext();
-  console.log(`ProfileNameCard: ${user}`);
+  // console.log(`ProfileNameCard: ${user}`);
+  const { itemString, fetchItemImage } = useItemService();
+  useEffect(() => {
+    if (user) {
+      fetchItemImage(user.employerId.toString());
+    }
+  }, []);
 
   return (
     <div className='flex items-center justify-center space-x-2'>
@@ -17,7 +24,7 @@ const ProfileNameCard = (props: Props) => {
       {/* Image */}
       <div className='w-[60px] h-[60px] rounded-full overflow-hidden relative'>
         <img
-          src='https://randomuser.me/api/portraits/men/1.jpg'
+          src={itemString || 'https://randomuser.me/api/portraits/men/1.jpg'}
           alt='Recent'
           className='w-full h-full object-cover'
         />
