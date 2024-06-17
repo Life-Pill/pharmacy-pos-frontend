@@ -1,18 +1,44 @@
 import { useEffect, useState } from 'react';
 import useAxiosInstance from '../../login/services/useAxiosInstance';
 import { mapIItemsToIMedicine } from '../utils/mapIItemsToIMedicine';
+import { useUserContext } from '../../../context/UserContext';
+import { toast } from 'react-toastify';
 
 const useItemService = () => {
   const http = useAxiosInstance();
   const [items, setItems] = useState([]);
 
+  // const getAllItems = async () => {
+  //   try {
+  //     const res = await http.get('/item/get-all-items');
+  //     const data = res.data.data;
+  //     if (data.length === 0) return [];
+  //     const mappedItems = data.map((item: any) => mapIItemsToIMedicine(item));
+  //     setItems(mappedItems);
+  //     console.log(res);
+  //     return mappedItems;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return [];
+  //   }
+  // };
+
+  const user = useUserContext();
+
   const getAllItems = async () => {
     try {
-      const res = await http.get('/item/get-all-items');
+      if (!user) {
+        toast.error('Not logged in');
+        return;
+      }
+      const res = await http.get(
+        `/item/branched/get-item/${user.user?.branchId}`
+      );
       const data = res.data.data;
       if (data.length === 0) return [];
       const mappedItems = data.map((item: any) => mapIItemsToIMedicine(item));
       setItems(mappedItems);
+      console.log(res);
       return mappedItems;
     } catch (error) {
       console.log(error);

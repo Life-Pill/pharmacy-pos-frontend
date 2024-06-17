@@ -54,7 +54,7 @@ const PaymentDrawer = () => {
   };
 
   return (
-    <div className='max-w-[700px] flex flex-col p-2 rounded-lg space-y-4 font-poppins'>
+    <div className='w-[600px] flex flex-col p-2 rounded-lg space-y-4 font-poppins'>
       <div className='flex justify-between items-center'>
         <div>
           <p className='font-semibold'>Order Payment</p>
@@ -116,7 +116,7 @@ const PaymentDrawer = () => {
           Input Amount
         </label>
         <input
-          type='text'
+          type='number'
           id='paymentInput'
           value={payment}
           placeholder='Enter Amount'
@@ -132,11 +132,11 @@ const PaymentDrawer = () => {
         />
       </div>
 
-      <PaymentNumberPad onKeyPress={handleKeyPress} />
+      {/* <PaymentNumberPad onKeyPress={handleKeyPress} /> */}
 
       {/* Three buttons for receipt email and done */}
       <div className='flex flex-row justify-evenly items-center'>
-        <FooterButton
+        {/* <FooterButton
           onClick={footerButtonClick}
           icon={<BiReceipt />}
           text='Receipt'
@@ -145,7 +145,7 @@ const PaymentDrawer = () => {
           onClick={footerButtonClick}
           icon={<AiOutlineMail />}
           text='Email'
-        />
+        /> */}
         <FooterButton
           onClick={footerButtonClick}
           icon={<MdOutlineDone />}

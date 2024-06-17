@@ -147,7 +147,7 @@ const MedicineGrid = () => {
             <tr>
               <td className='px-6 py-1'>Total Amount</td>
               <td className='px-6 py-1 text-blueDarker font-bold total-amount'>
-                {totalAmount}
+                {totalAmount.toFixed(2)}
               </td>
             </tr>
             <tr>
@@ -167,7 +167,7 @@ const MedicineGrid = () => {
             <tr>
               <td className='px-6 py-1'>After Discount</td>
               <td className='px-6 py-1 text-blueDarker font-bold'>
-                {discountedTotal}
+                {discountedTotal.toFixed(2)}
               </td>
             </tr>
           </tbody>

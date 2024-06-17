@@ -10,12 +10,12 @@ const LogInPageLayout = () => {
   return (
     <div className='flex justify-evenly items-center min-h-screen'>
       <LogInCard />
-      <div className='flex flex-col items-center space-y-8'>
+      {/* <div className='flex flex-col items-center space-y-8'>
         <RecentLogBar />
         <button className='login_button' onClick={logInButtonClick}>
           Log In
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
