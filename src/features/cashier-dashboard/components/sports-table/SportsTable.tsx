@@ -8,8 +8,7 @@ import useItemService from '../../services/ItemService';
 
 const SportsTable = () => {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
-  const [medicine, setMedicine] = useState<IMedicine[]>([]);
-  const { getAllItems } = useItemService();
+  const { getAllItems, medicine, filteredMedicine } = useItemService();
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {
@@ -25,19 +24,19 @@ const SportsTable = () => {
     ]);
   };
 
-  const fetchMedicine = async () => {
-    const allItems = await getAllItems();
-    //filter only personal care
-    const medicine = allItems.filter(
-      (item: IMedicine) => item.category === 'Sports'
-    );
-    setMedicine(medicine);
-  };
+  // const fetchMedicine = async () => {
+  //   const allItems = await getAllItems();
+  //   //filter only personal care
+  //   const medicine = allItems.filter(
+  //     (item: IMedicine) => item.category === 'Sports'
+  //   );
+  //   setMedicine(medicine);
+  // };
 
   //
   useEffect(() => {
     //fetchMedicine from server
-    fetchMedicine();
+    // fetchMedicine();
   }, []);
   //
 

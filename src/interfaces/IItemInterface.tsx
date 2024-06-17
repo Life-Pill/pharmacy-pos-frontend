@@ -7,7 +7,7 @@ export interface IItemInterface {
   supplierPrice: number;
   itemManufacture: string;
   itemQuantity: number;
-  itemCategory: string;
+  itemCategoryName: string;
   measuringUnitType: string;
   manufactureDate: Date | null; // You can use Date type if you prefer
   expireDate: Date; // You can use Date type if you prefer
