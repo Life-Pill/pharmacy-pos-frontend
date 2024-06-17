@@ -10,8 +10,13 @@ type Props = {};
 
 const FirstAidTable = (props: Props) => {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
-  const [medicine, setMedicine] = useState<IMedicine[]>([]);
-  const { items, getAllItems } = useItemService();
+  const {
+    items,
+    getAllItems,
+    medicine,
+    filteredMedicine,
+    setFilteredMedicine,
+  } = useItemService();
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {
@@ -28,19 +33,19 @@ const FirstAidTable = (props: Props) => {
   };
   console.log(items);
 
-  const fetchMedicine = async () => {
-    const allItems = await getAllItems();
-    //filter only personal care
-    const medicine = allItems.filter(
-      (item: IMedicine) => item.category === 'FirstAid'
-    );
-    setMedicine(medicine);
-  };
+  // const fetchMedicine = async () => {
+  //   const allItems = await getAllItems();
+  //   //filter only personal care
+  //   const medicine = allItems.filter(
+  //     (item: IMedicine) => item.category === 'FirstAid'
+  //   );
+  //   setMedicine(medicine);
+  // };
 
   //
   useEffect(() => {
     //fetchMedicine from server
-    fetchMedicine();
+    // getAllItems();
   }, []);
   //
 

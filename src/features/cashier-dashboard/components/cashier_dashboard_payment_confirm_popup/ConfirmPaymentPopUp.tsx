@@ -131,7 +131,7 @@ const ConfirmPaymentPopUp = () => {
                     className='signup_button w-28 rounded-full'
                     onClick={confirmClick}
                   >
-                    Pay
+                    {loading ? 'Wait...' : 'Pay'}
                   </button>
                 )
               }

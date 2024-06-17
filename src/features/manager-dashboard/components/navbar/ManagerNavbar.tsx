@@ -3,6 +3,7 @@ import ProfileNameCard from '../../../../shared/cashier_profile/ProfileNameCard'
 import DateAndTimeNavBar from '../../../../shared/clock/DateAndTimeNavBar';
 import Divider from '../../../../shared/divider/Divider';
 import Logo from '../../../../assets/logo/logo.png';
+import { useEffect } from 'react';
 
 const ManagerNavbar = () => {
   return (

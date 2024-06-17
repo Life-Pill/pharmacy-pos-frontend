@@ -93,8 +93,84 @@ const useItemService = () => {
     }
   }, [shouldCreate]);
 
+  // const createItem = async () => {
+  //   console.log('createItem', item);
+  //   setCreating(true);
+
+  //   if (!validateItem(item)) {
+  //     setCreating(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     const res = await http.post('/item/save-item', item);
+  //     if (res.data.code === 201) {
+  //       toast.success(res.data.message);
+  //       navigate('/manager-dashboard/Items');
+  //     }
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error('Could not create the item');
+  //   } finally {
+  //     setCreating(false);
+  //   }
+  // };
+
+  const [itemImage, setItemImage] = useState<File | null>();
+
   const createItem = async () => {
     console.log('createItem', item);
+    const formData = new FormData();
+    formData.append('itemName', item.itemName);
+    formData.append('branchId', item.branchId.toString());
+    formData.append('sellingPrice', item.sellingPrice.toString());
+    formData.append('itemBarCode', item.itemBarCode);
+    formData.append(
+      'supplyDate',
+      item.supplyDate.toString().split('-').join('/')
+    );
+    formData.append('supplierPrice', item.supplierPrice.toString());
+    formData.append('itemManufacture', item.itemManufacture);
+    formData.append('itemQuantity', item.itemQuantity.toString());
+    formData.append('measuringUnitType', item.measuringUnitType);
+    formData.append(
+      'manufactureDate',
+      item.manufactureDate.toString().split('-').join('/')
+    );
+    formData.append(
+      'expireDate',
+      item.expireDate.toString().split('-').join('/')
+    );
+    formData.append(
+      'purchaseDate',
+      item.purchaseDate.toString().split('-').join('/')
+    );
+    formData.append('warrantyPeriod', item.warrantyPeriod);
+    formData.append('rackNumber', item.rackNumber);
+    formData.append('discountedPrice', item.discountedPrice.toString());
+    formData.append(
+      'discountedPercentage',
+      item.discountedPercentage.toString()
+    );
+    formData.append('warehouseName', item.warehouseName);
+    formData.append('itemImage', item.itemImage);
+    formData.append('itemDescription', item.itemDescription);
+    formData.append('categoryId', item.categoryId.toString());
+    formData.append('supplierId', item.supplierId.toString());
+    formData.append('specialCondition', item.specialCondition.toString());
+    formData.append('stock', item.stock.toString());
+    formData.append('discounted', item.discounted.toString());
+    formData.append('freeIssued', item.freeIssued.toString());
+
+    if (itemImage) {
+      formData.append('file', itemImage, itemImage.name);
+    }
+
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
     setCreating(true);
 
     if (!validateItem(item)) {
@@ -103,7 +179,11 @@ const useItemService = () => {
     }
 
     try {
-      const res = await http.post('/item/save-item', item);
+      const res = await http.post('/item/save-item-with-image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       if (res.data.code === 201) {
         toast.success(res.data.message);
         navigate('/manager-dashboard/Items');
@@ -151,6 +231,58 @@ const useItemService = () => {
     }
   };
 
+  const [itemString, setItemString] = useState<any>();
+  const [fetchItemString, setFetchItemString] = useState<boolean>(false);
+  const fetchItemImage = async (itemId: string) => {
+    try {
+      setFetchItemString(true);
+      const res = await http.get(`/item/view-item-image/${itemId}`, {
+        responseType: 'arraybuffer', // Ensure response type is set correctly
+      });
+      const base64String = btoa(
+        new Uint8Array(res.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
+      console.log(res);
+      setItemString(`data:image/jpeg;base64,${base64String}`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFetchItemString(false);
+    }
+  };
+
+  const [updatingItemImage, setUpdatingItemImage] = useState<boolean>(false);
+  const updateItemImage = async (itemId: string) => {
+    const itemImageFormData = new FormData();
+    if (itemImage) {
+      itemImageFormData.append('file', itemImage, itemImage?.name);
+    } else {
+      toast.error('Image is not provided');
+      return;
+    }
+
+    try {
+      setUpdatingItemImage(true);
+      const res = await http.put(
+        `/item/update-item-image/${parseInt(itemId)}`,
+        itemImageFormData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setUpdatingItemImage(false);
+    }
+  };
+
   return {
     fetchAllItems,
     items,
@@ -163,6 +295,13 @@ const useItemService = () => {
     creating,
     preSet,
     deleteItem,
+    setItemImage,
+    itemImage,
+    itemString,
+    fetchItemImage,
+    fetchItemString,
+    updatingItemImage,
+    updateItemImage,
   };
 };
 

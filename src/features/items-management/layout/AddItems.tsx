@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import useItemService from '../services/ItemDetailsCRUDService';
 
 const AddItems = () => {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
   // const navigate = useNavigate();
-  const { item, setItem, preSet, creating } = useItemService();
+  const { item, setItem, preSet, creating, itemImage, setItemImage } =
+    useItemService();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
@@ -15,11 +15,7 @@ const AddItems = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
-          setPreviewImage(reader.result);
-          setItem({
-            ...item,
-            itemImage: reader.result,
-          });
+          setItemImage(file);
         }
       };
       reader.readAsDataURL(file);
@@ -62,10 +58,10 @@ const AddItems = () => {
         </p>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center justify-center'>
           <div className='flex items-center justify-center gap-4 flex-col'>
-            {previewImage ? (
+            {itemImage ? (
               <div className='mt-4'>
                 <img
-                  src={previewImage}
+                  src={itemImage.path}
                   alt='Preview'
                   className='w-32 h-32 rounded-full'
                 />
@@ -84,8 +80,9 @@ const AddItems = () => {
               <span className='text-base leading-normal'>Select an image</span>
               <input
                 type='file'
-                className='hidden'
+                className='hidden cursor-pointer'
                 onChange={handleImageChange}
+                accept='image/*'
               />
             </label>
           </div>
@@ -140,7 +137,9 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  supplyDate: new Date(e.target.value).toISOString(),
+                  supplyDate: new Date(e.target.value)
+                    .toISOString()
+                    .slice(0, 10),
                 });
               }}
             />
@@ -251,7 +250,9 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  manufactureDate: new Date(e.target.value).toISOString(),
+                  manufactureDate: new Date(e.target.value)
+                    .toISOString()
+                    .slice(0, 10),
                 });
               }}
             />
@@ -269,7 +270,9 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  expireDate: new Date(e.target.value).toISOString(),
+                  expireDate: new Date(e.target.value)
+                    .toISOString()
+                    .slice(0, 10),
                 });
               }}
             />
@@ -287,7 +290,9 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  purchaseDate: new Date(e.target.value).toISOString(),
+                  purchaseDate: new Date(e.target.value)
+                    .toISOString()
+                    .slice(0, 10),
                 });
               }}
             />

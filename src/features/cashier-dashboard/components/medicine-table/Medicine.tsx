@@ -7,11 +7,16 @@ import useItemService from '../../services/ItemService';
 
 const Medicine = () => {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
-  const [loading, setLoading] = useState(true);
-  const { getAllItems } = useItemService();
+  const {
+    getAllItems,
+    medicine,
+    filteredMedicine,
+    setFilteredMedicine,
+    loading,
+  } = useItemService();
 
-  const { setMedicine, medicine, setFilteredMedicine, filteredMedicine } =
-    usePaymentContext();
+  // const { setMedicine, medicine, setFilteredMedicine, filteredMedicine } =
+  //   usePaymentContext();
 
   //function to add medicine to ordered medicine
   const handleAddClick = (medicine: MedicineType) => {
@@ -27,21 +32,9 @@ const Medicine = () => {
     ]);
   };
 
-  const fetchMedicine = async () => {
-    try {
-      const medicineData = await getAllItems();
-      setMedicine(medicineData);
-      setFilteredMedicine(medicineData);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching medicine data:', error);
-    }
-  };
-
-  //
   useEffect(() => {
     //fetchMedicine from server
-    fetchMedicine();
+    getAllItems();
   }, []);
   //
 
@@ -85,13 +78,17 @@ const Medicine = () => {
                 </td>
                 <td className='px-6 py-4'>{cashier.name}</td>
                 <td className='px-6 py-4'>{cashier.price}</td>
-                <td className='px-6 py-4'>{cashier.quantity}</td>
+                <td className='px-6 py-4'>
+                  {cashier.quantity < 0 ? 0 : cashier.quantity}
+                </td>
                 <td className='px-6 py-4'>{cashier.status}</td>
                 <td className='px-6 py-4'>
-                  <CountRoundButton
-                    onClick={() => handleAddClick(cashier)}
-                    icon={<IoIosAdd />}
-                  />
+                  {cashier.quantity > 0 && (
+                    <CountRoundButton
+                      onClick={() => handleAddClick(cashier)}
+                      icon={<IoIosAdd />}
+                    />
+                  )}
                 </td>
               </tr>
             ))}

@@ -34,7 +34,6 @@ const useOrderService = () => {
         paymentDetails: paymentDetails,
       });
       console.log(res);
-      setLoading(false);
       // Display success toast
       toast.success('Order placed successfully!');
 
@@ -43,10 +42,11 @@ const useOrderService = () => {
       return res.data;
     } catch (error) {
       console.log(error);
-      setLoading(false);
       toast.error('Error with the server: ' + (error as Error).message);
 
       return error;
+    } finally {
+      setLoading(false);
     }
   };
 
