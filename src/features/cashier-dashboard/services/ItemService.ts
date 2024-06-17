@@ -40,8 +40,8 @@ const useItemService = () => {
       }
       setLoading(true);
       const res = await http.get(
-        // `/item/branched/get-item/${user.user?.branchId}`
-        `/item/branched/get-item/1`
+        `/item/branched/get-item/${user.user?.branchId}`
+        // `/item/branched/get-item/1`
       );
       const data = res.data.data;
       if (data.length === 0) return [];

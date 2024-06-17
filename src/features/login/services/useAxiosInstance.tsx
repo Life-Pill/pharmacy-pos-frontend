@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 
 const useAxiosInstance = () => {
   const instance = axios.create({
-    baseURL: 'http://localhost:8079/lifepill/v1',
+    // baseURL: 'http://localhost:8079/lifepill/v1',
+    baseURL: 'https://3.82.134.54:8079/lifepill/v1',
     headers: {
       'Content-type': 'application/json',
     },
