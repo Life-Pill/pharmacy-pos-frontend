@@ -6,15 +6,21 @@ import Logo from '../../../assets/logo/logo.png';
 import { useNavigate } from 'react-router-dom';
 import useSignIn from '../services/AuthService';
 import { useUserContext } from '../../../context/UserContext';
+import EulaComponent from './EulaComponent';
+import { Loader } from 'lucide-react';
 
 const LogInCard = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { setUser } = useUserContext();
+  const [showEula, setShowEula] = useState(false);
+  const handleShowEula = () => {
+    setShowEula(!showEula);
+  };
 
   const navigate = useNavigate();
 
-  const { signIn } = useSignIn();
+  const { signIn, loading } = useSignIn();
 
   const handleSignIn = async () => {
     const user = await signIn(username, password);
@@ -82,17 +88,27 @@ const LogInCard = () => {
           </div>
         </div>
 
-        <p className='text-red cursor-pointer text-sm'>Forgot Password?</p>
+        <p className='text-red cursor-pointer text-sm' onClick={handleShowEula}>
+          Forgot Password?
+        </p>
       </div>
       {/* Buttons */}
       <div>
         <button className='signup_button' onClick={handleSignIn}>
-          Sign In
+          {loading ? (
+            <Loader className='flex justify-center items-center' />
+          ) : (
+            'Sign In'
+          )}
         </button>
       </div>
 
       {/* User agreement bar */}
-      <p className='text-sm pt-12'>End User Agreement</p>
+      <p className='text-sm pt-12 cursor-pointer' onClick={handleShowEula}>
+        End User Agreement
+      </p>
+
+      {showEula && <EulaComponent OnClose={handleShowEula} />}
     </div>
   );
 };

@@ -126,6 +126,7 @@ const CashierDetails = () => {
             id='telephone'
             className='mt-1 p-2 border-gray rounded-md w-64'
             value={cashierDetails.employerPhone}
+            accept='tel'
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,
@@ -265,6 +266,7 @@ const CashierDetails = () => {
             id='role'
             className='mt-1 p-2 border-gray rounded-md w-64'
             value={cashierDetails.role}
+            placeholder='CASHIER, OTHER'
             onChange={(e) =>
               setCashierDetails({
                 ...cashierDetails,
@@ -277,12 +279,13 @@ const CashierDetails = () => {
             htmlFor='baseSalary'
             className='block text-sm font-medium text-black mt-4'
           >
-            Base Salary
+            Base Salary (LKR)
           </label>
           <input
-            type='text'
+            type='number'
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            accept='number'
             value={cashierDetails.employerSalary}
             onChange={(e) =>
               setCashierDetails({
@@ -363,7 +366,7 @@ const CashierDetails = () => {
           onClick={goToBankDetails}
           disabled={loading}
         >
-          {loading ? 'Loading...' : 'Create'}
+          {loading ? 'Loading...' : 'Create Employee'}
         </button>
 
         <button

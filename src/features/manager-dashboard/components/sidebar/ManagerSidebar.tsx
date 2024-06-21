@@ -17,7 +17,7 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
   const { logOut, logging } = useAuthService();
   return (
     <div
-      className='left-0 max-w-24 p-4 font-poppins flex flex-col relative'
+      className='left-0 max-w-24 p-4 font-poppins flex flex-col relative max-h-screen'
       data-testid='cypress-manager-sidebar'
     >
       <ButtonWithIconAndTextVertical
@@ -63,7 +63,7 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
         testid='orders'
       />
       {/* Logout Button */}
-      <div className='absolute bottom-4 left-auto w-full'>
+      <div className=' bottom-4 left-auto w-full'>
         <ButtonWithIconAndTextVertical
           icon={<RiLogoutCircleLine size={25} />} // Use the logout icon
           text={logging ? 'Logging Out' : 'LogOut'}
