@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import useSalesSummary from '../services/SalesSummaryService';
 import SalesChart from '../components/SalesChart';
 import OrdersChart from '../components/OrdersChart';
-import salesSummary from '../utils/FakeData';
+// import salesSummary from '../utils/FakeData';
 import { getToday } from '../utils/getToday';
 import { generateMonthlySalesSummary } from '../utils/monthlySalesSummary';
 import { exportToExcel, exportToPDF } from '../utils/exportUtils';
 import { AiFillFileExcel, AiFillFilePdf } from 'react-icons/ai';
 
 function BranchSalesSummary() {
-  const { getSalesSummary } = useSalesSummary();
+  const { getSalesSummary, salesSummary } = useSalesSummary();
   const [startDate, setStartDate] = useState('2023-01-01');
   const [endDate, setEndDate] = useState(getToday());
   const [filterByMonth, setFilterByMonth] = useState(false);

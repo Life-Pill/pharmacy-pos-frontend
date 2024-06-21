@@ -6,14 +6,13 @@ import {
   GiFactory,
 } from 'react-icons/gi';
 import useBranchService from '../../manager-dashboard/services/BranchService';
+import { IBranchData } from '../../manager-dashboard/interfaces/IBranchData';
 
-function SummaryCard() {
-  const { fetchBranchData, branchData } = useBranchService();
+type Props = {
+  branchData: IBranchData;
+};
 
-  useEffect(() => {
-    fetchBranchData();
-  }, []);
-
+function SummaryCard({ branchData }: Props) {
   return (
     <div className=' flex gap-4 w-full'>
       {/* Total Sales Card */}
@@ -24,7 +23,9 @@ function SummaryCard() {
         </div>
         <div className='mt-4'>
           <p className='text-gray-600 text-lg'>Total Amount:</p>
-          <p className='text-2xl font-semibold text-green-700'>{`LKR ${branchData?.sales}`}</p>
+          <p className='text-2xl font-semibold text-green-700'>{`LKR ${branchData?.sales.toFixed(
+            2
+          )}`}</p>
         </div>
       </div>
 
@@ -51,7 +52,7 @@ function SummaryCard() {
         <div className='mt-4'>
           <p className='text-gray-600 text-lg'>Number of Workers:</p>
           <p className='text-2xl font-semibold text-yellow-700'>
-            {branchData?.manager}
+            {branchData?.branchDTO.branchId}
           </p>
         </div>
       </div>

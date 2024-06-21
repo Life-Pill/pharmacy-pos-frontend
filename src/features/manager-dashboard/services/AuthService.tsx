@@ -11,27 +11,26 @@ const useAuthService = () => {
   const [logging, setLogging] = useState<boolean>();
 
   const logOut = async () => {
-    // Prompt for confirmation before logging out
-    const confirmed = window.confirm('Are you sure you want to log out?');
-    if (!confirmed) return; // If user cancels logout, do nothing
+    const confirm = window.confirm('Are you sure log out ?');
 
-    try {
-      setLogging(true);
-      console.log(user);
-      const res = await http.post('session/logout/permanent', {
-        user: user.user?.employerEmail,
-      });
+    if (confirm) {
+      try {
+        setLogging(true);
+        const res = await http.post('/session/logout/permanent', {
+          username: user.user?.employerEmail,
+        });
 
-      if (res.status === 200) {
-        toast.success('Successfully logged out');
-        navigate('/');
-        // Remove user data from local storage
-        localStorage.removeItem('user');
+        if (res.status === 200) {
+          toast.success('Logged out successfully');
+          navigate('/');
+          // Remove user data from local storage
+          localStorage.removeItem('user');
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLogging(false);
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLogging(false);
     }
   };
 
