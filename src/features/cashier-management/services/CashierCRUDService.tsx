@@ -99,7 +99,6 @@ const useCashierCRUDService = () => {
   const createCashier = async (employer: CashierDetailsType) => {
     if (
       !employer ||
-      !employer.branchId ||
       !employer.employerNicName ||
       !employer.employerFirstName ||
       !employer.employerLastName ||

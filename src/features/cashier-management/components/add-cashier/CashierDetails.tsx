@@ -280,9 +280,10 @@ const CashierDetails = () => {
             Base Salary
           </label>
           <input
-            type='text'
+            type='number'
             id='baseSalary'
             className='mt-1 p-2 border-gray rounded-md w-64'
+            accept='number'
             value={cashierDetails.employerSalary}
             onChange={(e) =>
               setCashierDetails({
@@ -363,7 +364,7 @@ const CashierDetails = () => {
           onClick={goToBankDetails}
           disabled={loading}
         >
-          {loading ? 'Loading...' : 'Create'}
+          {loading ? 'Loading...' : 'Create Employee'}
         </button>
 
         <button

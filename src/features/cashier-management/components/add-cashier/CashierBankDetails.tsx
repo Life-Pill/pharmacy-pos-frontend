@@ -15,7 +15,7 @@ const CashierBankDetails = () => {
       employerId: cashierDetails.employerId,
       monthlyPayment: cashierDetails.employerSalary,
     });
-  }, [cashierBankDetails]);
+  }, []);
 
   const goToSummary = () => {
     console.log('Summary', cashierDetails);
@@ -132,7 +132,7 @@ const CashierBankDetails = () => {
           onClick={goToSummary}
           disabled={loading}
         >
-          {loading ? 'Loading...' : 'Update'}
+          {loading ? 'Loading...' : 'Create Bank Details'}
         </button>
       </div>
     </div>
