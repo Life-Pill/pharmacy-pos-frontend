@@ -8,9 +8,16 @@ import { LiaHistorySolid } from 'react-icons/lia';
 import { PiDeviceMobileSpeakerThin } from 'react-icons/pi';
 import ProfileNameCard from '../cashier_profile/ProfileNameCard';
 import Divider from '../divider/Divider';
+import { useState } from 'react';
+import OrderCardComponent from '../../features/cashier-dashboard/components/order-card/OrderCardComponent';
 const Logo = require('../../assets/logo/logo.png');
 
 const CashierNavBar = () => {
+  const [showOnlineOrders, setShowOnlineOrders] = useState(false);
+
+  const handleShowOnlineOrders = () => {
+    setShowOnlineOrders(!showOnlineOrders);
+  };
   const handleClick = () => {};
   return (
     <div className='flex items-center justify-between w-full p-2 font-poppins shadow-md'>
@@ -53,13 +60,17 @@ const CashierNavBar = () => {
       <ButtonWithIconAndText
         icon={<PiDeviceMobileSpeakerThin size={20} />}
         text='Online Orders'
-        onClick={handleClick}
+        onClick={handleShowOnlineOrders}
       />
 
       <Divider />
 
       {/* Cashier name,number and profile picture */}
       <ProfileNameCard />
+
+      {showOnlineOrders && (
+        <OrderCardComponent onClose={handleShowOnlineOrders} />
+      )}
     </div>
   );
 };
