@@ -58,11 +58,29 @@ const useOnlineOrderService = () => {
     setPrescriptionImages(imagesObject);
   };
 
+  const [messages, setMessages] = useState<{ [key: string]: string }>({});
+
+  const acceptOrder = async (orderId: string) => {
+    console.log(messages[orderId]);
+    try {
+      const res = await axios.put(
+        `http://localhost:8081/prescriptionOrders/${orderId}/${user.user?.branchId}`,
+        messages[orderId]
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getOnlineOrders,
     loadingOnlineOrders,
     onlineOrders,
     prescriptionImages, // Return prescription images from the hook
+    messages,
+    setMessages,
+    acceptOrder,
   };
 };
 
