@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useOnlineOrderService from '../../services/OnlineOrderService';
 import { Loader } from 'lucide-react';
+import { OnlineOrder } from '../../interfaces/OnlineOrder';
 
 type Props = {
   onClose: () => void;
@@ -39,6 +40,12 @@ function OrderCardComponent({ onClose }: Props) {
       [orderId]: message,
     }));
   };
+  const sortedOrders = onlineOrders
+    .slice()
+    .sort(
+      (a: OnlineOrder, b: OnlineOrder) =>
+        new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime()
+    );
 
   return (
     <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-75 z-50 backdrop-blur-sm'>
@@ -51,20 +58,20 @@ function OrderCardComponent({ onClose }: Props) {
             <Loader className='w-10 h-10 animate-spin' />
           </div>
         ) : (
-          onlineOrders.map((order) => (
+          sortedOrders.map((order) => (
             <div key={order.id} className='mb-4 border-b border-gray-300 pb-4'>
               <div className='flex gap-4'>
                 {prescriptionImages[order.prescriptionId] && (
                   <img
                     src={prescriptionImages[order.prescriptionId]}
                     alt={`Prescription for Order ${order.id}`}
-                    className='w-48 h-auto mb-4 rounded-md'
+                    className=' w-2/5 h-auto mb-4 rounded-md'
                   />
                 )}
                 <textarea
                   className='w-full p-2 border border-gray-300 rounded-md'
                   placeholder='Write a message...'
-                  value={messages[order.prescriptionId] || ''}
+                  value={messages[order.id] || ''}
                   onChange={(e) =>
                     handleMessageChange(order.prescriptionId, e.target.value)
                   }
@@ -80,17 +87,17 @@ function OrderCardComponent({ onClose }: Props) {
 
               <div className='flex justify-end space-x-2 mt-4'>
                 <button
-                  onClick={() => handleAccept(order.prescriptionId)}
+                  onClick={() => handleAccept(order.id)}
                   className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300'
                 >
                   Accept
                 </button>
-                <button
+                {/* <button
                   onClick={() => handleReject(order.id)}
                   className='bg-red text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300'
                 >
                   Reject
-                </button>
+                </button> */}
               </div>
             </div>
           ))

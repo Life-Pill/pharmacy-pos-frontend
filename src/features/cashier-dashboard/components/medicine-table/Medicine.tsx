@@ -4,6 +4,7 @@ import { usePaymentContext } from '../../layout/MainCashierDashboard';
 import { MedicineType } from './MedicineColumns';
 import { useEffect, useState } from 'react';
 import useItemService from '../../services/ItemService';
+import useOnlineOrderService from '../../services/OnlineOrderService';
 
 const Medicine = () => {
   const { orderedMedicine, setOrderedMedicine } = usePaymentContext();
@@ -14,6 +15,8 @@ const Medicine = () => {
     setFilteredMedicine,
     loading,
   } = useItemService();
+
+  const { getOnlineOrders } = useOnlineOrderService();
 
   // const { setMedicine, medicine, setFilteredMedicine, filteredMedicine } =
   //   usePaymentContext();
@@ -36,6 +39,20 @@ const Medicine = () => {
     //fetchMedicine from server
     getAllItems();
   }, []);
+
+  // useEffect(() => {
+  //   // Initial fetch
+  //   getOnlineOrders();
+
+  //   // Fetch every 120 seconds
+  //   const intervalId = setInterval(() => {
+  //     getOnlineOrders();
+  //   }, 120000); // 120000 milliseconds = 120 seconds
+
+  //   // Cleanup function to clear interval on unmount
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
   //
 
   return (

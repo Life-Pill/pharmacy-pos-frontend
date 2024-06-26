@@ -16,11 +16,12 @@ const useOnlineOrderService = () => {
     try {
       setLoadingOnlineOrders(true);
       const res = await axios.get(
-        `http://localhost:8081/prescriptionOrders/myOrders/${user.user?.branchId}`
+        `http://52.200.74.128/prescriptionOrders/myOrders/${user.user?.branchId}`
       );
       const orders: OnlineOrder[] = res.data;
       setOnlineOrders(orders);
       console.log(orders);
+
       // Fetch prescription images for each order
       await fetchPrescriptionImages(orders);
     } catch (error) {
@@ -34,7 +35,7 @@ const useOnlineOrderService = () => {
     const imagesPromises = orders.map((order) =>
       axios
         .get(
-          `http://localhost:8081/prescriptionImages/${order.prescriptionId}`,
+          `http://52.200.74.128/prescriptionImages/${order.prescriptionId}`,
           {
             responseType: 'arraybuffer',
           }
@@ -64,8 +65,13 @@ const useOnlineOrderService = () => {
     console.log(messages[orderId]);
     try {
       const res = await axios.put(
-        `http://localhost:8081/prescriptionOrders/${orderId}/${user.user?.branchId}`,
-        messages[orderId]
+        `http://52.200.74.128:8081/prescriptionOrders/${orderId}/${user.user?.branchId}`,
+        messages[orderId],
+        {
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+        }
       );
       console.log(res.data);
     } catch (error) {

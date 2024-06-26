@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import useOrderService from '../services/OrderService';
+import { Loader } from 'lucide-react';
 
 const LatestTransactionDetails = () => {
   const { fetchOrderData, orderData, loading } = useOrderService();
@@ -17,10 +18,12 @@ const LatestTransactionDetails = () => {
       </div>
       <div className='border-s border-gray-200 dark:border-gray-700 max-h-96 overflow-y-scroll'>
         {loading ? (
-          <div>Loading...</div>
+          <div className='flex justify-center items-center h-full'>
+            <Loader className='w-10 h-10 animate-spin' />
+          </div>
         ) : (
           <ul className='divide-y divide-gray-200 dark:divide-gray-700'>
-            {orderData?.map((transaction, index) => (
+            {orderData?.reverse().map((transaction, index) => (
               <li key={index}>
                 <div className='py-4'>
                   <div className='flex space-x-3'>

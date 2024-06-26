@@ -50,12 +50,12 @@ const ManagerSidebar = ({ onItemClick }: Props) => {
         onClick={() => onItemClick('Branches')}
         testid='branches'
       />
-      <ButtonWithIconAndTextVertical
+      {/* <ButtonWithIconAndTextVertical
         icon={<IoSaveOutline size={25} />}
         text='Saved Reports'
         onClick={() => onItemClick('Reports')}
         testid='reports'
-      />
+      /> */}
       <ButtonWithIconAndTextVertical
         icon={<VscFeedback size={25} />}
         text='Orders'
