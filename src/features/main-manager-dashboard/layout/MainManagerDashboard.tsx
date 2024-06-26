@@ -4,6 +4,7 @@ import LatestTransactionDetails from '../components/LatestTransactionDetails';
 import SummaryCard from '../components/SummaryCard';
 import BranchDetailsCard from '../components/BranchDetailsCard';
 import UseBranchService from '../../manager-dashboard/services/BranchService';
+import { Loader } from 'lucide-react';
 
 function MainManagerDashboard() {
   const { fetchBranchData, branchData } = UseBranchService();
@@ -17,7 +18,7 @@ function MainManagerDashboard() {
       className=' w-full max-h-screen overflow-hidden flex flex-col'
       data-testid='dashboard'
     >
-      {branchData && (
+      {branchData ? (
         <>
           <div className=' p-4 bg-slate-200 rounded-md max-h-[300px]'>
             <SummaryCard branchData={branchData} />
@@ -31,6 +32,10 @@ function MainManagerDashboard() {
             </div>
           </div>
         </>
+      ) : (
+        <div className='flex justify-center items-center h-screen'>
+          <Loader className='w-10 h-10 animate-spin' />
+        </div>
       )}
     </div>
   );

@@ -1,29 +1,44 @@
 import axios from 'axios';
 import { useEffect } from 'react';
+import { getCookie } from '../utils/getCookie';
+import { useUserContext } from '../../../context/UserContext';
 // import { useUserContext } from '../../../context/UserContext';
 
 const useAxiosInstance = () => {
+  const { cookie } = useUserContext();
+
   const instance = axios.create({
     // baseURL: 'http://localhost:8079/lifepill/v1',
-    baseURL: 'http://localhost:8079/lifepill/v1',
+    baseURL: 'http://35.174.112.238/lifepill/v1',
     headers: {
       'Content-type': 'application/json',
+      Authorization: `Bearer ${cookie}`,
     },
   });
 
+  // console.log(getCookie('Authorization'));
+  console.log(cookie);
+  // console.log(user);
   useEffect(() => {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split(';').reduce((acc: any, cookie) => {
-      const [name, value] = cookie.trim().split('=');
-      acc[name] = value;
-      return acc;
-    }, {});
+    // Update instance headers when cookie changes
+    instance.defaults.headers.common['Authorization'] = `Bearer ${cookie}`;
+    console.log(`Bearer ${cookie}`);
+  }, [cookie, instance]);
 
-    const token = cookies.Authorization;
-    if (token) {
-      console.log('Setting token:', token);
-      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
+  useEffect(() => {
+    // const cookieString = document.cookie;
+    // const cookies = cookieString.split(';').reduce((acc: any, cookie) => {
+    //   const [name, value] = cookie.trim().split('=');
+    //   acc[name] = value;
+    //   return acc;
+    // }, {});
+
+    // const token = cookies.Authorization;
+    // console.log(token);
+    // if (token) {
+    //   console.log('Setting token:', token);
+    //   instance.defaults.headers.common['Authorization'] = `Bearer ${getCookie('Authorization')}`;
+    // }
 
     instance.interceptors.response.use(
       (response) => {

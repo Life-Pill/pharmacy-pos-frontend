@@ -7,6 +7,7 @@ import {
 } from 'react-icons/gi';
 import useBranchService from '../../manager-dashboard/services/BranchService';
 import { IBranchData } from '../../manager-dashboard/interfaces/IBranchData';
+import { Loader } from 'lucide-react';
 
 type Props = {
   branchData: IBranchData;
@@ -23,9 +24,13 @@ function SummaryCard({ branchData }: Props) {
         </div>
         <div className='mt-4'>
           <p className='text-gray-600 text-lg'>Total Amount:</p>
-          <p className='text-2xl font-semibold text-green-700'>{`LKR ${branchData?.sales.toFixed(
-            2
-          )}`}</p>
+          <p className='text-2xl font-semibold text-green-700'>
+            {branchData ? (
+              `LKR ${branchData?.sales.toFixed(2)}`
+            ) : (
+              <Loader className='w-10 h-10 animate-spin' />
+            )}
+          </p>
         </div>
       </div>
 
@@ -38,7 +43,11 @@ function SummaryCard({ branchData }: Props) {
         <div className='mt-4'>
           <p className='text-gray-600 text-lg'>Number of Orders:</p>
           <p className='text-2xl font-semibold text-blue-700'>
-            {branchData?.orders}
+            {branchData ? (
+              branchData?.orders
+            ) : (
+              <Loader className='w-10 h-10 animate-spin' />
+            )}
           </p>
         </div>
       </div>
@@ -52,7 +61,11 @@ function SummaryCard({ branchData }: Props) {
         <div className='mt-4'>
           <p className='text-gray-600 text-lg'>Number of Workers:</p>
           <p className='text-2xl font-semibold text-yellow-700'>
-            {branchData?.branchDTO.branchId}
+            {branchData ? (
+              branchData?.branchDTO.branchId
+            ) : (
+              <Loader className='w-10 h-10 animate-spin' />
+            )}
           </p>
         </div>
       </div>
@@ -61,12 +74,20 @@ function SummaryCard({ branchData }: Props) {
       <div className='bg-white rounded-lg shadow-md p-6 flex-1'>
         <div className='flex items-center'>
           <GiFactory className='text-red-500 text-3xl mr-4' />
-          <h2 className='text-xl font-semibold'>Total Branches</h2>
+          <h2 className='text-xl font-semibold'>Status</h2>
         </div>
         <div className='mt-4'>
-          <p className='text-gray-600 text-lg'>Number of Branches:</p>
+          <p className='text-gray-600 text-lg'>Branch Status:</p>
           <p className='text-2xl font-semibold text-red-700'>
-            {branchData?.branchDTO?.branchStatus ? 'Active' : 'Inactive'}
+            {branchData ? (
+              branchData?.branchDTO?.branchStatus ? (
+                'Active'
+              ) : (
+                'Inactive'
+              )
+            ) : (
+              <Loader className='w-10 h-10 animate-spin' />
+            )}
           </p>
         </div>
       </div>
