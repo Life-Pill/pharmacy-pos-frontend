@@ -16,7 +16,7 @@ const useAuthService = () => {
     if (confirm) {
       try {
         setLogging(true);
-        const res = await http.post('/session/logout/permanent', {
+        const res = await http.post('/auth/logout', {
           username: user.user?.employerEmail,
         });
 
@@ -41,14 +41,12 @@ const useAuthService = () => {
     if (confirm) {
       try {
         setTemporaryLogout(true);
-        const res = await http.post('/session/logout/temporary', {
-          username: user.user?.employerEmail,
-        });
+        // const res = await http.post('/session/logout/temporary', {
+        //   username: user.user?.employerEmail,
+        // });
 
-        if (res.status === 200) {
-          toast.success('Logged out successfully');
-          navigate('/temporary-logout');
-        }
+        toast.success('Logged out successfully');
+        navigate('/temporary-logout');
       } catch (error) {
         console.log(error);
       } finally {

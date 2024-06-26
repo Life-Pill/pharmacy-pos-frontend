@@ -16,7 +16,7 @@ const useOnlineOrderService = () => {
     try {
       setLoadingOnlineOrders(true);
       const res = await axios.get(
-        `http://52.200.74.128/prescriptionOrders/myOrders/${user.user?.branchId}`
+        `http://44.196.149.99/prescriptionOrders/myOrders/${user.user?.branchId}`
       );
       const orders: OnlineOrder[] = res.data;
       setOnlineOrders(orders);
@@ -35,7 +35,7 @@ const useOnlineOrderService = () => {
     const imagesPromises = orders.map((order) =>
       axios
         .get(
-          `http://52.200.74.128/prescriptionImages/${order.prescriptionId}`,
+          `http://44.196.149.99/prescriptionImages/${order.prescriptionId}`,
           {
             responseType: 'arraybuffer',
           }
@@ -65,7 +65,7 @@ const useOnlineOrderService = () => {
     console.log(messages[orderId]);
     try {
       const res = await axios.put(
-        `http://52.200.74.128/prescriptionOrders/${orderId}/${user.user?.branchId}`,
+        `http://44.196.149.99/prescriptionOrders/${orderId}/${user.user?.branchId}`,
         messages[orderId],
         {
           headers: {

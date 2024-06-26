@@ -4,10 +4,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 import { BsBoxSeam, BsBoxes, BsExclamationTriangle } from 'react-icons/bs';
+import { Loader } from 'lucide-react';
 
 const ItemsManagementWindow = () => {
-  const { fetchAllItems, items, filteredItems, setFilteredItems, deleteItem } =
-    useItemService();
+  const {
+    fetchAllItems,
+    items,
+    filteredItems,
+    setFilteredItems,
+    deleteItem,
+    loading,
+  } = useItemService();
 
   const handleSearch = (searchName: string) => {
     const filtered = items.filter((medicine) =>
@@ -41,35 +48,39 @@ const ItemsManagementWindow = () => {
 
       {/* Summary Cards */}
       <div className='flex flex-row items-center z-20 p-8 px-16 justify-around bg-slate-200 rounded-lg'>
-        <div className='flex flex-row items-center z-20 p-2 px-16 justify-around bg-slate-200 rounded-lg space-x-12'>
-          <div className='summary-card bg-yellow-300 p-8 rounded-lg flex flex-col items-center'>
-            <BsBoxSeam size={25} />
-            <h1 className='font-medium'>Total Items</h1>
-            <h2 className='text-xl font-bold'>{totalItems}</h2>
+        {loading ? (
+          <Loader className='w-10 h-10 animate-spin' />
+        ) : (
+          <div className='flex flex-row items-center z-20 p-2 px-16 justify-around bg-slate-200 rounded-lg space-x-12'>
+            <div className='summary-card bg-yellow-300 p-8 rounded-lg flex flex-col items-center'>
+              <BsBoxSeam size={25} />
+              <h1 className='font-medium'>Total Items</h1>
+              <h2 className='text-xl font-bold'>{totalItems}</h2>
+            </div>
+            <div className='summary-card bg-green-300 p-8 rounded-lg flex flex-col items-center'>
+              <BsBoxes size={25} />
+              <h1 className='font-medium'>In Stock</h1>
+              <h2 className='text-xl font-bold'>{inStockItems}</h2>
+            </div>
+            <div className='summary-card bg-orange-500 p-8 rounded-lg flex flex-col items-center'>
+              <BsExclamationTriangle size={25} />
+              <h1 className='font-medium'>Out of Stock</h1>
+              <h2 className='text-xl font-bold'>{outOfStockItems}</h2>
+            </div>
+            <div className='summary-card bg-purple-300 p-8 rounded-lg flex flex-col items-center'>
+              <TbCirclePlus size={25} />
+              <h1 className='font-medium'>Average Price</h1>
+              <h2 className='text-xl font-bold'>${averagePrice}</h2>
+            </div>
+            <Link
+              to='/add-items'
+              className='summary-card bg-yellow-300 gap-2 cursor-pointer p-8 py-10 rounded-lg flex flex-col items-center'
+            >
+              <TbCirclePlus size={25} />
+              <h1 className=' font-medium'>Add Items</h1>
+            </Link>
           </div>
-          <div className='summary-card bg-green-300 p-8 rounded-lg flex flex-col items-center'>
-            <BsBoxes size={25} />
-            <h1 className='font-medium'>In Stock</h1>
-            <h2 className='text-xl font-bold'>{inStockItems}</h2>
-          </div>
-          <div className='summary-card bg-orange-500 p-8 rounded-lg flex flex-col items-center'>
-            <BsExclamationTriangle size={25} />
-            <h1 className='font-medium'>Out of Stock</h1>
-            <h2 className='text-xl font-bold'>{outOfStockItems}</h2>
-          </div>
-          <div className='summary-card bg-purple-300 p-8 rounded-lg flex flex-col items-center'>
-            <TbCirclePlus size={25} />
-            <h1 className='font-medium'>Average Price</h1>
-            <h2 className='text-xl font-bold'>${averagePrice}</h2>
-          </div>
-          <Link
-            to='/add-items'
-            className='summary-card bg-yellow-300 gap-2 cursor-pointer p-8 py-10 rounded-lg flex flex-col items-center'
-          >
-            <TbCirclePlus size={25} />
-            <h1 className=' font-medium'>Add Items</h1>
-          </Link>
-        </div>
+        )}
       </div>
 
       {/* table */}
@@ -84,129 +95,133 @@ const ItemsManagementWindow = () => {
       </div>
       <div className='overflow-y-auto max-h-[450px]'>
         <div className='relative'>
-          <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 '>
-            <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
-              <tr>
-                <th scope='col' className='px-6 py-3'>
-                  Medicine ID
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Name
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Selling Price (LKR)
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Purchase Date
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Expire Date
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Status
-                </th>
-                <th scope='col' className='px-6 py-3'>
-                  Quantity
-                </th>
-                <th scope='col' className='px-6 py-3'></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredItems.map((medicine) => (
-                <tr className='bg-slate-50 border-b'>
-                  <td className='px-6 py-4'>{medicine.itemId}</td>
-                  <td className='px-6 py-4'>{medicine.itemName}</td>
-                  <td className='px-6 py-4'>{medicine.sellingPrice} per {medicine.measuringUnitType}</td>
-                  <td className='px-6 py-4'>
-                    {medicine.purchaseDate.slice(0, 10)}
-                  </td>
-                  <td
-                    className={`px-6 py-4 ${
-                      new Date(medicine.expireDate) < new Date()
-                        ? 'text-red-600'
-                        : ''
-                    }`}
-                  >
-                    {medicine.expireDate.slice(0, 10)}
-                  </td>
-
-                  <td className='px-6 py-4'>
-                    {
-                      <div
-                        className={`rounded-full p-1 w-24 flex items-center justify-center ${
-                          medicine.itemQuantity > 0
-                            ? 'bg-green-500'
-                            : 'bg-yellow-500'
-                        }`}
-                      >
-                        <span
-                          className={`${
-                            medicine.itemQuantity > 0
-                              ? 'text-white'
-                              : 'text-black'
-                          }`}
-                        >
-                          {medicine.itemQuantity > 0
-                            ? 'In stock'
-                            : 'Out of stock'}
-                        </span>
-                      </div>
-                    }
-                  </td>
-                  <td className='px-6 py-4'>
-                    {
-                      <div
-                        className={`rounded-full p-1 w-24 flex items-center justify-center ${
-                          medicine.itemQuantity > 0
-                            ? 'bg-green-500'
-                            : 'bg-yellow-500'
-                        }`}
-                      >
-                        <span
-                          className={`${
-                            medicine.itemQuantity > 0
-                              ? 'text-white'
-                              : 'text-black'
-                          }`}
-                        >
-                          {medicine.itemQuantity}
-                        </span>
-                      </div>
-                    }
-                  </td>
-                  <td className='px-6 py-4'>
-                    {/* Update Button */}
-                    <button
-                      className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {
-                        navigate(`/update-items/${medicine.itemId}`);
-                      }}
-                    >
-                      <BsPencilSquare className='text-blueDarker font-bold text-lg' />
-                    </button>
-                    {/* View Button */}
-                    <button
-                      className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {
-                        navigate(`/view-item/${medicine.itemId}`);
-                      }}
-                    >
-                      <BsEye className='text-blueDarker font-bold text-lg' />
-                    </button>
-
-                    <button
-                      className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
-                      onClick={(e) => {
-                        deleteItem(medicine.itemId);
-                      }}
-                    >
-                      <BsTrash className='text-red font-bold text-lg' />
-                    </button>
-                  </td>
+          {loading ? (
+            <Loader className='w-10 h-10 animate-spin' />
+          ) : (
+            <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 '>
+              <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
+                <tr>
+                  <th scope='col' className='px-6 py-3'>
+                    Medicine ID
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Name
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Selling Price (LKR)
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Purchase Date
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Expire Date
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Status
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Quantity
+                  </th>
+                  <th scope='col' className='px-6 py-3'></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredItems.map((medicine) => (
+                  <tr className='bg-slate-50 border-b'>
+                    <td className='px-6 py-4'>{medicine.itemId}</td>
+                    <td className='px-6 py-4'>{medicine.itemName}</td>
+                    <td className='px-6 py-4'>
+                      {medicine.sellingPrice} per {medicine.measuringUnitType}
+                    </td>
+                    <td className='px-6 py-4'>{medicine.purchaseDate}</td>
+                    <td
+                      className={`px-6 py-4 ${
+                        new Date(medicine.expireDate) < new Date()
+                          ? 'text-red-600'
+                          : ''
+                      }`}
+                    >
+                      {medicine.expireDate}
+                    </td>
+
+                    <td className='px-6 py-4'>
+                      {
+                        <div
+                          className={`rounded-full p-1 w-24 flex items-center justify-center ${
+                            medicine.itemQuantity > 0
+                              ? 'bg-green-500'
+                              : 'bg-yellow-500'
+                          }`}
+                        >
+                          <span
+                            className={`${
+                              medicine.itemQuantity > 0
+                                ? 'text-white'
+                                : 'text-black'
+                            }`}
+                          >
+                            {medicine.itemQuantity > 0
+                              ? 'In stock'
+                              : 'Out of stock'}
+                          </span>
+                        </div>
+                      }
+                    </td>
+                    <td className='px-6 py-4'>
+                      {
+                        <div
+                          className={`rounded-full p-1 w-24 flex items-center justify-center ${
+                            medicine.itemQuantity > 0
+                              ? 'bg-green-500'
+                              : 'bg-yellow-500'
+                          }`}
+                        >
+                          <span
+                            className={`${
+                              medicine.itemQuantity > 0
+                                ? 'text-white'
+                                : 'text-black'
+                            }`}
+                          >
+                            {medicine.itemQuantity}
+                          </span>
+                        </div>
+                      }
+                    </td>
+                    <td className='px-6 py-4'>
+                      {/* Update Button */}
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          navigate(`/update-items/${medicine.itemId}`);
+                        }}
+                      >
+                        <BsPencilSquare className='text-blueDarker font-bold text-lg' />
+                      </button>
+                      {/* View Button */}
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          navigate(`/view-item/${medicine.itemId}`);
+                        }}
+                      >
+                        <BsEye className='text-blueDarker font-bold text-lg' />
+                      </button>
+
+                      <button
+                        className='text-white font-bold py-2 px-4 rounded transition-transform hover:scale-110'
+                        onClick={(e) => {
+                          deleteItem(medicine.itemId);
+                        }}
+                      >
+                        <BsTrash className='text-red font-bold text-lg' />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

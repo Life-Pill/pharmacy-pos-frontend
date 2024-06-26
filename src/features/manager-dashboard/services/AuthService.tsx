@@ -16,7 +16,7 @@ const useAuthService = () => {
     if (confirm) {
       try {
         setLogging(true);
-        const res = await http.post('/session/logout/permanent', {
+        const res = await http.post('/auth/logout', {
           username: user.user?.employerEmail,
         });
 

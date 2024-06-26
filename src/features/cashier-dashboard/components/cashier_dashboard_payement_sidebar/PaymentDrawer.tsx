@@ -14,6 +14,7 @@ import {
   ComponentState,
   usePaymentContext,
 } from '../../layout/MainCashierDashboard';
+import { toast } from 'react-toastify';
 
 const PaymentDrawer = () => {
   const { setCurrentComponent, paymentDetails, setPaymentDetails } =
@@ -50,6 +51,10 @@ const PaymentDrawer = () => {
   // Popup state here
 
   const footerButtonClick = () => {
+    if (paymentDetails.paidAmount < paymentDetails.paymentAmount) {
+      toast.warn('Payment amount is less than total amount');
+      return;
+    }
     setCurrentComponent(ComponentState.PopupPayment);
   };
 
