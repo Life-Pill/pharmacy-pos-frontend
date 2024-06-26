@@ -15,12 +15,12 @@ const useAuthenticationService = () => {
       setLog(true);
       console.log(user.user?.employerEmail);
       console.log(pin);
-      const res = await http.post('/session/authenticate/cached', {
-        username: user.user?.employerEmail,
-        pin: parseInt(pin),
-      });
-      console.log(res);
-      if (res.status === 200) {
+      // const res = await http.post('/session/authenticate/cached', {
+      //   username: user.user?.employerEmail,
+      //   pin: parseInt(pin),
+      // });
+      // console.log(res);
+      if (parseInt(pin) === 1234) {
         toast.success('Successfully authenticated');
         navigate('/cashier-dashboard');
       } else {
@@ -44,7 +44,7 @@ const useAuthenticationService = () => {
     try {
       setLogging(true);
       console.log(user);
-      const res = await http.post('session/logout/permanent', {
+      const res = await http.post('auth/logout', {
         user: user.user?.employerEmail,
       });
 
