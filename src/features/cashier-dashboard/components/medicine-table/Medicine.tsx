@@ -59,7 +59,7 @@ const Medicine = () => {
     <div className='max-h-[750px] overflow-y-scroll w-full'>
       {loading ? (
         <p>Loading...</p>
-      ) : !medicine ? (
+      ) : medicine.length === 0 ? (
         <p>No medicines available.</p>
       ) : (
         <table className='text-sm text-left text-gray-500 dark:text-gray-400 max-h-screen overflow-scroll w-full'>
@@ -68,9 +68,7 @@ const Medicine = () => {
               <th scope='col' className='px-6 py-3'>
                 Medicine ID
               </th>
-              <th scope='col' className='px-6 py-3'>
-                Image
-              </th>
+              
               <th scope='col' className='px-6 py-3'>
                 Name
               </th>
@@ -90,9 +88,7 @@ const Medicine = () => {
             {filteredMedicine.map((cashier) => (
               <tr className='bg-slate-50 border-b'>
                 <td className='px-6 py-4'>{cashier.id}</td>
-                <td className='px-6 py-4 w-8 h-8'>
-                  <img src={cashier.image} alt={cashier.name} />
-                </td>
+                
                 <td className='px-6 py-4'>{cashier.name}</td>
                 <td className='px-6 py-4'>{cashier.price}</td>
                 <td className='px-6 py-4'>

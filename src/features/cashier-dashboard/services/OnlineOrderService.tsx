@@ -65,7 +65,7 @@ const useOnlineOrderService = () => {
     console.log(messages[orderId]);
     try {
       const res = await axios.put(
-        `http://52.200.74.128:8081/prescriptionOrders/${orderId}/${user.user?.branchId}`,
+        `http://52.200.74.128/prescriptionOrders/${orderId}/${user.user?.branchId}`,
         messages[orderId],
         {
           headers: {

@@ -48,9 +48,7 @@ const SportsTable = () => {
             <th scope='col' className='px-6 py-3'>
               Medicine ID
             </th>
-            <th scope='col' className='px-6 py-3'>
-              Image
-            </th>
+
             <th scope='col' className='px-6 py-3'>
               Name
             </th>
@@ -70,9 +68,7 @@ const SportsTable = () => {
           {medicine.map((cashier) => (
             <tr className='bg-slate-50 border-b'>
               <td className='px-6 py-4'>{cashier.id}</td>
-              <td className='px-6 py-4 w-8 h-8'>
-                <img src={cashier.image} alt={cashier.name} />
-              </td>
+
               <td className='px-6 py-4'>{cashier.name}</td>
               <td className='px-6 py-4'>{cashier.price}</td>
               <td className='px-6 py-4'>{cashier.quantity}</td>
