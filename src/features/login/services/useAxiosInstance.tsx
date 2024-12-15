@@ -9,7 +9,8 @@ const useAxiosInstance = () => {
 
   const instance = axios.create({
     // baseURL: 'http://localhost:8079/lifepill/v1',
-    baseURL: 'http://18.188.108.84:8079/lifepill/v1',
+    // baseURL: 'http://18.188.108.84:8079/lifepill/v1',
+    baseURL: 'http://52.23.165.20:8079/lifepill/v1',
     headers: {
       'Content-type': 'application/json',
       Authorization: `Bearer ${cookie}`,
