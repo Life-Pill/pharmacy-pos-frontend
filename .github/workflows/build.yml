@@ -12,25 +12,26 @@ jobs:
   build_on_win:
     runs-on: windows-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Latest version
       
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 19  # Adjust Node.js version as per your project
+      - name: Set up Node.js
+        uses: actions/setup-node@v3  # Latest version
+        with:
+          node-version: '19.x'  # Use a version range for stability
         
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Build Electron app for Windows
-      run: npm run electron:package:win
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: |
+          npm ci  # Clean install (recommended if using package-lock.json)
         
-    - name: Publish Artifact
-      id: create_release
-      uses: actions/upload-artifact@v2
-      with:
-        name: Electron-app
-        path: dist/*.exe
+      - name: Build Electron app for Windows
+        run: npm run electron:package:win
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Publish Artifact
+        id: create_release
+        uses: actions/upload-artifact@v3  # Updated to v3
+        with:
+          name: Electron-app
+          path: dist/*.exe
