@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const useAuthService = () => {
   const http = useAxiosInstance();
-  const user = useUserContext();
+  const { user, setUser, setCookie } = useUserContext();
   const navigate = useNavigate();
   const [logging, setLogging] = useState<boolean>();
 
@@ -17,14 +17,15 @@ const useAuthService = () => {
       try {
         setLogging(true);
         const res = await http.post('/auth/logout', {
-          username: user.user?.employerEmail,
+          username: user?.employerEmail,
         });
 
         if (res.status === 200) {
           toast.success('Logged out successfully');
+          // Clear user data and token using context (will remove from localStorage)
+          setUser(null);
+          setCookie(null);
           navigate('/');
-          // Remove user data from local storage
-          localStorage.removeItem('user');
         }
       } catch (error) {
         console.log(error);

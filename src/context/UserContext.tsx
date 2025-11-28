@@ -24,8 +24,28 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     return storedCookie ? JSON.parse(storedCookie) : null;
   });
 
+  // Wrapper function to persist cookie to localStorage
+  const handleSetCookie = (newCookie: String | null) => {
+    setCookie(newCookie);
+    if (newCookie) {
+      localStorage.setItem('cookie', JSON.stringify(newCookie));
+    } else {
+      localStorage.removeItem('cookie');
+    }
+  };
+
+  // Wrapper function to persist user to localStorage
+  const handleSetUser = (newUser: IEmployeeInterface | null) => {
+    setUser(newUser);
+    if (newUser) {
+      localStorage.setItem('user', JSON.stringify(newUser));
+    } else {
+      localStorage.removeItem('user');
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, cookie, setCookie }}>
+    <UserContext.Provider value={{ user, setUser: handleSetUser, cookie, setCookie: handleSetCookie }}>
       {children}
     </UserContext.Provider>
   );

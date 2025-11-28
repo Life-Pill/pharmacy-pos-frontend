@@ -1,47 +1,43 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-import { getCookie } from '../utils/getCookie';
+import { useEffect, useMemo } from 'react';
 import { useUserContext } from '../../../context/UserContext';
-// import { useUserContext } from '../../../context/UserContext';
 
 const useAxiosInstance = () => {
   const { cookie } = useUserContext();
 
-  const instance = axios.create({
-    // baseURL: 'http://localhost:8079/lifepill/v1',
-    // baseURL: 'http://18.188.108.84:8079/lifepill/v1',
-    baseURL: 'http://52.23.165.20:8079/lifepill/v1',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${cookie}`,
-    },
-  });
-
-  // console.log(getCookie('Authorization'));
-  console.log(cookie);
-  // console.log(user);
-  useEffect(() => {
-    // Update instance headers when cookie changes
-    instance.defaults.headers.common['Authorization'] = `Bearer ${cookie}`;
-    console.log(`Bearer ${cookie}`);
-  }, [cookie, instance]);
+  // Create axios instance once using useMemo
+  const instance = useMemo(() => {
+    return axios.create({
+      // baseURL: 'http://localhost:8079/lifepill/v1',
+      // baseURL: 'http://18.188.108.84:8079/lifepill/v1',
+      baseURL: 'http://34.42.161.241:8080/lifepill/v1',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+  }, []);
 
   useEffect(() => {
-    // const cookieString = document.cookie;
-    // const cookies = cookieString.split(';').reduce((acc: any, cookie) => {
-    //   const [name, value] = cookie.trim().split('=');
-    //   acc[name] = value;
-    //   return acc;
-    // }, {});
+    // Request interceptor to dynamically add token to each request
+    const requestInterceptor = instance.interceptors.request.use(
+      (config) => {
+        // Get the latest token from localStorage to ensure we have the most recent one
+        const storedCookie = localStorage.getItem('cookie');
+        const token = storedCookie ? JSON.parse(storedCookie) : null;
+        
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        console.log('Request token:', token);
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
 
-    // const token = cookies.Authorization;
-    // console.log(token);
-    // if (token) {
-    //   console.log('Setting token:', token);
-    //   instance.defaults.headers.common['Authorization'] = `Bearer ${getCookie('Authorization')}`;
-    // }
-
-    instance.interceptors.response.use(
+    // Response interceptor for error handling
+    const responseInterceptor = instance.interceptors.response.use(
       (response) => {
         // Handle successful responses
         return response;
@@ -62,7 +58,13 @@ const useAxiosInstance = () => {
         return Promise.reject(error);
       }
     );
-  }, [instance]);
+
+    // Cleanup interceptors on unmount
+    return () => {
+      instance.interceptors.request.eject(requestInterceptor);
+      instance.interceptors.response.eject(responseInterceptor);
+    };
+  }, [instance, cookie]);
 
   return instance;
 };

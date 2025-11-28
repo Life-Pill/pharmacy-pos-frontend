@@ -31,9 +31,9 @@ const useSignIn = () => {
         );
 
         console.log(employee);
-        localStorage.setItem('user', JSON.stringify(employee));
 
-        // Set user data or store cookie if needed
+        // Set user data and access token (both will be persisted to localStorage by context)
+        setUser(employee);
         setCookie(res.data.authenticationResponse.access_token);
 
         return employee;

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const useAuthenticationService = () => {
-  const user = useUserContext();
+  const { user, setUser, setCookie } = useUserContext();
   const navigate = useNavigate();
   const [log, setLog] = useState<boolean>();
   const http = useAxiosInstance();
@@ -13,10 +13,10 @@ const useAuthenticationService = () => {
   const logInUsingPin = async (pin: string) => {
     try {
       setLog(true);
-      console.log(user.user?.employerEmail);
+      console.log(user?.employerEmail);
       console.log(pin);
       // const res = await http.post('/session/authenticate/cached', {
-      //   username: user.user?.employerEmail,
+      //   username: user?.employerEmail,
       //   pin: parseInt(pin),
       // });
       // console.log(res);
@@ -45,11 +45,14 @@ const useAuthenticationService = () => {
       setLogging(true);
       console.log(user);
       const res = await http.post('auth/logout', {
-        user: user.user?.employerEmail,
+        user: user?.employerEmail,
       });
 
       if (res.status === 200) {
         toast.success('Successfully logged out');
+        // Clear user data and token using context (will remove from localStorage)
+        setUser(null);
+        setCookie(null);
         navigate('/');
       }
     } catch (error) {
