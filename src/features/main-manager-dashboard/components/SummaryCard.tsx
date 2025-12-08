@@ -26,7 +26,7 @@ function SummaryCard({ branchData }: Props) {
           <p className='text-gray-600 text-lg'>Total Amount:</p>
           <p className='text-2xl font-semibold text-green-700'>
             {branchData ? (
-              `LKR ${branchData?.sales.toFixed(2)}`
+              `LKR ${branchData?.totalSales.toFixed(2)}`
             ) : (
               <Loader className='w-10 h-10 animate-spin' />
             )}
@@ -44,7 +44,7 @@ function SummaryCard({ branchData }: Props) {
           <p className='text-gray-600 text-lg'>Number of Orders:</p>
           <p className='text-2xl font-semibold text-blue-700'>
             {branchData ? (
-              branchData?.orders
+              branchData?.orderCount
             ) : (
               <Loader className='w-10 h-10 animate-spin' />
             )}
@@ -62,7 +62,7 @@ function SummaryCard({ branchData }: Props) {
           <p className='text-gray-600 text-lg'>Number of Workers:</p>
           <p className='text-2xl font-semibold text-yellow-700'>
             {branchData ? (
-              branchData?.branchDTO.branchId
+              branchData?.employeeCount
             ) : (
               <Loader className='w-10 h-10 animate-spin' />
             )}
@@ -80,7 +80,7 @@ function SummaryCard({ branchData }: Props) {
           <p className='text-gray-600 text-lg'>Branch Status:</p>
           <p className='text-2xl font-semibold text-red-700'>
             {branchData ? (
-              branchData?.branchDTO?.branchStatus ? (
+              branchData?.branchStatus ? (
                 'Active'
               ) : (
                 'Inactive'

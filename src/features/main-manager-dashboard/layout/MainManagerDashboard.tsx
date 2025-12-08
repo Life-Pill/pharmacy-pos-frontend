@@ -15,26 +15,29 @@ function MainManagerDashboard() {
 
   return (
     <div
-      className=' w-full max-h-screen overflow-hidden flex flex-col'
+      className='w-full h-screen overflow-y-auto bg-gray-50 p-6'
       data-testid='dashboard'
     >
       {branchData ? (
-        <>
-          <div className=' p-4 bg-slate-200 rounded-md max-h-[300px]'>
+        <div className='max-w-[1600px] mx-auto space-y-6'>
+          {/* Summary Cards Section */}
+          <div className='bg-white rounded-lg shadow-sm p-6'>
             <SummaryCard branchData={branchData} />
           </div>
-          <div className='flex flex-row gap-4 p-4 justify-between items-center'>
-            <div className='p-4 bg-slate-200 rounded-md h-[500px]'>
+
+          {/* Branch Details and Transactions Section */}
+          <div className='grid grid-cols-1 xl:grid-cols-2 gap-6'>
+            <div className='bg-white rounded-lg shadow-sm p-6'>
               <BranchDetailsCard branchData={branchData} />
             </div>
-            <div className=' p-4 bg-slate-200 rounded-md h-[500px]'>
+            <div className='bg-white rounded-lg shadow-sm p-6'>
               <LatestTransactionDetails />
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <div className='flex justify-center items-center h-screen'>
-          <Loader className='w-10 h-10 animate-spin' />
+          <Loader className='w-10 h-10 animate-spin text-blue-600' />
         </div>
       )}
     </div>

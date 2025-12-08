@@ -13,12 +13,12 @@ describe('mapEmployeeReponseToIEmployee function', () => {
       employerAddress: '123 Street, City',
       employerSalary: 50000,
       employerNic: '123456789X',
-      isActiveStatus: true,
+      activeStatus: true,
       gender: 'Male',
       dateOfBirth: '1990-01-01',
       role: 'Manager',
       pin: '1234',
-      profileImage: 'path/to/image.jpg',
+      profileImageUrl: 'path/to/image.jpg',
     };
 
     const mappedEmployee = mapEmployeeReponseToIEmployee(mockEmployeeResponse);
@@ -39,7 +39,7 @@ describe('mapEmployeeReponseToIEmployee function', () => {
       dateOfBirth: '1990-01-01',
       role: 'Manager',
       pin: '1234',
-      profileImage: 'path/to/image.jpg',
+      profileImageUrl: 'path/to/image.jpg',
     });
   });
 
@@ -68,7 +68,7 @@ describe('mapEmployeeReponseToIEmployee function', () => {
       dateOfBirth: undefined,
       role: undefined,
       pin: undefined,
-      profileImage: undefined,
+      profileImageUrl: undefined,
     });
   });
 });

@@ -232,9 +232,36 @@ const AddItems = () => {
               value={item.measuringUnitType}
               onChange={handleMeasuringUnitChange}
             >
-              <option value='KILO_GRAM'>Kilo gram</option>
-              <option value='LITER'>Liter</option>
+              <option value='KG'>Kilogram (KG)</option>
+              <option value='G'>Gram (G)</option>
+              <option value='MG'>Milligram (MG)</option>
+              <option value='L'>Liter (L)</option>
+              <option value='ML'>Milliliter (ML)</option>
               <option value='PIECE'>Piece</option>
+              <option value='PIECES'>Pieces</option>
+              <option value='TABLET'>Tablet</option>
+              <option value='TABLETS'>Tablets</option>
+              <option value='CAPSULE'>Capsule</option>
+              <option value='CAPSULES'>Capsules</option>
+              <option value='BOTTLE'>Bottle</option>
+              <option value='BOTTLES'>Bottles</option>
+              <option value='BOX'>Box</option>
+              <option value='BOXES'>Boxes</option>
+              <option value='STRIP'>Strip</option>
+              <option value='STRIPS'>Strips</option>
+              <option value='PACK'>Pack</option>
+              <option value='PACKS'>Packs</option>
+              <option value='VIAL'>Vial</option>
+              <option value='VIALS'>Vials</option>
+              <option value='AMPOULE'>Ampoule</option>
+              <option value='AMPOULES'>Ampoules</option>
+              <option value='TUBE'>Tube</option>
+              <option value='TUBES'>Tubes</option>
+              <option value='SACHET'>Sachet</option>
+              <option value='SACHETS'>Sachets</option>
+              <option value='UNIT'>Unit</option>
+              <option value='UNITS'>Units</option>
+              <option value='OTHER'>Other</option>
             </select>
 
             <label

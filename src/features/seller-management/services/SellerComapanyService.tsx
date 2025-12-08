@@ -20,12 +20,12 @@ const useSellerCompanyService = () => {
     try {
       setLoading(true);
       const res = await http.get(
-        '/supplierCompanies/getAll-Supplier-Companies'
+        '/supplier-company/get-all'
       );
       console.log(res.data);
 
-      setCompanies(res.data);
-      setFilteredCompanies(res.data);
+      setCompanies(res.data.data);
+      setFilteredCompanies(res.data.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -52,7 +52,7 @@ const useSellerCompanyService = () => {
     console.log(formData);
     try {
       setAdding(true);
-      const res = await http.post('/supplierCompanies/save', formData);
+      const res = await http.post('/supplier-company/save', formData);
       console.log(res.data);
       toast.success('Company added successfully');
       setFormData({
@@ -81,10 +81,10 @@ const useSellerCompanyService = () => {
     try {
       setLoading(true);
       const res = await http.get(
-        `supplierCompanies/get-supplier-company/${id}`
+        `/supplier-company/get-by-id/${id}`
       );
       console.log(res.data);
-      setFormData(res.data);
+      setFormData(res.data.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -96,7 +96,7 @@ const useSellerCompanyService = () => {
     try {
       setUpdating(true);
       const res = await http.put(
-        `supplierCompanies/update-supplier-company/${id}`,
+        `/supplier-company/update/${id}`,
         formData
       );
       console.log(res);
@@ -117,7 +117,7 @@ const useSellerCompanyService = () => {
       try {
         setDeleting(true);
         const res = await http.delete(
-          `supplierCompanies/delete-supplier-company/${id}`
+          `/supplier-company/delete/${id}`
         );
         console.log(res);
         toast.success('Company deleted successfully');

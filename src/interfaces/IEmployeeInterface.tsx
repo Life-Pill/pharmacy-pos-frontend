@@ -14,5 +14,5 @@ export interface IEmployeeInterface {
   dateOfBirth: Date;
   role: string;
   pin: number;
-  profileImage: ArrayBuffer | null;
+  profileImageUrl: string | null;
 }

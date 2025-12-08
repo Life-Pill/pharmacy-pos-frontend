@@ -13,10 +13,16 @@ const useSalesSummary = () => {
     setLoading(true);
     try {
       const response = await http.get(
-        `/branch-summary/sales-summary/daily/${user.user?.branchId}`
+        `/branch/summary/daily-sales/${user.user?.branchId}`
       );
       console.log(response.data.data);
-      setSalesSummary(response.data.data);
+      // Extract dailySales array from the nested response and map to expected format
+      const dailySalesData = response.data.data.dailySales.map((item: any) => ({
+        date: item.date,
+        orders: item.orderCount,
+        sales: item.totalSales,
+      }));
+      setSalesSummary(dailySalesData);
       setLoading(false);
     } catch (error) {
       console.log(error);

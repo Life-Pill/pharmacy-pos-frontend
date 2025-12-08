@@ -14,15 +14,35 @@ describe('useSignIn hook', () => {
     // Mock successful response from the API
     const successfulResponse = {
       data: {
-        authenticationResponse: {
-          message: 'Successfully logged in.',
-          access_token: 'mocked_access_token', // Mocked access token
-        },
-        employerDetails: {
-          id: 1,
-          name: 'John Doe',
-          email: 'johndoe@example.com',
-          // Add other properties as needed
+        code: 200,
+        message: 'Authentication successful',
+        data: {
+          authenticationResponse: {
+            message: 'Authentication successful',
+            accessToken: 'mocked_access_token', // Mocked access token
+            refreshToken: 'mocked_refresh_token',
+            employerId: 1,
+            employerEmail: 'johndoe@example.com',
+            role: 'OWNER'
+          },
+          employerDetails: {
+            employerId: 1,
+            branchId: 1,
+            employerNicName: 'John',
+            employerFirstName: 'John',
+            employerLastName: 'Doe',
+            employerEmail: 'johndoe@example.com',
+            employerPhone: '0771234567',
+            employerAddress: 'Test Address',
+            employerSalary: 50000,
+            employerNic: '123456789V',
+            activeStatus: true,
+            gender: 'MALE',
+            dateOfBirth: '1990-01-01T00:00:00.000+00:00',
+            role: 'OWNER',
+            pin: 1234,
+            profileImageUrl: null
+          },
         },
       },
     };

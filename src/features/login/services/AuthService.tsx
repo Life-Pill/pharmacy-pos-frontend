@@ -23,18 +23,23 @@ const useSignIn = () => {
       console.log(res.data);
 
       if (
-        res.data.authenticationResponse.message === 'Successfully logged in.'
+        res.data.code === 200 &&
+        res.data.data?.authenticationResponse?.accessToken &&
+        res.data.data?.employerDetails
       ) {
         alert('Logged in successfully');
         const employee = mapEmployeeReponseToIEmployee(
-          res.data.employerDetails
+          res.data.data.employerDetails
         );
 
         console.log(employee);
 
         // Set user data and access token (both will be persisted to localStorage by context)
         setUser(employee);
-        setCookie(res.data.authenticationResponse.access_token);
+        setCookie(res.data.data.authenticationResponse.accessToken);
+        
+        // Store refresh token if needed
+        localStorage.setItem('refreshToken', res.data.data.authenticationResponse.refreshToken);
 
         return employee;
       }

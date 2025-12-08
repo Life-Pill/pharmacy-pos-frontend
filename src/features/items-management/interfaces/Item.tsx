@@ -8,7 +8,7 @@ export interface Item {
   supplierPrice: number;
   itemManufacture: string;
   itemQuantity: number;
-  measuringUnitType: 'KILO_GRAM' | 'LITER' | 'PIECE' | string; // Enum type for measuring units
+  measuringUnitType: string; // Enum type for measuring units (KG, G, MG, L, ML, PIECE, TABLET, etc.)
   manufactureDate: string; // Assuming ISO 8601 format string
   expireDate: string; // Assuming ISO 8601 format string
   purchaseDate: string; // Assuming ISO 8601 format string

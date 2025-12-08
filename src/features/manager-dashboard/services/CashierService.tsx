@@ -14,7 +14,7 @@ const useCashierService = () => {
   const fetchEmployeeData = async () => {
     setLoading(true);
     try {
-      const res = await http.get('/employers/get-all-employers');
+      const res = await http.get('/employer/all');
       console.log(res);
       const data: CashierDetailsType[] = res.data.data;
       // if (data.length === 0) return [];
