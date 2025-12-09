@@ -99,68 +99,16 @@ const useCashierCRUDService = () => {
   const createCashier = async (employer: CashierDetailsType) => {
     if (
       !employer ||
-      !employer.employerNicName ||
       !employer.employerFirstName ||
       !employer.employerLastName ||
       !employer.employerPassword ||
       !employer.employerEmail ||
-      !employer.employerPhone ||
-      !employer.employerAddress ||
-      !employer.employerSalary ||
-      !employer.employerNic ||
-      !employer.gender ||
-      !employer.dateOfBirth ||
       !employer.role ||
       !employer.pin
     ) {
       toast.error('Please provide all required information.');
       return;
     }
-
-    const formData = new FormData();
-    console.log('Employer object:', employer);
-    console.log('FormData before append:', formData);
-    if (user && user.user) {
-      formData.append('branchId', user.user.branchId.toString());
-      formData.append('employerFirstName', employer.employerFirstName);
-      formData.append('employerNicName', employer.employerNicName);
-      formData.append('employerLastName', employer.employerLastName);
-      formData.append('employerPassword', employer.employerPassword);
-      formData.append('employerEmail', employer.employerEmail);
-      formData.append('employerPhone', employer.employerPhone);
-      formData.append('employerAddress', employer.employerAddress);
-      formData.append('employerSalary', String(employer.employerSalary));
-      formData.append('employerNic', employer.employerNic);
-      formData.append('gender', employer.gender);
-      formData.append('dateOfBirth', employer.dateOfBirth.toString());
-      formData.append('role', employer.role);
-      formData.append('pin', String(employer.pin));
-      formData.append(
-        'profileImageUrl',
-        JSON.stringify(employer.profileImageUrl)
-      ); // Assuming profileImage is an array of strings
-      formData.append('isActiveStatus', String(employer.activeStatus));
-
-      if (profilePicture) {
-        formData.append('file', profilePicture, profilePicture.name);
-      }
-    }
-
-    console.log('FormData after append:', formData);
-
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
-    // if (
-    //   !passwordsMatch(
-    //     employer.employerPassword,
-    //     employer.employerConfirmPassword
-    //   )
-    // ) {
-    //   toast.error('Passwords do not match.');
-    //   return;
-    // }
 
     if (
       !['OWNER', 'CASHIER', 'MANAGER'].includes(employer.role.toUpperCase())
@@ -178,8 +126,51 @@ const useCashierCRUDService = () => {
 
     setLoading(true);
     try {
+      const formData = new FormData();
+      
+      // Create the request DTO object with required fields
+      const requestDTO: any = {
+        employerFirstName: employer.employerFirstName,
+        employerLastName: employer.employerLastName,
+        employerEmail: employer.employerEmail,
+        employerPassword: employer.employerPassword,
+        role: employer.role.toUpperCase(),
+        pin: employer.pin
+      };
+
+      // Add optional fields if provided
+      if (employer.employerNicName && employer.employerNicName.trim() !== '') {
+        requestDTO.employerNicName = employer.employerNicName;
+      }
+      if (employer.employerPhone && employer.employerPhone.trim() !== '') {
+        requestDTO.employerPhone = employer.employerPhone;
+      }
+      if (employer.employerNic && employer.employerNic.trim() !== '') {
+        requestDTO.employerNic = employer.employerNic;
+      }
+      if (employer.gender && employer.gender.trim() !== '') {
+        requestDTO.gender = employer.gender.toUpperCase();
+      }
+      if (employer.employerAddress && employer.employerAddress.trim() !== '') {
+        requestDTO.employerAddress = employer.employerAddress;
+      }
+      if (employer.employerSalary && employer.employerSalary > 0) {
+        requestDTO.employerSalary = employer.employerSalary;
+      }
+
+      // Append the requestDTO as a JSON string
+      formData.append('requestDTO', JSON.stringify(requestDTO));
+
+      // Append the file if present
+      if (profilePicture) {
+        formData.append('file', profilePicture, profilePicture.name);
+      }
+
+      // Get branchId from user context
+      const branchId = user && user.user ? user.user.branchId : 1;
+
       const res = await http.post(
-        '/employers/save-employer-with-image',
+        `/employer/save-employer-with-image?branchId=${branchId}`,
         formData,
         {
           headers: {
@@ -189,16 +180,16 @@ const useCashierCRUDService = () => {
       );
 
       console.log(res.data);
-      if (res.data.code === 201) {
+      if (res.data.code === 200) {
         const createdCashierData = res.data.data;
-        setCurrentComponent(ComponentState.BankDetails);
-        console.log('Created cashier:', createdCashierData.employerId);
-        toast.success('Cashier created successfully!');
+        toast.success(res.data.message || 'Cashier created successfully!');
+        navigate('/manager-dashboard/Cashiers');
         return createdCashierData.employerId;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error('Failed to create a cashier');
+      const errorMessage = error.response?.data?.message || 'Failed to create a cashier';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -228,9 +219,7 @@ const useCashierCRUDService = () => {
     try {
       setLoading(true);
       console.log('Fetching cashier by id', employerId);
-      const res = await http.get('/employers/get-by-id', {
-        params: { employerId },
-      });
+      const res = await http.get(`/employer/${employerId}`);
       console.log(res.data.data);
       if (res.status === 200) {
         setCashierDetails(res.data.data);
@@ -337,22 +326,14 @@ const useCashierCRUDService = () => {
     try {
       setFetchProfilePicture(true);
       const res = await http.get(
-        `/employers/view-profile-image/${employerId}`,
-        {
-          responseType: 'arraybuffer', // Ensure response type is set correctly
-        }
+        `/employer/view-profile-image/${employerId}`
       );
       console.log(res); // Check the response in console if needed
 
-      // Convert array buffer to Base64 string
-      const base64String = btoa(
-        new Uint8Array(res.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ''
-        )
-      );
-
-      setProfileImageUrl(`data:image/jpeg;base64,${base64String}`);
+      // The API now returns a URL string in the data field
+      if (res.data && res.data.code === 200 && res.data.data) {
+        setProfileImageUrl(res.data.data);
+      }
     } catch (error) {
       console.log(error);
     } finally {

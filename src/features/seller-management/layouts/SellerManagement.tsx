@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import useSellerCompanyService from '../services/SellerComapanyService';
-import { Loader } from 'lucide-react';
-import AddCompanyModal from '../components/AddCompanyModal';
+import LoadingSpinner from '../../../shared/loader/LoadingSpinner';
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { TbCirclePlus } from 'react-icons/tb';
-import UpdateCompanyModal from '../components/UpdateCompanyModal';
 import { SellerCompany } from '../interfaces/SellerCompany';
 
 function SellerManagement() {
@@ -14,21 +13,15 @@ function SellerManagement() {
     filteredCompanies,
     setFilteredCompanies,
     loading,
-    showAddCompanyModal,
-    setShowAddCompanyModal,
-    showUpdateCompanyModal,
-    setShowUpdateCompanyModal,
     deleteCompany,
     deleting,
   } = useSellerCompanyService();
 
-  // Filter states
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'inactive'>('all');
   const [filterRating, setFilterRating] = useState<'all' | 'high' | 'medium' | 'low'>('all');
   const [sortBy, setSortBy] = useState<'name' | 'rating' | 'status'>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [companyId, setCompanyId] = useState<number>(0);
 
   useEffect(() => {
     fetchCompanies();
@@ -97,10 +90,6 @@ function SellerManagement() {
     setFilteredCompanies(filtered);
   };
 
-  const handleAddCompany = () => {
-    setShowAddCompanyModal(true);
-  };
-
   const clearFilters = () => {
     setSearchTerm('');
     setFilterStatus('all');
@@ -125,13 +114,14 @@ function SellerManagement() {
         <div className='bg-white rounded-xl shadow-md p-6 mb-6'>
           <div className='flex items-center justify-between mb-4'>
             <h2 className='text-lg font-semibold text-gray-800'>Filter & Search</h2>
-            <button
-              onClick={handleAddCompany}
-              className='flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg'
-            >
-              <TbCirclePlus className='text-xl' />
-              <span className='font-medium'>Add Company</span>
-            </button>
+            <Link to='/manager-dashboard/add-company'>
+              <button
+                className='flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg'
+              >
+                <TbCirclePlus className='text-xl' />
+                <span className='font-medium'>Add Company</span>
+              </button>
+            </Link>
           </div>
 
           {/* Filter Controls */}
@@ -225,7 +215,7 @@ function SellerManagement() {
           <div className='overflow-x-auto'>
             {loading ? (
               <div className='flex items-center justify-center py-12'>
-                <Loader className='animate-spin text-blue-600' size={40} />
+                <LoadingSpinner size='lg' />
               </div>
             ) : filteredCompanies && filteredCompanies.length > 0 ? (
               <table className='w-full'>
@@ -296,16 +286,14 @@ function SellerManagement() {
                       </td>
                       <td className='px-6 py-4'>
                         <div className='flex items-center gap-2'>
-                          <button
-                            onClick={() => {
-                              setCompanyId(company.companyId);
-                              setShowUpdateCompanyModal(true);
-                            }}
-                            className='p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors'
-                            title='Edit Company'
-                          >
-                            <BsPencilSquare className='text-lg' />
-                          </button>
+                          <Link to={`/manager-dashboard/update-company/${company.companyId}`}>
+                            <button
+                              className='p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors'
+                              title='Edit Company'
+                            >
+                              <BsPencilSquare className='text-lg' />
+                            </button>
+                          </Link>
                           <button
                             onClick={() => deleteCompany(company.companyId)}
                             disabled={deleting}
@@ -313,7 +301,7 @@ function SellerManagement() {
                             title='Delete Company'
                           >
                             {deleting ? (
-                              <Loader className='animate-spin text-red-600' size={18} />
+                              <LoadingSpinner size='sm' className='text-red-600' />
                             ) : (
                               <BsTrash className='text-lg' />
                             )}
@@ -346,25 +334,6 @@ function SellerManagement() {
           </div>
         </div>
       </div>
-
-      {/* Modals */}
-      {showAddCompanyModal && (
-        <AddCompanyModal
-          onClose={() => {
-            setShowAddCompanyModal(false);
-            fetchCompanies();
-          }}
-        />
-      )}
-      {showUpdateCompanyModal && (
-        <UpdateCompanyModal
-          onClose={() => {
-            setShowUpdateCompanyModal(false);
-            fetchCompanies();
-          }}
-          id={companyId}
-        />
-      )}
     </div>
   );
 }

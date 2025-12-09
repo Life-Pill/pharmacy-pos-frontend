@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import useOrderManagementService from '../services/OrderManagementService';
 import { getToday } from '../../branch-sales-summary/utils/getToday';
 import { Order } from '../interfaces/OrderDetails';
-import { Loader } from 'lucide-react';
 import OrderCardComponent from '../components/OrderCardComponent';
 import { BsCalendar3, BsSearch } from 'react-icons/bs';
+import LoadingSpinner from '../../../shared/loader/LoadingSpinner';
 
 type Props = {};
 
@@ -90,17 +90,17 @@ function OrderManagementWindow({}: Props) {
   const totalRevenue = filteredOrderData?.reduce((sum, order) => sum + order.total, 0) || 0;
 
   return (
-    <div className='flex flex-col h-full overflow-hidden'>
+    <div className='flex flex-col w-full'>
       {/* Header */}
-      <div className='flex-shrink-0 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-4 shadow-lg'>
+      <div className='flex-shrink-0 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-4 shadow-lg rounded-lg mb-4'>
         <h1 className='text-2xl font-bold'>Order Management</h1>
         <p className='text-blue-100 text-sm mt-1'>View and manage customer orders</p>
       </div>
 
       {/* Main Content */}
-      <div className='flex-1 overflow-y-auto p-6 bg-gray-50'>
+      <div className='flex flex-col gap-6'>
         {/* Filters Section */}
-        <div className='bg-white rounded-xl shadow-md p-6 mb-6'>
+        <div className='bg-white rounded-xl shadow-md p-6'>
           <div className='flex items-center justify-between mb-4'>
             <h2 className='text-lg font-semibold text-gray-800'>Filter & Search Orders</h2>
             <div className='flex items-center gap-4 text-sm'>
@@ -209,7 +209,7 @@ function OrderManagementWindow({}: Props) {
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
           {loading ? (
             <div className='col-span-full flex items-center justify-center py-12 bg-white rounded-xl shadow-md'>
-              <Loader className='animate-spin text-blue-600' size={40} />
+              <LoadingSpinner size='lg' />
             </div>
           ) : filteredOrderData && filteredOrderData.length > 0 ? (
             filteredOrderData.map((order, index) => (

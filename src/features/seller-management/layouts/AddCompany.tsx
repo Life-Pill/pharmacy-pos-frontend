@@ -1,17 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { IoCloudUploadOutline } from 'react-icons/io5';
 import useSellerCompanyService from '../services/SellerComapanyService';
 import LoadingSpinner from '../../../shared/loader/LoadingSpinner';
-import { IoCloseOutline } from 'react-icons/io5';
 
-interface AddCompanyModalProps {
-  onClose: () => void;
-}
+const AddCompany = () => {
+  const { setFormData, addCompany, formData, adding } = useSellerCompanyService();
 
-const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
-  const { setFormData, addCompany, formData, adding } =
-    useSellerCompanyService();
-    
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -19,39 +15,56 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     addCompany();
   };
 
   return (
-    <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 backdrop-blur-sm p-4'>
-      <div className='bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto'>
-        {/* Header */}
-        <div className='sticky top-0 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-4 rounded-t-xl flex justify-between items-center'>
-          <div>
-            <h2 className='text-2xl font-bold'>Add Supplier Company</h2>
-            <p className='text-blue-100 text-sm mt-1'>Create a new supplier company</p>
-          </div>
-          <button
-            onClick={onClose}
-            className='p-2 hover:bg-white/20 rounded-lg transition-colors'
-            aria-label='Close'
-          >
-            <IoCloseOutline size={28} />
-          </button>
-        </div>
+    <div className='flex flex-col h-full bg-gray-50'>
+      {/* Header */}
+      <div className='flex-shrink-0 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-6 shadow-lg'>
+        <h1 className='text-3xl font-bold'>Add Supplier Company</h1>
+        <p className='text-blue-100 text-sm mt-2'>Create a new supplier company</p>
+      </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className='p-6'>
-          <div className='space-y-6'>
-            {/* Company Information Section */}
-            <div>
-              <h3 className='text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200'>
-                Company Information
-              </h3>
-              
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      {/* Main Content */}
+      <div className='flex-1 overflow-y-auto p-8'>
+        <div className='max-w-6xl mx-auto'>
+          <div className='bg-white rounded-xl shadow-md p-8'>
+            <form onSubmit={handleSubmit}>
+              {/* Company Logo Section */}
+              <div className='flex flex-col items-center mb-8 pb-8 border-b border-gray-200'>
+                <div className='relative'>
+                  {formData.companyImage ? (
+                    <img
+                      src={formData.companyImage}
+                      alt='Company Logo'
+                      className='w-32 h-32 rounded-lg object-cover border-4 border-blue-200 shadow-md'
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://via.placeholder.com/128?text=Company+Logo';
+                      }}
+                    />
+                  ) : (
+                    <div className='w-32 h-32 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center border-4 border-blue-200 shadow-md'>
+                      <svg className='w-16 h-16 text-blue-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <p className='text-sm text-gray-600 mt-4'>Enter logo URL below</p>
+              </div>
+
+              {/* Form Fields - 2 Column Grid */}
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                {/* Company Information Section */}
+                <div className='md:col-span-2'>
+                  <h3 className='text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200'>
+                    Company Information
+                  </h3>
+                </div>
+
                 {/* Company Name */}
                 <div className='md:col-span-2'>
                   <label htmlFor='companyName' className='block text-sm font-medium text-gray-700 mb-2'>
@@ -72,7 +85,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                 {/* Company Address */}
                 <div className='md:col-span-2'>
                   <label htmlFor='companyAddress' className='block text-sm font-medium text-gray-700 mb-2'>
-                    Company Address <span className='text-red-500'>*</span>
+                    Address <span className='text-red-500'>*</span>
                   </label>
                   <input
                     type='text'
@@ -86,7 +99,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   />
                 </div>
 
-                {/* Company Contact */}
+                {/* Contact Number */}
                 <div>
                   <label htmlFor='companyContact' className='block text-sm font-medium text-gray-700 mb-2'>
                     Contact Number <span className='text-red-500'>*</span>
@@ -103,7 +116,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   />
                 </div>
 
-                {/* Company Email */}
+                {/* Email */}
                 <div>
                   <label htmlFor='companyEmail' className='block text-sm font-medium text-gray-700 mb-2'>
                     Email Address <span className='text-red-500'>*</span>
@@ -120,7 +133,24 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   />
                 </div>
 
-                {/* Company Description */}
+                {/* Company Logo URL */}
+                <div className='md:col-span-2'>
+                  <label htmlFor='companyImage' className='block text-sm font-medium text-gray-700 mb-2'>
+                    Company Logo URL <span className='text-red-500'>*</span>
+                  </label>
+                  <input
+                    type='url'
+                    id='companyImage'
+                    name='companyImage'
+                    value={formData.companyImage}
+                    onChange={handleChange}
+                    className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
+                    placeholder='https://example.com/logo.png'
+                    required
+                  />
+                </div>
+
+                {/* Description */}
                 <div className='md:col-span-2'>
                   <label htmlFor='companyDescription' className='block text-sm font-medium text-gray-700 mb-2'>
                     Description
@@ -136,33 +166,14 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   />
                 </div>
 
-                {/* Company Image URL */}
-                <div className='md:col-span-2'>
-                  <label htmlFor='companyImage' className='block text-sm font-medium text-gray-700 mb-2'>
-                    Company Logo URL <span className='text-red-500'>*</span>
-                  </label>
-                  <input
-                    type='text'
-                    id='companyImage'
-                    name='companyImage'
-                    value={formData.companyImage}
-                    onChange={handleChange}
-                    className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
-                    placeholder='https://example.com/logo.png'
-                    required
-                  />
+                {/* Banking Information Section */}
+                <div className='md:col-span-2 mt-4'>
+                  <h3 className='text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200'>
+                    Banking Information
+                  </h3>
                 </div>
-              </div>
-            </div>
 
-            {/* Banking Information Section */}
-            <div>
-              <h3 className='text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200'>
-                Banking Information
-              </h3>
-              
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                {/* Company Bank */}
+                {/* Bank Name */}
                 <div>
                   <label htmlFor='companyBank' className='block text-sm font-medium text-gray-700 mb-2'>
                     Bank Name <span className='text-red-500'>*</span>
@@ -179,7 +190,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   />
                 </div>
 
-                {/* Company Account Number */}
+                {/* Account Number */}
                 <div>
                   <label htmlFor='companyAccountNumber' className='block text-sm font-medium text-gray-700 mb-2'>
                     Account Number <span className='text-red-500'>*</span>
@@ -195,17 +206,15 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                     required
                   />
                 </div>
-              </div>
-            </div>
 
-            {/* Status and Rating Section */}
-            <div>
-              <h3 className='text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200'>
-                Additional Details
-              </h3>
-              
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                {/* Company Status */}
+                {/* Additional Details Section */}
+                <div className='md:col-span-2 mt-4'>
+                  <h3 className='text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200'>
+                    Additional Details
+                  </h3>
+                </div>
+
+                {/* Status */}
                 <div>
                   <label htmlFor='companyStatus' className='block text-sm font-medium text-gray-700 mb-2'>
                     Status <span className='text-red-500'>*</span>
@@ -214,7 +223,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                     id='companyStatus'
                     name='companyStatus'
                     value={formData.companyStatus}
-                    onChange={handleChange as any}
+                    onChange={handleChange}
                     className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all'
                     required
                   >
@@ -225,7 +234,7 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   </select>
                 </div>
 
-                {/* Company Rating */}
+                {/* Rating */}
                 <div>
                   <label htmlFor='companyRating' className='block text-sm font-medium text-gray-700 mb-2'>
                     Rating (1-5) <span className='text-red-500'>*</span>
@@ -245,42 +254,42 @@ const AddCompanyModal: React.FC<AddCompanyModalProps> = ({ onClose }) => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Action Buttons */}
-          <div className='flex items-center justify-end gap-4 mt-8 pt-6 border-t border-gray-200'>
-            <button
-              type='button'
-              onClick={onClose}
-              className='px-6 py-2.5 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 font-medium transition-colors'
-              disabled={adding}
-            >
-              Cancel
-            </button>
-            <button
-              type='submit'
-              disabled={adding}
-              className={`px-8 py-2.5 rounded-lg font-medium transition-all shadow-md ${
-                adding
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
-              }`}
-            >
-              {adding ? (
-                <span className='flex items-center gap-2'>
-                  <LoadingSpinner size='sm' />
-                  Adding...
-                </span>
-              ) : (
-                'Add Company'
-              )}
-            </button>
+              {/* Action Buttons */}
+              <div className='flex items-center justify-end gap-4 mt-8 pt-6 border-t border-gray-200'>
+                <Link to='/manager-dashboard/Sellers'>
+                  <button
+                    type='button'
+                    className='px-6 py-2.5 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 font-medium transition-colors'
+                  >
+                    Cancel
+                  </button>
+                </Link>
+                <button
+                  type='submit'
+                  disabled={adding}
+                  className={`px-8 py-2.5 rounded-lg font-medium transition-all shadow-md ${
+                    adding
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
+                  }`}
+                >
+                  {adding ? (
+                    <span className='flex items-center gap-2'>
+                      <LoadingSpinner size='sm' />
+                      Creating...
+                    </span>
+                  ) : (
+                    'Create Company'
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
 };
 
-export default AddCompanyModal;
+export default AddCompany;

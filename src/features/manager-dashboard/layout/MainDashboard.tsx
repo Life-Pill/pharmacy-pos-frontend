@@ -22,7 +22,7 @@ const MainDashboard = () => {
   const renderSelectedItem = () => {
     switch (selectedItem) {
       case 'Dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigateToOrders={() => setSelectedItem('Orders')} />;
       case 'Cashiers':
         return <CashierManagementWindow />;
       case 'Branches':

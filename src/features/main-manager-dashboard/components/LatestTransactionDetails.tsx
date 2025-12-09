@@ -1,14 +1,28 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useOrderService from '../services/OrderService';
-import { Loader } from 'lucide-react';
+import LoadingSpinner from '../../../shared/loader/LoadingSpinner';
 
-const LatestTransactionDetails = () => {
+interface LatestTransactionDetailsProps {
+  onNavigateToOrders?: () => void;
+}
+
+const LatestTransactionDetails = ({ onNavigateToOrders }: LatestTransactionDetailsProps) => {
   const { fetchOrderData, orderData, loading } = useOrderService();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchOrderData();
     console.log('Fetching order data', orderData);
   }, []);
+
+  const handleViewAll = () => {
+    if (onNavigateToOrders) {
+      onNavigateToOrders();
+    } else {
+      navigate('/manager-dashboard/Orders');
+    }
+  };
 
   return (
     <div className='w-full h-full flex flex-col'>
@@ -17,14 +31,17 @@ const LatestTransactionDetails = () => {
           <span className='w-1 h-6 bg-blue-500 rounded'></span>
           Latest Transactions
         </h2>
-        <button className='text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors hover:underline'>
+        <button 
+          onClick={handleViewAll}
+          className='text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors hover:underline'
+        >
           View All →
         </button>
       </div>
       <div className='flex-1 overflow-y-auto pr-2'>
         {loading ? (
           <div className='flex justify-center items-center h-full'>
-            <Loader className='w-8 h-8 animate-spin text-blue-600' />
+            <LoadingSpinner size='md' />
           </div>
         ) : orderData && orderData.length > 0 ? (
           <div className='space-y-3'>

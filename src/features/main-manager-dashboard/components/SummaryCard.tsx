@@ -7,7 +7,7 @@ import {
 } from 'react-icons/gi';
 import useBranchService from '../../manager-dashboard/services/BranchService';
 import { IBranchData } from '../../manager-dashboard/interfaces/IBranchData';
-import { Loader } from 'lucide-react';
+import LoadingSpinner from '../../../shared/loader/LoadingSpinner';
 
 type Props = {
   branchData: IBranchData;
@@ -25,7 +25,7 @@ function SummaryCard({ branchData }: Props) {
               {branchData ? (
                 `LKR ${branchData.totalSales.toFixed(2)}`
               ) : (
-                <Loader className='w-6 h-6 animate-spin' />
+                <LoadingSpinner size='sm' />
               )}
             </p>
           </div>
@@ -44,7 +44,7 @@ function SummaryCard({ branchData }: Props) {
               {branchData ? (
                 branchData.orderCount
               ) : (
-                <Loader className='w-6 h-6 animate-spin' />
+                <LoadingSpinner size='sm' />
               )}
             </p>
           </div>
@@ -63,7 +63,7 @@ function SummaryCard({ branchData }: Props) {
               {branchData ? (
                 branchData.employeeCount
               ) : (
-                <Loader className='w-6 h-6 animate-spin' />
+                <LoadingSpinner size='sm' />
               )}
             </p>
           </div>
@@ -86,7 +86,7 @@ function SummaryCard({ branchData }: Props) {
               {branchData ? (
                 branchData.branchStatus ? 'Active' : 'Inactive'
               ) : (
-                <Loader className='w-6 h-6 animate-spin' />
+                <LoadingSpinner size='sm' />
               )}
             </p>
           </div>

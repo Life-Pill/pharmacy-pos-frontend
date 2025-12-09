@@ -4,9 +4,13 @@ import LatestTransactionDetails from '../components/LatestTransactionDetails';
 import SummaryCard from '../components/SummaryCard';
 import BranchDetailsCard from '../components/BranchDetailsCard';
 import UseBranchService from '../../manager-dashboard/services/BranchService';
-import { Loader } from 'lucide-react';
+import LoadingSpinner from '../../../shared/loader/LoadingSpinner';
 
-function MainManagerDashboard() {
+interface MainManagerDashboardProps {
+  onNavigateToOrders?: () => void;
+}
+
+function MainManagerDashboard({ onNavigateToOrders }: MainManagerDashboardProps) {
   const { fetchBranchData, branchData } = UseBranchService();
 
   useEffect(() => {
@@ -37,13 +41,13 @@ function MainManagerDashboard() {
               <BranchDetailsCard branchData={branchData} />
             </div>
             <div className='bg-white rounded-xl shadow-md p-6 max-h-[600px] overflow-y-auto'>
-              <LatestTransactionDetails />
+              <LatestTransactionDetails onNavigateToOrders={onNavigateToOrders} />
             </div>
           </div>
         </>
       ) : (
         <div className='flex justify-center items-center h-full'>
-          <Loader className='w-10 h-10 animate-spin text-blue-600' />
+          <LoadingSpinner size='lg' />
         </div>
       )}
     </div>

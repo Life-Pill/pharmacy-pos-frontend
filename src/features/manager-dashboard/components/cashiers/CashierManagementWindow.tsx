@@ -3,7 +3,7 @@ import { TbCirclePlus } from 'react-icons/tb';
 import { Link, useNavigate } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
 import { CashierDetailsType } from '../../../cashier-management/interfaces/CashierDetailsType';
-import Loader from '../../../../shared/loader/Loader';
+import LoadingSpinner from '../../../../shared/loader/LoadingSpinner';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 import {
   calculateActiveWorkers,
@@ -327,7 +327,7 @@ const CashierManagementWindow = () => {
         <div className='overflow-auto flex-1'>
           {loading ? (
             <div className='flex items-center justify-center h-full'>
-              <Loader />
+              <LoadingSpinner size='lg' />
             </div>
           ) : (
             <table className='w-full text-sm text-left'>

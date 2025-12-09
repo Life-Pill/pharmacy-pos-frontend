@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useItemService from '../../../items-management/services/ItemDetailsCRUDService';
 import { BsPencilSquare, BsEye, BsTrash } from 'react-icons/bs';
 import { BsBoxSeam, BsBoxes, BsExclamationTriangle } from 'react-icons/bs';
-import { Loader } from 'lucide-react';
+import LoadingSpinner from '../../../../shared/loader/LoadingSpinner';
 
 const ItemsManagementWindow = () => {
   const {
@@ -123,7 +123,7 @@ const ItemsManagementWindow = () => {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 flex-shrink-0'>
         {loading ? (
           <div className='col-span-5 flex justify-center items-center py-10'>
-            <Loader className='w-10 h-10 animate-spin text-blue-600' />
+            <LoadingSpinner size='lg' />
           </div>
         ) : (
           <>
@@ -315,7 +315,7 @@ const ItemsManagementWindow = () => {
         <div className='overflow-auto flex-1'>
           {loading ? (
             <div className='flex items-center justify-center h-full'>
-              <Loader className='w-10 h-10 animate-spin text-blue-600' />
+              <LoadingSpinner size='lg' />
             </div>
           ) : (
             <table className='w-full text-sm text-left'>
