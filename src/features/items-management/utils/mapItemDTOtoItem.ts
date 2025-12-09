@@ -23,8 +23,8 @@ const mapItemResponseToItem = (itemResponse: ItemResponseDTO): Item => {
     warehouseName: itemResponse.warehouseName,
     itemImage: itemResponse.itemImage,
     itemDescription: itemResponse.itemDescription,
-    categoryId: itemResponse.itemCategoryDTO.categoryId,
-    supplierId: itemResponse.supplierDTO?.supplierId || 0, // Default to 0 if supplierDTO is null
+    categoryId: itemResponse.categoryId || itemResponse.itemCategoryDTO?.categoryId || 0,
+    supplierId: itemResponse.supplierId || itemResponse.supplierDTO?.supplierId || 0,
     specialCondition: itemResponse.specialCondition,
     stock: itemResponse.stock,
     discounted: itemResponse.discounted,

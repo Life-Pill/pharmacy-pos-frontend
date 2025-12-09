@@ -324,9 +324,9 @@ const CashierManagementWindow = () => {
         </div>
 
         {/* Table Content */}
-        <div className='overflow-auto flex-1'>
+        <div className='overflow-x-auto overflow-y-auto max-h-[600px]'>
           {loading ? (
-            <div className='flex items-center justify-center h-full'>
+            <div className='flex items-center justify-center h-full min-h-[400px]'>
               <LoadingSpinner size='lg' />
             </div>
           ) : (

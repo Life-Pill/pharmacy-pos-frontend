@@ -355,7 +355,7 @@ const UpdateItems = () => {
                     type='text'
                     id='warrantyPeriod'
                     className='w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-                    value={item.warrantyPeriod}
+                    value={item.warrantyPeriod || ''}
                     onChange={(e) => setItem({ ...item, warrantyPeriod: e.target.value })}
                   />
                 </div>

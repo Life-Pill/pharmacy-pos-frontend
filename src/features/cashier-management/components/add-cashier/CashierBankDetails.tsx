@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useCashierContext } from '../../layout/AddCashier';
 import useBankCRUDService from '../../services/BankDetailsCRUDService';
 import { toast } from 'react-toastify';
+import LoadingSpinner from '../../../../shared/loader/LoadingSpinner';
 
 const CashierBankDetails = () => {
   const { cashierDetails, cashierBankDetails, setCashierBankDetails } =
@@ -26,114 +27,137 @@ const CashierBankDetails = () => {
     }
   };
 
-  return (
-    <div className='w-full p-16 px-4 sm:px-6 lg:px-8'>
-      <div className='grid grid-cols-1 md:grid-cols-1 gap-6'>
-        {/* First Column */}
-        <div>
-          <label
-            htmlFor='bankName'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Bank Name
-          </label>
-          <input
-            type='text'
-            id='bankName'
-            className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierBankDetails.bankName}
-            onChange={(e) =>
-              setCashierBankDetails({
-                ...cashierBankDetails,
-                bankName: e.target.value,
-              })
-            }
-          />
-
-          <label
-            htmlFor='branchName'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Branch Name
-          </label>
-          <input
-            type='text'
-            id='branchName'
-            className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierBankDetails.bankBranchName}
-            onChange={(e) =>
-              setCashierBankDetails({
-                ...cashierBankDetails,
-                bankBranchName: e.target.value,
-              })
-            }
-          />
-
-          <label
-            htmlFor='accountNumber'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Account Number
-          </label>
-          <input
-            type='number'
-            id='accountNumber'
-            className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierBankDetails.bankAccountNumber}
-            onChange={(e) =>
-              setCashierBankDetails({
-                ...cashierBankDetails,
-                bankAccountNumber: parseInt(e.target.value),
-              })
-            }
-          />
-
-          <label
-            htmlFor='additionalNotes'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Additional Notes
-          </label>
-          <textarea
-            id='additionalNotes'
-            className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierBankDetails.employerDescription}
-            onChange={(e) =>
-              setCashierBankDetails({
-                ...cashierBankDetails,
-                employerDescription: e.target.value,
-              })
-            }
-          ></textarea>
-
-          <label
-            htmlFor='baseSalary'
-            className='block text-sm font-medium text-black mt-4'
-          >
-            Base Salary
-          </label>
-          <input
-            type='text'
-            id='baseSalary'
-            className='mt-1 p-2 border-gray rounded-md w-full'
-            value={cashierDetails.employerSalary}
-            readOnly
-          />
-        </div>
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <LoadingSpinner />
       </div>
-      <div className='flex items-center justify-center gap-8 w-full'>
-        <button
-          type='button'
-          className={`text-white py-2.5 px-5 me-2 mb-2 rounded-lg ${
-            loading
-              ? 'bg-gray-500 cursor-not-allowed'
-              : 'bg-blueDarker hover:bg-blue'
-          }`}
-          onClick={goToSummary}
-          disabled={loading}
-        >
-          {loading ? 'Loading...' : 'Create Bank Details'}
-        </button>
+    );
+  }
+
+  return (
+    <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+      {/* Header */}
+      <div className='bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl shadow-md p-8 mb-8'>
+        <h1 className='text-3xl font-bold text-white'>Bank Account Details</h1>
+        <p className='text-blue-50 mt-2'>Enter employee banking information for salary processing</p>
+      </div>
+
+      {/* Main Form Card */}
+      <div className='bg-white rounded-xl shadow-md p-8'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+          {/* Bank Information Section */}
+          <div className='space-y-6'>
+            <h2 className='text-xl font-semibold text-gray-800 border-b pb-2'>Bank Information</h2>
+            
+            <div>
+              <label htmlFor='bankName' className='block text-sm font-medium text-gray-700 mb-2'>
+                Bank Name <span className='text-red-500'>*</span>
+              </label>
+              <input
+                type='text'
+                id='bankName'
+                className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+                placeholder='Enter bank name'
+                value={cashierBankDetails.bankName}
+                onChange={(e) =>
+                  setCashierBankDetails({
+                    ...cashierBankDetails,
+                    bankName: e.target.value,
+                  })
+                }
+              />
+            </div>
+
+            <div>
+              <label htmlFor='branchName' className='block text-sm font-medium text-gray-700 mb-2'>
+                Branch Name <span className='text-red-500'>*</span>
+              </label>
+              <input
+                type='text'
+                id='branchName'
+                className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+                placeholder='Enter branch name'
+                value={cashierBankDetails.bankBranchName}
+                onChange={(e) =>
+                  setCashierBankDetails({
+                    ...cashierBankDetails,
+                    bankBranchName: e.target.value,
+                  })
+                }
+              />
+            </div>
+
+            <div>
+              <label htmlFor='accountNumber' className='block text-sm font-medium text-gray-700 mb-2'>
+                Account Number <span className='text-red-500'>*</span>
+              </label>
+              <input
+                type='text'
+                id='accountNumber'
+                className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+                placeholder='Enter account number'
+                value={cashierBankDetails.bankAccountNumber || ''}
+                onChange={(e) =>
+                  setCashierBankDetails({
+                    ...cashierBankDetails,
+                    bankAccountNumber: parseInt(e.target.value) || 0,
+                  })
+                }
+              />
+            </div>
+          </div>
+
+          {/* Salary & Notes Section */}
+          <div className='space-y-6'>
+            <h2 className='text-xl font-semibold text-gray-800 border-b pb-2'>Salary & Additional Information</h2>
+            
+            <div>
+              <label htmlFor='baseSalary' className='block text-sm font-medium text-gray-700 mb-2'>
+                Monthly Salary
+              </label>
+              <input
+                type='text'
+                id='baseSalary'
+                className='w-full px-4 py-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed'
+                value={cashierDetails.employerSalary}
+                readOnly
+              />
+              <p className='text-xs text-gray-500 mt-1'>This value is set from the employee details</p>
+            </div>
+
+            <div>
+              <label htmlFor='additionalNotes' className='block text-sm font-medium text-gray-700 mb-2'>
+                Additional Notes
+              </label>
+              <textarea
+                id='additionalNotes'
+                rows={8}
+                className='w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none'
+                placeholder='Enter any additional notes or comments about the bank account...'
+                value={cashierBankDetails.employerDescription}
+                onChange={(e) =>
+                  setCashierBankDetails({
+                    ...cashierBankDetails,
+                    employerDescription: e.target.value,
+                  })
+                }
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className='flex items-center justify-center gap-4 mt-8 pt-6 border-t'>
+          <button
+            type='button'
+            className='px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed'
+            onClick={goToSummary}
+            disabled={loading}
+          >
+            {loading ? 'Saving...' : 'Save & Continue'}
+          </button>
+        </div>
       </div>
     </div>
   );

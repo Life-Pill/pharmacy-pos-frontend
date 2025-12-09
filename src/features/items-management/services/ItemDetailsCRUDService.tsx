@@ -134,9 +134,13 @@ const useItemService = () => {
     formData.append('manufactureDate', item.manufactureDate.toString());
     formData.append('expireDate', item.expireDate.toString());
     formData.append('purchaseDate', item.purchaseDate.toString());
-    formData.append('warrantyPeriod', item.warrantyPeriod);
+    if (item.warrantyPeriod) {
+      formData.append('warrantyPeriod', item.warrantyPeriod);
+    }
     formData.append('rackNumber', item.rackNumber);
-    formData.append('discountedPrice', item.discountedPrice.toString());
+    if (item.discountedPrice !== null) {
+      formData.append('discountedPrice', item.discountedPrice.toString());
+    }
     formData.append(
       'discountedPercentage',
       item.discountedPercentage.toString()

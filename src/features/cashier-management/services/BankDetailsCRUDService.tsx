@@ -36,15 +36,17 @@ const useBankCRUDService = () => {
     try {
       console.log('Bank Details', bankDetails);
       const res = await http.put(
-        `/employers/updateEmployerBankAccountDetailsWithId/${employerID}`,
+        `/employer/updateEmployerBankAccountDetailsWithId/${employerID}`,
         bankDetails
       );
       if (res.status === 200) {
         toast.success('Bank details updated successfully');
         setCurrentComponent(ComponentState.DetailsSummary); // Set the current component to Details
       }
-    } catch (error) {
-      toast.error('Error updating bank details');
+    } catch (error: any) {
+      console.log(error);
+      const errorMessage = error.response?.data?.message || 'Error updating bank details';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -55,14 +57,15 @@ const useBankCRUDService = () => {
   ): Promise<EmployerBankDetails | null> => {
     setLoading(true);
     try {
-      const res = await http.get(`/employers/bank-details/${id}`);
+      const res = await http.get(`/employer/bank-details/${id}`);
       console.log('bank details fetched here', res.data);
       const bankDetails: EmployerBankDetails = res.data.data;
       setCashierBankDetails(bankDetails); // Update the state
       return bankDetails; // Return the bank details
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error('Failed to fetch bank details');
+      const errorMessage = error.response?.data?.message || 'Failed to fetch bank details';
+      toast.error(errorMessage);
       return null;
     } finally {
       setLoading(false);

@@ -10,6 +10,7 @@ import useBankCRUDService from '../../services/BankDetailsCRUDService';
 const UpdateCashierDetails = () => {
   const { employerId } = useParams();
   const [updateImage, setUpdateImage] = useState<boolean>(false);
+  const [previewUrl, setPreviewUrl] = useState<string>('');
 
   const {
     fetchCashierById,
@@ -30,14 +31,11 @@ const UpdateCashierDetails = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file: File | null = e.target.files ? e.target.files[0] : null;
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          setProfilePicture(file);
-          setUpdateImage(true);
-        }
-      };
-      reader.readAsDataURL(file);
+      setProfilePicture(file);
+      setUpdateImage(true);
+      // Create preview URL
+      const objectUrl = URL.createObjectURL(file);
+      setPreviewUrl(objectUrl);
     }
   };
 
@@ -48,6 +46,13 @@ const UpdateCashierDetails = () => {
   useEffect(() => {
     fetchCashierById(parseInt(employerId as string));
     fetchImageOfEmployer(parseInt(employerId as string));
+    
+    // Cleanup preview URL on unmount
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
   }, []);
 
   return (
@@ -81,9 +86,9 @@ const UpdateCashierDetails = () => {
                 <div className='text-center'>
                   <h3 className='text-lg font-semibold text-gray-800 mb-4'>Profile Picture</h3>
                   <div className='flex items-center justify-center mb-4'>
-                    {updateImage ? (
+                    {updateImage && previewUrl ? (
                       <img
-                        src={profilePicture?.path}
+                        src={previewUrl}
                         alt='Preview'
                         className='w-40 h-40 rounded-full object-cover shadow-md border-4 border-blue-100'
                       />

@@ -12,12 +12,12 @@ export interface Item {
   manufactureDate: string; // Assuming ISO 8601 format string
   expireDate: string; // Assuming ISO 8601 format string
   purchaseDate: string; // Assuming ISO 8601 format string
-  warrantyPeriod: string;
+  warrantyPeriod: string | null;
   rackNumber: string;
-  discountedPrice: number;
+  discountedPrice: number | null;
   discountedPercentage: number;
   warehouseName: string;
-  itemImage: string;
+  itemImage: string | null;
   itemDescription: string;
   categoryId: number;
   supplierId: number;
