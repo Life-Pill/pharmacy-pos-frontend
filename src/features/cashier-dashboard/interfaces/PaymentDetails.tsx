@@ -6,4 +6,6 @@ export interface PaymentDetails {
   paymentNotes: string;
   paymentDiscount: number;
   paidAmount: number;
+  customerEmail?: string;
+  customerName?: string;
 }

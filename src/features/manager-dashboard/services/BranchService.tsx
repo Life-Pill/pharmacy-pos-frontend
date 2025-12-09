@@ -16,14 +16,15 @@ const UseBranchService = () => {
     try {
       setLoading(true);
       const res = await http.get(
-        `/branch-summary/sales-summary/${user.user?.branchId}`
+        `/branch/summary/${user.user?.branchId}`
       );
-      console.log(res);
+      console.log('Branch summary response:', res);
       const { data } = res;
       setBranchData(data.data);
       // console.log(branchData);
-    } catch (error) {
-      toast.error('Unable to fetch details');
+    } catch (error: any) {
+      console.error('Branch summary error:', error.response || error);
+      toast.error(`Unable to fetch branch details: ${error.response?.status || 'Network error'}`);
       console.log(error);
     } finally {
       setLoading(false);

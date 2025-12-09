@@ -99,71 +99,16 @@ const useCashierCRUDService = () => {
   const createCashier = async (employer: CashierDetailsType) => {
     if (
       !employer ||
-      !employer.employerNicName ||
       !employer.employerFirstName ||
       !employer.employerLastName ||
       !employer.employerPassword ||
       !employer.employerEmail ||
-      !employer.employerPhone ||
-      !employer.employerAddress ||
-      !employer.employerSalary ||
-      !employer.employerNic ||
-      !employer.gender ||
-      !employer.dateOfBirth ||
       !employer.role ||
       !employer.pin
     ) {
       toast.error('Please provide all required information.');
       return;
     }
-
-    const formData = new FormData();
-    console.log('Employer object:', employer);
-    console.log('FormData before append:', formData);
-    if (user && user.user) {
-      formData.append('branchId', user.user.branchId.toString());
-      formData.append('employerFirstName', employer.employerFirstName);
-      formData.append('employerNicName', employer.employerNicName);
-      formData.append('employerLastName', employer.employerLastName);
-      formData.append('employerPassword', employer.employerPassword);
-      formData.append('employerEmail', employer.employerEmail);
-      formData.append('employerPhone', employer.employerPhone);
-      formData.append('employerAddress', employer.employerAddress);
-      formData.append('employerSalary', String(employer.employerSalary));
-      formData.append('employerNic', employer.employerNic);
-      formData.append('gender', employer.gender);
-      formData.append(
-        'dateOfBirth',
-        String(employer.dateOfBirth.toString().split('-').join('/'))
-      );
-      formData.append('role', employer.role);
-      formData.append('pin', String(employer.pin));
-      formData.append(
-        'profileImageUrl',
-        JSON.stringify(employer.profileImageUrl)
-      ); // Assuming profileImage is an array of strings
-      formData.append('isActiveStatus', String(employer.activeStatus));
-
-      if (profilePicture) {
-        formData.append('file', profilePicture, profilePicture.name);
-      }
-    }
-
-    console.log('FormData after append:', formData);
-
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
-    // if (
-    //   !passwordsMatch(
-    //     employer.employerPassword,
-    //     employer.employerConfirmPassword
-    //   )
-    // ) {
-    //   toast.error('Passwords do not match.');
-    //   return;
-    // }
 
     if (
       !['OWNER', 'CASHIER', 'MANAGER'].includes(employer.role.toUpperCase())
@@ -181,8 +126,57 @@ const useCashierCRUDService = () => {
 
     setLoading(true);
     try {
+      const formData = new FormData();
+      
+      // Append the file if present
+      if (profilePicture) {
+        formData.append('file', profilePicture, profilePicture.name);
+      }
+
+      // Get branchId from user context
+      const branchId = user && user.user ? user.user.branchId : 1;
+
+      // Build query parameters - required fields
+      const params = new URLSearchParams({
+        branchId: branchId.toString(),
+        employerFirstName: employer.employerFirstName,
+        employerLastName: employer.employerLastName,
+        employerEmail: employer.employerEmail,
+        employerPassword: employer.employerPassword,
+        role: employer.role.toUpperCase(),
+        pin: employer.pin.toString()
+      });
+
+      // Add optional fields if provided
+      if (employer.employerNicName && employer.employerNicName.trim() !== '') {
+        params.append('employerNicName', employer.employerNicName);
+      }
+      if (employer.employerPhone && employer.employerPhone.trim() !== '') {
+        params.append('employerPhone', employer.employerPhone);
+      }
+      if (employer.employerNic && employer.employerNic.trim() !== '') {
+        params.append('employerNic', employer.employerNic);
+      }
+      if (employer.gender && employer.gender.trim() !== '') {
+        params.append('gender', employer.gender.toUpperCase());
+      }
+      if (employer.employerAddress && employer.employerAddress.trim() !== '') {
+        params.append('employerAddress', employer.employerAddress);
+      }
+      if (employer.employerSalary && employer.employerSalary > 0) {
+        params.append('employerSalary', employer.employerSalary.toString());
+      }
+      if (employer.dateOfBirth) {
+        const dateStr = typeof employer.dateOfBirth === 'string' 
+          ? employer.dateOfBirth 
+          : employer.dateOfBirth.toISOString().split('T')[0];
+        if (dateStr.trim() !== '') {
+          params.append('dateOfBirth', dateStr);
+        }
+      }
+
       const res = await http.post(
-        '/employers/save-employer-with-image',
+        `/employer/save-employer-with-image?${params.toString()}`,
         formData,
         {
           headers: {
@@ -192,16 +186,16 @@ const useCashierCRUDService = () => {
       );
 
       console.log(res.data);
-      if (res.data.code === 201) {
+      if (res.data.code === 200) {
         const createdCashierData = res.data.data;
+        toast.success(res.data.message || 'Employee created successfully!');
         setCurrentComponent(ComponentState.BankDetails);
-        console.log('Created cashier:', createdCashierData.employerId);
-        toast.success('Cashier created successfully!');
         return createdCashierData.employerId;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error('Failed to create a cashier');
+      const errorMessage = error.response?.data?.message || 'Failed to create employee';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -231,9 +225,7 @@ const useCashierCRUDService = () => {
     try {
       setLoading(true);
       console.log('Fetching cashier by id', employerId);
-      const res = await http.get('/employers/get-by-id', {
-        params: { employerId },
-      });
+      const res = await http.get(`/employer/${employerId}`);
       console.log(res.data.data);
       if (res.status === 200) {
         setCashierDetails(res.data.data);
@@ -293,17 +285,18 @@ const useCashierCRUDService = () => {
 
       setUpdating(true);
       const res = await http.put(
-        `/employers/update/${employer.employerId}`,
+        `/employer/${employer.employerId}`,
         employer
       );
       if (res.status === 200) {
-        toast.success('Cashier updated successfully!');
+        toast.success('Employee updated successfully!');
         setCurrentComponent(ComponentState.BankDetails);
       }
       console.log(res);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error('Failed to update cashier');
+      const errorMessage = error.response?.data?.message || 'Failed to update employee';
+      toast.error(errorMessage);
     } finally {
       setUpdating(false);
     }
@@ -311,18 +304,21 @@ const useCashierCRUDService = () => {
 
   const deleteCashierById = async (id: number) => {
     const confirmed = window.confirm(
-      `Are you sure you want to delete cashier ${id}?`
+      `Are you sure you want to delete employee ${id}?`
     );
     if (confirmed) {
       try {
         setLoading(true);
-        console.log('Deleting cashier by id', id);
-        const res = await http.delete(`/employers/delete-employerId/${id}`);
+        console.log('Deleting employee by id', id);
+        const res = await http.delete(`/employer/${id}`);
         console.log(res);
-        toast.success('Cashier deleted successfully');
-      } catch (error) {
+        if (res.status === 200) {
+          toast.success('Employee deleted successfully');
+        }
+      } catch (error: any) {
         console.log(error);
-        toast.error('Failed to delete cashier');
+        const errorMessage = error.response?.data?.message || 'Failed to delete employee';
+        toast.error(errorMessage);
       } finally {
         setLoading(false);
         navigate('/manager-dashboard/Cashiers');
@@ -340,22 +336,14 @@ const useCashierCRUDService = () => {
     try {
       setFetchProfilePicture(true);
       const res = await http.get(
-        `/employers/view-profile-image/${employerId}`,
-        {
-          responseType: 'arraybuffer', // Ensure response type is set correctly
-        }
+        `/employer/view-profile-image/${employerId}`
       );
       console.log(res); // Check the response in console if needed
 
-      // Convert array buffer to Base64 string
-      const base64String = btoa(
-        new Uint8Array(res.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ''
-        )
-      );
-
-      setProfileImageUrl(`data:image/jpeg;base64,${base64String}`);
+      // The API now returns a URL string in the data field
+      if (res.data && res.data.code === 200 && res.data.data) {
+        setProfileImageUrl(res.data.data);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -365,16 +353,18 @@ const useCashierCRUDService = () => {
 
   const [updateState, setUpdateState] = useState<boolean>(false);
   const updateEmployerImage = async (employerId: number) => {
-    const updateImageFormData = new FormData();
-    if (profilePicture) {
-      updateImageFormData.append('file', profilePicture, profilePicture?.name);
-    } else {
-      toast.warning('Please select a image');
+    if (!profilePicture) {
+      toast.warning('Please select an image');
+      return;
     }
+
+    const updateImageFormData = new FormData();
+    updateImageFormData.append('file', profilePicture, profilePicture.name);
+
     try {
       setUpdateState(true);
       const res = await http.put(
-        `/employers/update-employer-image/${employerId}`,
+        `/employer/update-employer-image/${employerId}`,
         updateImageFormData,
         {
           headers: {
@@ -385,10 +375,13 @@ const useCashierCRUDService = () => {
       console.log(res);
       if (res.status === 200) {
         toast.success('Image updated successfully');
+        // Refresh the profile image after successful update
+        await fetchImageOfEmployer(employerId);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error('Failed to update profile picture');
+      const errorMessage = error.response?.data?.message || 'Failed to update profile picture';
+      toast.error(errorMessage);
     } finally {
       setUpdateState(false);
     }

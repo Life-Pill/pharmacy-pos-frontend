@@ -10,7 +10,7 @@ const useAxiosInstance = () => {
     return axios.create({
       // baseURL: 'http://localhost:8079/lifepill/v1',
       // baseURL: 'http://18.188.108.84:8079/lifepill/v1',
-      baseURL: 'http://34.42.161.241:8080/lifepill/v1',
+      baseURL: 'http://35.208.197.159:9191/lifepill/v1/',
       headers: {
         'Content-type': 'application/json',
       },
@@ -28,7 +28,17 @@ const useAxiosInstance = () => {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
+        
+        // Don't override Content-Type for FormData - let browser set it with boundary
+        if (config.data instanceof FormData) {
+          delete config.headers['Content-type'];
+          delete config.headers['Content-Type'];
+        }
+        
+        console.log('Request URL:', `${config.baseURL || ''}${config.url || ''}`);
         console.log('Request token:', token);
+        console.log('Request data type:', config.data?.constructor?.name);
+        console.log('Request headers:', config.headers);
         return config;
       },
       (error) => {

@@ -14,6 +14,8 @@ import { AddItems, UpdateItems } from './features/items-management';
 import MainDashboard from './features/manager-dashboard';
 import { useUserContext } from './context/UserContext';
 import ViewItem from './features/items-management/layout/ViewItem';
+import AddCompany from './features/seller-management/layouts/AddCompany';
+import UpdateCompany from './features/seller-management/layouts/UpdateCompany';
 
 function App() {
   const { user } = useUserContext();
@@ -53,6 +55,8 @@ function App() {
             <Route path='/add-items' element={<AddItems />} />
             <Route path='/update-items/:itemId' element={<UpdateItems />} />
             <Route path='/view-item/:itemId' element={<ViewItem />} />
+            <Route path='/manager-dashboard/add-company' element={<AddCompany />} />
+            <Route path='/manager-dashboard/update-company/:id' element={<UpdateCompany />} />
           </>
         ) : (
           <>

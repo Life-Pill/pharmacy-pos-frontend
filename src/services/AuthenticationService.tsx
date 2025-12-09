@@ -15,20 +15,39 @@ const useAuthenticationService = () => {
       setLog(true);
       console.log(user?.employerEmail);
       console.log(pin);
-      // const res = await http.post('/session/authenticate/cached', {
-      //   username: user?.employerEmail,
-      //   pin: parseInt(pin),
-      // });
-      // console.log(res);
-      if (parseInt(pin) === 1234) {
-        toast.success('Successfully authenticated');
+      
+      const res = await http.post('/session/authenticate/cached', {
+        username: user?.employerEmail,
+        pin: parseInt(pin),
+      });
+      
+      console.log(res);
+      
+      if (res.data.code === 200) {
+        const { authenticationResponse, employerDetails } = res.data.data;
+        const { access_token, refresh_token } = authenticationResponse;
+        
+        // Set the token in context (will save to localStorage)
+        setCookie(access_token);
+        
+        // Store refresh token
+        if (refresh_token) {
+          localStorage.setItem('refreshToken', refresh_token);
+        }
+        
+        // Update user data in context
+        if (employerDetails) {
+          setUser(employerDetails);
+        }
+        
+        toast.success(res.data.message || 'Successfully authenticated');
         navigate('/cashier-dashboard');
       } else {
-        toast.error('Authentication failed');
+        toast.error(res.data.message || 'Authentication failed');
       }
-    } catch (error) {
-      console.log(error);
-      toast.error('Authentication failed');
+    } catch (error: any) {
+      console.error('Cached authentication error:', error);
+      toast.error(error?.response?.data?.message || 'Authentication failed');
     } finally {
       setLog(false);
     }

@@ -38,6 +38,8 @@ const ConfirmPaymentPopUp = () => {
       paymentNotes: '',
       paymentDiscount: 0,
       paidAmount: 0,
+      customerEmail: '',
+      customerName: '',
     });
   };
 
@@ -57,14 +59,61 @@ const ConfirmPaymentPopUp = () => {
           </div>
 
           <div className='flex flex-row justify-between items-center gap-2'>
-            <div className='bg-numberpadbutton p-2 rounded-md h-max'>
-              <p>Notes</p>
-              <input
-                className='border border-gray p-2 rounded-md'
-                type='text'
+            <div className='bg-numberpadbutton p-2 rounded-md h-max flex-1'>
+              <p className='font-semibold mb-2'>Customer Information (Optional)</p>
+              <div className='space-y-2'>
+                <div>
+                  <label className='text-xs text-gray-600'>Customer Name</label>
+                  <input
+                    className='border border-gray p-2 rounded-md w-full'
+                    type='text'
+                    placeholder='Enter customer name'
+                    value={paymentDetails.customerName || ''}
+                    onChange={(e) =>
+                      setPaymentDetails({
+                        ...paymentDetails,
+                        customerName: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label className='text-xs text-gray-600'>Customer Email</label>
+                  <input
+                    className='border border-gray p-2 rounded-md w-full'
+                    type='email'
+                    placeholder='Enter customer email'
+                    value={paymentDetails.customerEmail || ''}
+                    onChange={(e) =>
+                      setPaymentDetails({
+                        ...paymentDetails,
+                        customerEmail: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className='bg-numberpadbutton p-2 rounded-md h-max flex-1'>
+              <p className='font-semibold mb-2'>Notes</p>
+              <textarea
+                className='border border-gray p-2 rounded-md w-full'
+                rows={4}
                 placeholder='Enter any additional note here'
+                value={paymentDetails.paymentNotes || ''}
+                onChange={(e) =>
+                  setPaymentDetails({
+                    ...paymentDetails,
+                    paymentNotes: e.target.value,
+                  })
+                }
               />
             </div>
+          </div>
+
+          <div className='flex flex-row justify-between items-center gap-2 mt-4'>
+            <div className='flex-1'></div>
 
             <div className='flex flex-col flex-1'>
               <div className='flex flex-row justify-between items-center bg-numberpadbutton rounded-md p-2 mb-2'>

@@ -48,101 +48,128 @@ function BranchSalesSummary() {
   });
 
   return (
-    <div className='flex flex-col space-y-8 h-screen p-4'>
-      <div className='bg-white shadow-md rounded-lg p-4 flex flex-wrap items-center space-x-4 justify-between'>
-        <div className='flex flex-col'>
-          <label htmlFor='startDate' className='mb-1'>
-            Start Date:
-          </label>
-          <input
-            type='date'
-            id='startDate'
-            value={startDate}
-            onChange={handleStartDateChange}
-            className='border rounded p-1'
-          />
-        </div>
-        <div className='flex flex-col'>
-          <label htmlFor='endDate' className='mb-1'>
-            End Date:
-          </label>
-          <input
-            type='date'
-            id='endDate'
-            value={endDate}
-            onChange={handleEndDateChange}
-            className='border rounded p-1'
-          />
-        </div>
-        <div className='flex flex-row gap-2'>
-          <label htmlFor='filterByMonth' className='mb-1'>
-            Filter By Month:
-          </label>
-          <input
-            type='checkbox'
-            id='filterByMonth'
-            checked={filterByMonth}
-            onChange={() => setFilterByMonth(!filterByMonth)}
-            className='border p-1'
-          />
-        </div>
-        <div className='flex flex-col'>
-          <label htmlFor='filterByYear' className='mb-1'>
-            Filter By Year:
-          </label>
-          <input
-            type='text'
-            id='filterByYear'
-            value={filterByYear}
-            onChange={handleYearChange}
-            placeholder='YYYY'
-            className='border rounded p-1'
-          />
-        </div>
-        <button
-          className='bg-black text-white px-4 py-2 font-bold rounded-lg'
-          onClick={handleClearFilters}
-        >
-          Clear Filters
-        </button>
-        <div className='flex items-center ml-auto'>
-          <button
-            className={`px-4 py-2 font-bold rounded-l-lg ${
-              showSales ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-800'
-            }`}
-            onClick={() => setShowSales(true)}
-          >
-            Sales
-          </button>
-          <button
-            className={`px-4 py-2 font-bold rounded-r-lg ${
-              !showSales
-                ? 'bg-gray-800 text-white'
-                : 'bg-gray-300 text-gray-800'
-            }`}
-            onClick={() => setShowSales(false)}
-          >
-            Orders
-          </button>
-        </div>
-        <button
-          className='bg-green-800 text-white px-4 py-2 font-bold rounded-lg ml-4 flex items-center justify-center'
-          onClick={() => exportToExcel(filteredSalesData)}
-          data-tip='Export to Excel'
-        >
-          <AiFillFileExcel size={24} />
-        </button>
-        <button
-          className='bg-red-800 text-white px-4 py-2 font-bold rounded-lg ml-4 flex items-center justify-center'
-          onClick={() => exportToPDF(filteredSalesData)}
-          data-tooltip-content={'Export to PDF'}
-          data-tip='Export to PDF'
-        >
-          <AiFillFilePdf size={24} />
-        </button>
+    <div className='flex flex-col gap-6 h-full'>
+      {/* Header Section */}
+      <div className='bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 shadow-lg'>
+        <h1 className='text-2xl font-bold text-white mb-2'>Sales Summary</h1>
+        <p className='text-blue-100 text-sm'>Track and analyze your branch sales performance</p>
       </div>
 
-      <div className='flex flex-col justify-between space-y-8'>
+      {/* Filters Card */}
+      <div className='bg-white rounded-xl shadow-md p-6'>
+        <h2 className='text-lg font-semibold text-gray-800 mb-4'>Filters & Options</h2>
+        
+        {/* Date Range Filters */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6'>
+          <div className='flex flex-col'>
+            <label htmlFor='startDate' className='text-sm font-medium text-gray-700 mb-2'>
+              Start Date
+            </label>
+            <input
+              type='date'
+              id='startDate'
+              value={startDate}
+              onChange={handleStartDateChange}
+              className='border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+            />
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor='endDate' className='text-sm font-medium text-gray-700 mb-2'>
+              End Date
+            </label>
+            <input
+              type='date'
+              id='endDate'
+              value={endDate}
+              onChange={handleEndDateChange}
+              className='border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+            />
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor='filterByYear' className='text-sm font-medium text-gray-700 mb-2'>
+              Filter by Year
+            </label>
+            <input
+              type='text'
+              id='filterByYear'
+              value={filterByYear}
+              onChange={handleYearChange}
+              placeholder='e.g., 2025'
+              className='border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+            />
+          </div>
+          <div className='flex flex-col justify-end'>
+            <label className='flex items-center gap-2 cursor-pointer bg-gray-50 rounded-lg px-3 py-2.5 hover:bg-gray-100 transition'>
+              <input
+                type='checkbox'
+                id='filterByMonth'
+                checked={filterByMonth}
+                onChange={() => setFilterByMonth(!filterByMonth)}
+                className='w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
+              />
+              <span className='text-sm font-medium text-gray-700'>Filter by Month</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className='flex flex-wrap items-center gap-3'>
+          {/* View Toggle */}
+          <div className='flex bg-gray-100 rounded-lg p-1'>
+            <button
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                showSales 
+                  ? 'bg-white text-blue-600 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+              onClick={() => setShowSales(true)}
+            >
+              Sales
+            </button>
+            <button
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                !showSales
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+              onClick={() => setShowSales(false)}
+            >
+              Orders
+            </button>
+          </div>
+
+          {/* Clear Filters */}
+          <button
+            className='px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors'
+            onClick={handleClearFilters}
+          >
+            Clear Filters
+          </button>
+
+          {/* Export Buttons */}
+          <div className='flex gap-2 ml-auto'>
+            <button
+              className='px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 shadow-sm'
+              onClick={() => exportToExcel(filteredSalesData)}
+              title='Export to Excel'
+            >
+              <AiFillFileExcel size={20} />
+              <span>Excel</span>
+            </button>
+            <button
+              className='px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2 shadow-sm'
+              onClick={() => exportToPDF(filteredSalesData)}
+              title='Export to PDF'
+            >
+              <AiFillFilePdf size={20} />
+              <span>PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Chart Section */}
+      <div className='bg-white rounded-xl shadow-md p-6 flex-1'>
         {filterByMonth ? (
           showSales ? (
             <SalesChart

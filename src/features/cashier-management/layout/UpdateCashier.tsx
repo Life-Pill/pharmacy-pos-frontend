@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import CashierManagerNavBar from '../components/navbar/CashierManagerNavBar';
 import UpdateCashierBankDetails from '../components/update-cashier/UpdateCashierBankDetails';
 import UpdateCashierDetails from '../components/update-cashier/UpdateCashierDetails';
 import UpdateCashierSummary from '../components/update-cashier/UpdateCashierSummary';
@@ -51,8 +50,7 @@ const UpdateCashier = () => {
 
   return (
     <CashierContext.Provider value={contextValue}>
-      <div className='bg-indigo-100 h-screen font-poppins'>
-        <CashierManagerNavBar topic='Update Cashier' />
+      <div className='min-h-screen font-poppins'>
         {renderComponent()}
       </div>
     </CashierContext.Provider>

@@ -14,11 +14,11 @@ export const mapEmployeeReponseToIEmployee = (
     employerAddress: employee.employerAddress,
     employerSalary: employee.employerSalary,
     employerNic: employee.employerNic,
-    isActiveStatus: employee.isActiveStatus,
+    isActiveStatus: employee.activeStatus,
     gender: employee.gender,
     dateOfBirth: employee.dateOfBirth,
     role: employee.role,
     pin: employee.pin,
-    profileImage: employee.profileImage,
+    profileImageUrl: employee.profileImageUrl,
   };
 };

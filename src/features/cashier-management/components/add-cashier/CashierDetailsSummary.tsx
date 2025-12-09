@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentState, useCashierContext } from '../../layout/AddCashier';
 import { Link } from 'react-router-dom';
-import TableRow from '../../../../shared/table_row/TableRow';
 
 function CashierDetailsSummary() {
   const { cashierDetails, setCurrentComponent, cashierBankDetails } =
@@ -12,97 +11,148 @@ function CashierDetailsSummary() {
   };
 
   return (
-    <div className='flex flex-row justify-evenly items-center max-h-screen p-2'>
-      {/* Image Section */}
-      <div className='flex justify-center items-center flex-col gap-2'>
-        <img
-          src={cashierDetails.profileImageUrl} // Assuming profileImage is an array of strings (URLs)
-          alt='Profile'
-          className='h-64 w-64 rounded-full object-cover mr-2'
-        />
-        <p className='text-lg font-bold mb-2'>
-          Employee {cashierDetails.employerFirstName}
-        </p>
-        <div className='flex items-center justify-center flex-col gap-2'>
-          {/* Employment Details Section */}
-          <p className='text-lg font-bold mb-2'>Bank Details</p>
-          <table className='min-w-full divide-y divide-gray-200'>
-            <tbody className='bg-white divide-y divide-gray-200'>
-              <TableRow
-                label='Account Number'
-                value={cashierBankDetails.bankAccountNumber}
-              />
-              <TableRow label='Bank Name' value={cashierBankDetails.bankName} />
-              <TableRow
-                label='Branch Name'
-                value={cashierBankDetails.bankBranchName}
-              />
-
-              <TableRow
-                label='Base Salary (LKR)'
-                value={cashierBankDetails.monthlyPayment}
-              />
-              <TableRow
-                label='Additional Notes'
-                value={cashierBankDetails.employerDescription}
-              />
-            </tbody>
-          </table>
+    <div className='bg-gradient-to-br from-blue-50 to-indigo-100 p-6 font-poppins'>
+      <div className='max-w-7xl mx-auto pb-8'>
+        {/* Header */}
+        <div className='bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-lg p-8 mb-6'>
+          <h1 className='text-3xl font-bold text-white'>Employee Created Successfully</h1>
+          <p className='text-blue-100 mt-2'>Review the complete employee information below</p>
         </div>
-        <div className='flex justify-center items-center gap-4'>
+
+        {/* Main Content Grid */}
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+          {/* Profile Card */}
+          <div className='lg:col-span-1'>
+            <div className='bg-white rounded-xl shadow-md p-6 sticky top-8'>
+              <div className='flex flex-col items-center'>
+                <div className='w-48 h-48 rounded-full overflow-hidden border-4 border-blue-500 mb-4'>
+                  <img
+                    src={cashierDetails.profileImageUrl}
+                    alt='Profile'
+                    className='w-full h-full object-cover'
+                  />
+                </div>
+                <h2 className='text-2xl font-bold text-gray-800 text-center'>
+                  {cashierDetails.employerFirstName} {cashierDetails.employerLastName}
+                </h2>
+                <p className='text-sm text-gray-500 mt-1'>
+                  {cashierDetails.role.toUpperCase()}
+                </p>
+                <span className='inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mt-3'>
+                  ID: {cashierDetails.employerId}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Details Cards */}
+          <div className='lg:col-span-2 space-y-6'>
+            {/* Personal Information Card */}
+            <div className='bg-white rounded-xl shadow-md p-6'>
+              <h3 className='text-xl font-semibold text-gray-800 mb-4 pb-2 border-b'>
+                Personal Information
+              </h3>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>First Name</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerFirstName}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Last Name</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerLastName}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Nickname</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerNicName || 'N/A'}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>NIC Number</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerNic}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Date of Birth</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.dateOfBirth.toString().slice(0, 10)}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Gender</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.gender.toUpperCase()}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Information Card */}
+            <div className='bg-white rounded-xl shadow-md p-6'>
+              <h3 className='text-xl font-semibold text-gray-800 mb-4 pb-2 border-b'>
+                Contact Information
+              </h3>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Email Address</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerEmail}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Phone Number</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerPhone}</p>
+                </div>
+                <div className='space-y-1 md:col-span-2'>
+                  <label className='text-xs font-medium text-gray-500'>Address</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierDetails.employerAddress}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bank Details Card */}
+            <div className='bg-white rounded-xl shadow-md p-6'>
+              <h3 className='text-xl font-semibold text-gray-800 mb-4 pb-2 border-b'>
+                Bank Account Details
+              </h3>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Bank Name</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierBankDetails.bankName}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Branch Name</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierBankDetails.bankBranchName}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Account Number</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierBankDetails.bankAccountNumber}</p>
+                </div>
+                <div className='space-y-1'>
+                  <label className='text-xs font-medium text-gray-500'>Monthly Salary (LKR)</label>
+                  <p className='text-sm text-gray-900 font-medium'>{cashierBankDetails.monthlyPayment}</p>
+                </div>
+                {cashierBankDetails.employerDescription && (
+                  <div className='space-y-1 md:col-span-2'>
+                    <label className='text-xs font-medium text-gray-500'>Additional Notes</label>
+                    <p className='text-sm text-gray-900 font-medium'>{cashierBankDetails.employerDescription}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className='flex items-center justify-center gap-4 mt-8'>
           <button
             type='button'
-            className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-slate-900 focus:outline-none bg-white rounded-lg border border-gray hover:bg-gray'
-          >
-            <Link to='/manager-dashboard/Cashiers'>Finish</Link>
-          </button>
-          <button
-            type='button'
-            className='text-white bg-blueDarker hover:bg-blue font-medium py-2.5 px-5 me-2 mb-2 rounded-lg'
+            className='px-8 py-3 bg-white hover:bg-gray-50 text-gray-700 font-medium rounded-lg transition-colors border border-gray-300'
             onClick={goToBankDetails}
           >
-            Back
+            ← Back to Bank Details
           </button>
+          <Link to='/manager-dashboard/Cashiers'>
+            <button
+              type='button'
+              className='px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors'
+            >
+              Finish & View All Employees
+            </button>
+          </Link>
         </div>
       </div>
-
-      {/* Personal Information Section */}
-
-      <div className='flex justify-center items-center flex-col gap-2'>
-        <p className='text-lg font-bold mb-2'>Employment Information</p>
-        <table className='min-w-full divide-y divide-gray-200'>
-          <tbody className='bg-white divide-y divide-gray-200'>
-            <TableRow label='EmployerID' value={cashierDetails.employerId} />
-            <TableRow
-              label='First Name'
-              value={cashierDetails.employerFirstName}
-            />
-            <TableRow
-              label='Last Name'
-              value={cashierDetails.employerLastName}
-            />
-            <TableRow label='Nic Name' value={cashierDetails.employerNicName} />
-            <TableRow label='NIC Number' value={cashierDetails.employerNic} />
-            <TableRow label='E-mail' value={cashierDetails.employerEmail} />
-            <TableRow
-              label='Phone Number'
-              value={cashierDetails.employerPhone}
-            />
-            <TableRow label='Address' value={cashierDetails.employerAddress} />
-            <TableRow
-              label='Date of Birth'
-              value={cashierDetails.dateOfBirth.toString().slice(0, 10)}
-            />
-            <TableRow
-              label='Gender'
-              value={cashierDetails.gender.toUpperCase()}
-            />
-            <TableRow label='Role' value={cashierDetails.role.toUpperCase()} />
-          </tbody>
-        </table>
-      </div>
-
-      {/* Buttons */}
     </div>
   );
 }

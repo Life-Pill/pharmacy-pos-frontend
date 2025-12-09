@@ -46,6 +46,8 @@ const MainCashierDashboard = () => {
     paymentNotes: '',
     paymentDiscount: 0,
     paidAmount: 0,
+    customerEmail: '',
+    customerName: '',
   });
 
   const [orderedMedicine, setOrderedMedicine] = useState<OrderedMedicine[]>([]);

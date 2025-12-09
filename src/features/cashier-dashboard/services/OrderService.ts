@@ -24,6 +24,8 @@ const useOrderService = () => {
         total: paymentDetails.paymentAmount,
         orderDetails: orderedMedicine,
         paymentDetails: paymentDetails,
+        customerEmail: paymentDetails.customerEmail,
+        customerName: paymentDetails.customerName,
       });
       const res = await http.post('/order/save', {
         employerId: user.user?.employerId,
@@ -32,6 +34,8 @@ const useOrderService = () => {
         total: paymentDetails.paymentAmount,
         orderDetails: orderedMedicine,
         paymentDetails: paymentDetails,
+        customerEmail: paymentDetails.customerEmail,
+        customerName: paymentDetails.customerName,
       });
       console.log(res);
       // Display success toast

@@ -22,7 +22,7 @@ const MainDashboard = () => {
   const renderSelectedItem = () => {
     switch (selectedItem) {
       case 'Dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigateToOrders={() => setSelectedItem('Orders')} />;
       case 'Cashiers':
         return <CashierManagementWindow />;
       case 'Branches':
@@ -44,8 +44,8 @@ const MainDashboard = () => {
     <div className='w-full max-h-screen overflow-hidden'>
       <ManagerNavbar />
       <div className='flex flex-row'>
-        <ManagerSidebar onItemClick={handleItemClick} />
-        <div className='flex flex-col w-full p-4 font-poppins scroll-mb-8'>
+        <ManagerSidebar onItemClick={handleItemClick} selectedItem={selectedItem as string} />
+        <div className='flex flex-col w-full p-4 font-poppins scroll-mb-8 overflow-y-auto'>
           {renderSelectedItem()}
         </div>
       </div>
