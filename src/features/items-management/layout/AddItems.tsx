@@ -137,9 +137,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  supplyDate: new Date(e.target.value)
-                    .toISOString()
-                    .slice(0, 10),
+                  supplyDate: e.target.value,
                 });
               }}
             />
@@ -277,9 +275,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  manufactureDate: new Date(e.target.value)
-                    .toISOString()
-                    .slice(0, 10),
+                  manufactureDate: e.target.value,
                 });
               }}
             />
@@ -297,9 +293,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  expireDate: new Date(e.target.value)
-                    .toISOString()
-                    .slice(0, 10),
+                  expireDate: e.target.value,
                 });
               }}
             />
@@ -317,9 +311,7 @@ const AddItems = () => {
               onChange={(e) => {
                 setItem({
                   ...item,
-                  purchaseDate: new Date(e.target.value)
-                    .toISOString()
-                    .slice(0, 10),
+                  purchaseDate: e.target.value,
                 });
               }}
             />

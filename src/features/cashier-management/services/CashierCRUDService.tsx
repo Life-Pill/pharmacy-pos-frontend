@@ -132,10 +132,7 @@ const useCashierCRUDService = () => {
       formData.append('employerSalary', String(employer.employerSalary));
       formData.append('employerNic', employer.employerNic);
       formData.append('gender', employer.gender);
-      formData.append(
-        'dateOfBirth',
-        String(employer.dateOfBirth.toString().split('-').join('/'))
-      );
+      formData.append('dateOfBirth', employer.dateOfBirth.toString());
       formData.append('role', employer.role);
       formData.append('pin', String(employer.pin));
       formData.append(

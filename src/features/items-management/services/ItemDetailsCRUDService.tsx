@@ -27,7 +27,7 @@ const useItemService = () => {
     supplierPrice: 0,
     itemManufacture: '',
     itemQuantity: 0,
-    measuringUnitType: 'KILO_GRAM', // Enum type for measuring units
+    measuringUnitType: 'PIECE', // Enum type for measuring units
     manufactureDate: '', // Assuming ISO 8601 format ""
     expireDate: '', // Assuming ISO 8601 format ""
     purchaseDate: '', // Assuming ISO 8601 format ""
@@ -126,26 +126,14 @@ const useItemService = () => {
     formData.append('branchId', item.branchId.toString());
     formData.append('sellingPrice', item.sellingPrice.toString());
     formData.append('itemBarCode', item.itemBarCode);
-    formData.append(
-      'supplyDate',
-      item.supplyDate.toString().split('-').join('/')
-    );
+    formData.append('supplyDate', item.supplyDate.toString());
     formData.append('supplierPrice', item.supplierPrice.toString());
     formData.append('itemManufacture', item.itemManufacture);
     formData.append('itemQuantity', item.itemQuantity.toString());
     formData.append('measuringUnitType', item.measuringUnitType);
-    formData.append(
-      'manufactureDate',
-      item.manufactureDate.toString().split('-').join('/')
-    );
-    formData.append(
-      'expireDate',
-      item.expireDate.toString().split('-').join('/')
-    );
-    formData.append(
-      'purchaseDate',
-      item.purchaseDate.toString().split('-').join('/')
-    );
+    formData.append('manufactureDate', item.manufactureDate.toString());
+    formData.append('expireDate', item.expireDate.toString());
+    formData.append('purchaseDate', item.purchaseDate.toString());
     formData.append('warrantyPeriod', item.warrantyPeriod);
     formData.append('rackNumber', item.rackNumber);
     formData.append('discountedPrice', item.discountedPrice.toString());
@@ -154,7 +142,7 @@ const useItemService = () => {
       item.discountedPercentage.toString()
     );
     formData.append('warehouseName', item.warehouseName);
-    formData.append('itemImage', item.itemImage);
+    // Don't append itemImage as string - only file is needed
     formData.append('itemDescription', item.itemDescription);
     formData.append('categoryId', item.categoryId.toString());
     formData.append('supplierId', item.supplierId.toString());
@@ -178,20 +166,21 @@ const useItemService = () => {
       return;
     }
 
+    console.log('Sending request to:', '/item/save-item-with-image');
+    console.log('FormData entries count:', Array.from(formData.entries()).length);
+
     try {
-      const res = await http.post('/item/save-item-with-image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const res = await http.post('/item/save-item-with-image', formData);
       if (res.data.code === 201) {
         toast.success(res.data.message);
         navigate('/manager-dashboard/Items');
+      } else {
+        toast.error(res.data.message || 'Failed to create item');
       }
       console.log(res);
-    } catch (error) {
-      console.log(error);
-      toast.error('Could not create the item');
+    } catch (error: any) {
+      console.error('Item creation error:', error);
+      toast.error(error?.response?.data?.message || 'Could not create the item');
     } finally {
       setCreating(false);
     }

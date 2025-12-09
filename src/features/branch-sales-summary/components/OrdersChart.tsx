@@ -52,9 +52,27 @@ function OrdersChart({ salesData }: Props) {
   };
 
   return (
-    <div className=' pb-8'>
-      <h2>Orders Chart</h2>
-      <Bar data={data} options={options} width={1200} height={500} />
+    <div className='w-full h-full'>
+      <h3 className='text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2'>
+        <span className='w-1 h-6 bg-teal-500 rounded'></span>
+        Orders Analytics
+      </h3>
+      <div className='w-full' style={{ height: '400px' }}>
+        <Bar 
+          data={data} 
+          options={{
+            ...options,
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top' as const,
+              },
+            },
+          }} 
+        />
+      </div>
     </div>
   );
 }

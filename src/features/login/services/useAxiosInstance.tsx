@@ -35,8 +35,10 @@ const useAxiosInstance = () => {
           delete config.headers['Content-Type'];
         }
         
+        console.log('Request URL:', `${config.baseURL || ''}${config.url || ''}`);
         console.log('Request token:', token);
         console.log('Request data type:', config.data?.constructor?.name);
+        console.log('Request headers:', config.headers);
         return config;
       },
       (error) => {
