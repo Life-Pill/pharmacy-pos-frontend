@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { TbCirclePlus } from 'react-icons/tb';
 import { Link, useNavigate } from 'react-router-dom';
 import useCashierService from '../../services/CashierService';
@@ -21,16 +21,83 @@ const CashierManagementWindow = () => {
     loading,
   } = useCashierService();
 
-  const handleSearch = (searchPhoneNumber: string) => {
-    const filtered = workers.filter((cashier) =>
-      cashier.employerPhone?.includes(searchPhoneNumber)
-    );
-    setFilteredCashiers(filtered);
-  };
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'inactive'>('all');
+  const [filterGender, setFilterGender] = useState<'all' | 'male' | 'female'>('all');
+  const [filterPayment, setFilterPayment] = useState<'all' | 'paid' | 'unpaid'>('all');
+  const [sortBy, setSortBy] = useState<'name' | 'salary' | 'id'>('name');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     fetchEmployeeData();
   }, []);
+
+  useEffect(() => {
+    applyFilters();
+  }, [workers, searchTerm, filterStatus, filterGender, filterPayment, sortBy, sortOrder]);
+
+  const applyFilters = () => {
+    let filtered = [...workers];
+
+    // Search by name or phone
+    if (searchTerm) {
+      filtered = filtered.filter((cashier) =>
+        cashier.employerFirstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cashier.employerPhone?.includes(searchTerm)
+      );
+    }
+
+    // Filter by active status
+    if (filterStatus === 'active') {
+      filtered = filtered.filter((cashier) => cashier.activeStatus);
+    } else if (filterStatus === 'inactive') {
+      filtered = filtered.filter((cashier) => !cashier.activeStatus);
+    }
+
+    // Filter by gender
+    if (filterGender !== 'all') {
+      filtered = filtered.filter((cashier) => 
+        cashier.gender?.toLowerCase() === filterGender
+      );
+    }
+
+    // Filter by payment status
+    if (filterPayment === 'paid') {
+      filtered = filtered.filter((cashier) => cashier.activeStatus);
+    } else if (filterPayment === 'unpaid') {
+      filtered = filtered.filter((cashier) => !cashier.activeStatus);
+    }
+
+    // Sort
+    filtered.sort((a, b) => {
+      let compareValue = 0;
+      
+      switch (sortBy) {
+        case 'name':
+          compareValue = (a.employerFirstName || '').localeCompare(b.employerFirstName || '');
+          break;
+        case 'salary':
+          compareValue = a.employerSalary - b.employerSalary;
+          break;
+        case 'id':
+          compareValue = a.employerId - b.employerId;
+          break;
+      }
+      
+      return sortOrder === 'asc' ? compareValue : -compareValue;
+    });
+
+    setFilteredCashiers(filtered);
+  };
+
+  const handleClearFilters = () => {
+    setSearchTerm('');
+    setFilterStatus('all');
+    setFilterGender('all');
+    setFilterPayment('all');
+    setSortBy('name');
+    setSortOrder('asc');
+  };
 
   const onUpdateClick = (employer: CashierDetailsType) => {
     console.log(employer.employerId);
@@ -126,32 +193,133 @@ const CashierManagementWindow = () => {
 
       {/* Table Section */}
       <div className='bg-white rounded-xl shadow-md flex-1 flex flex-col overflow-hidden'>
+        {/* Filters Bar */}
+        <div className='p-6 border-b border-gray-200'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4'>
+            {/* Search */}
+            <div className='lg:col-span-2'>
+              <label className='text-xs font-medium text-gray-700 mb-1 block'>Search</label>
+              <div className='relative'>
+                <input
+                  type='text'
+                  placeholder='Search by name or phone...'
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className='w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+                />
+                <svg
+                  className='absolute left-3 top-2.5 w-5 h-5 text-gray-400'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                  />
+                </svg>
+              </div>
+            </div>
+
+            {/* Active Status Filter */}
+            <div>
+              <label className='text-xs font-medium text-gray-700 mb-1 block'>Status</label>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value as any)}
+                className='w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+              >
+                <option value='all'>All</option>
+                <option value='active'>Active</option>
+                <option value='inactive'>Inactive</option>
+              </select>
+            </div>
+
+            {/* Gender Filter */}
+            <div>
+              <label className='text-xs font-medium text-gray-700 mb-1 block'>Gender</label>
+              <select
+                value={filterGender}
+                onChange={(e) => setFilterGender(e.target.value as any)}
+                className='w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+              >
+                <option value='all'>All</option>
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+              </select>
+            </div>
+
+            {/* Payment Filter */}
+            <div>
+              <label className='text-xs font-medium text-gray-700 mb-1 block'>Payment</label>
+              <select
+                value={filterPayment}
+                onChange={(e) => setFilterPayment(e.target.value as any)}
+                className='w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+              >
+                <option value='all'>All</option>
+                <option value='paid'>Paid</option>
+                <option value='unpaid'>Unpaid</option>
+              </select>
+            </div>
+
+            {/* Sort By & Actions */}
+            <div>
+              <label className='text-xs font-medium text-gray-700 mb-1 block'>Sort By</label>
+              <div className='flex gap-2'>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  className='flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+                >
+                  <option value='name'>Name</option>
+                  <option value='salary'>Salary</option>
+                  <option value='id'>ID</option>
+                </select>
+                <button
+                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                  className='px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center justify-center'
+                  title={sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+                >
+                  {sortOrder === 'asc' ? (
+                    <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 15l7-7 7 7' />
+                    </svg>
+                  ) : (
+                    <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Results Count and Clear Button */}
+          <div className='mt-3 flex items-center justify-between'>
+            <p className='text-sm text-gray-600'>
+              Showing <span className='font-semibold text-gray-900'>{filteredCashiers.length}</span> of{' '}
+              <span className='font-semibold text-gray-900'>{workers.length}</span> cashiers
+            </p>
+            <button
+              onClick={handleClearFilters}
+              className='px-4 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-sm font-medium transition-colors'
+            >
+              Clear Filters
+            </button>
+          </div>
+        </div>
+
         {/* Table Header */}
-        <div className='flex items-center justify-between p-6 border-b border-gray-200'>
-          <h2 className='text-xl font-semibold text-gray-800 flex items-center gap-2'>
-            <span className='w-1 h-6 bg-blue-500 rounded'></span>
+        <div className='flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50'>
+          <h2 className='text-lg font-semibold text-gray-800 flex items-center gap-2'>
+            <span className='w-1 h-5 bg-blue-500 rounded'></span>
             Cashier Details
           </h2>
           <div className='relative'>
-            <input
-              type='text'
-              placeholder='Search by phone number...'
-              className='pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition w-64'
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-            <svg
-              className='absolute left-3 top-2.5 w-5 h-5 text-gray-400'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-              />
-            </svg>
+            {/* Removed search input from here as it's now in the filters bar */}
           </div>
         </div>
 
