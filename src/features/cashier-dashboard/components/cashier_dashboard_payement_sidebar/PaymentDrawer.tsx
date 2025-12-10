@@ -59,41 +59,38 @@ const PaymentDrawer = () => {
   };
 
   return (
-    <div className='w-[600px] flex flex-col p-2 rounded-lg space-y-4 font-poppins'>
-      <div className='flex justify-between items-center'>
+    <div className='w-[480px] flex flex-col p-5 rounded-xl space-y-4 font-poppins bg-white shadow-xl border border-gray-200'>
+      {/* Header */}
+      <div className='flex justify-between items-center pb-3 border-b border-gray-200'>
         <div>
-          <p className='font-semibold'>Order Payment</p>
-          <p>Order #102</p>
+          <p className='font-bold text-xl text-gray-800'>Payment</p>
+          <p className='text-xs text-gray-500'>Order #102</p>
         </div>
-        <RxCross1 />
+        <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors'>
+          <RxCross1 className='text-gray-500' size={18} />
+        </button>
       </div>
-      <HorizontalDivider />
-      <div className='flex flex-col bg-numberpadbutton rounded-md p-2'>
-        <div className=' flex flex-row justify-between items-center'>
-          <p>Discount</p>
-          <p>{paymentDetails.paymentDiscount}</p>
-        </div>
-        <div className='flex flex-row justify-between items-center'>
-          <p>Total Amount</p>
-          <p className='text-blueDarker font-semibold'>
-            {paymentDetails.paymentAmount}
+      
+      {/* Payment Summary */}
+      <div className='bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200'>
+        {paymentDetails.paymentDiscount > 0 && (
+          <div className='flex justify-between items-center mb-2 pb-2 border-b border-blue-200'>
+            <p className='text-xs text-gray-600'>Discount</p>
+            <p className='text-sm font-semibold text-orange-600'>{paymentDetails.paymentDiscount}%</p>
+          </div>
+        )}
+        <div className='flex justify-between items-center'>
+          <p className='text-sm font-medium text-gray-700'>Total Amount</p>
+          <p className='text-2xl text-blue-700 font-bold'>
+            Rs. {paymentDetails.paymentAmount.toFixed(2)}
           </p>
         </div>
       </div>
 
-      {/* Payment method component */}
+      {/* Payment Method */}
       <div>
-        <p className='font-semibold'>Payment Method</p>
-        <div className='flex justify-evenly items-center'>
-          <PaymentMethodButton
-            imageSrc={mastercard}
-            onClick={() => {
-              setPaymentDetails({
-                ...paymentDetails,
-                paymentMethod: 'mastercard',
-              });
-            }}
-          />
+        <p className='text-sm font-semibold text-gray-700 mb-2'>Payment Method</p>
+        <div className='flex gap-2'>
           <PaymentMethodButton
             imageSrc={money}
             onClick={() => {
@@ -112,51 +109,62 @@ const PaymentDrawer = () => {
               });
             }}
           />
+          <PaymentMethodButton
+            imageSrc={mastercard}
+            onClick={() => {
+              setPaymentDetails({
+                ...paymentDetails,
+                paymentMethod: 'mastercard',
+              });
+            }}
+          />
         </div>
       </div>
 
-      {/* Numberpad with input bar */}
-      <div className='mb-4'>
-        <label htmlFor='paymentInput' className='block text-sm font-semibold'>
-          Input Amount
+      {/* Amount Input */}
+      <div>
+        <label htmlFor='paymentInput' className='block text-sm font-semibold text-gray-700 mb-2'>
+          Amount Received
         </label>
-        <input
-          type='number'
-          id='paymentInput'
-          value={payment}
-          placeholder='Enter Amount'
-          className='border rounded border-gray-500 focus:border-blue-500 outline-none w-full text-lg font-semibold placeholder-gray-700 text-center py-2'
-          // onKeyPress={(e) => handleKeyPress(e.key)}
-          onChange={(e) => {
-            setPayment(e.target.value);
-            setPaymentDetails({
-              ...paymentDetails,
-              paidAmount: parseInt(e.target.value),
-            });
-          }}
-        />
+        <div className='relative'>
+          <span className='absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium'>
+            Rs.
+          </span>
+          <input
+            type='number'
+            id='paymentInput'
+            value={payment}
+            placeholder='0.00'
+            className='border-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none w-full text-xl font-bold placeholder-gray-300 text-center py-3 transition-all'
+            onChange={(e) => {
+              setPayment(e.target.value);
+              setPaymentDetails({
+                ...paymentDetails,
+                paidAmount: parseInt(e.target.value) || 0,
+              });
+            }}
+          />
+        </div>
+        {payment && parseInt(payment) < paymentDetails.paymentAmount && (
+          <p className='text-xs text-red-600 mt-2 font-medium'>
+            Short: Rs. {(paymentDetails.paymentAmount - parseInt(payment)).toFixed(2)}
+          </p>
+        )}
+        {payment && parseInt(payment) >= paymentDetails.paymentAmount && parseInt(payment) > paymentDetails.paymentAmount && (
+          <p className='text-xs text-green-600 mt-2 font-medium'>
+            Change: Rs. {(parseInt(payment) - paymentDetails.paymentAmount).toFixed(2)}
+          </p>
+        )}
       </div>
 
-      {/* <PaymentNumberPad onKeyPress={handleKeyPress} /> */}
-
-      {/* Three buttons for receipt email and done */}
-      <div className='flex flex-row justify-evenly items-center'>
-        {/* <FooterButton
-          onClick={footerButtonClick}
-          icon={<BiReceipt />}
-          text='Receipt'
-        />
-        <FooterButton
-          onClick={footerButtonClick}
-          icon={<AiOutlineMail />}
-          text='Email'
-        /> */}
-        <FooterButton
-          onClick={footerButtonClick}
-          icon={<MdOutlineDone />}
-          text='Done'
-        />
-      </div>
+      {/* Action Button */}
+      <button
+        onClick={footerButtonClick}
+        className='w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2'
+      >
+        <MdOutlineDone size={22} />
+        <span>Confirm Payment</span>
+      </button>
     </div>
   );
 };

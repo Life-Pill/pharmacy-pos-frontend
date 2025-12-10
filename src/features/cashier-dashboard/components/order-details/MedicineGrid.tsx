@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
+import { MdDelete } from 'react-icons/md';
 import CountRoundButton from '../../../../shared/buttons/CountRoundButton';
 import { usePaymentContext } from '../../layout/MainCashierDashboard';
 
@@ -53,6 +54,20 @@ const MedicineGrid = () => {
     }
   };
 
+  const handleRemoveItem = (index: number) => {
+    const updatedMedicines = [...orderedMedicine];
+    const removedItem = updatedMedicines[index];
+    
+    // Restore quantity to filtered medicine
+    filterUpdateMedicine[index].quantity += removedItem.amount;
+    setFilteredMedicine(filterUpdateMedicine);
+    
+    // Remove item from order
+    updatedMedicines.splice(index, 1);
+    setOrderedMedicine(updatedMedicines);
+    calculateTotalAmount();
+  };
+
   const handleAmountChange = (amount: any, index: number) => {
     const updatedMedicines = [...orderedMedicine];
     if (amount > updatedMedicines[index].availableQuantity && !amount.isNan) {
@@ -75,7 +90,7 @@ const MedicineGrid = () => {
     });
     setDiscountedTotal(total - (total * discount) / 100);
     setTotalAmount(total);
-    setPaymentDetails({ ...paymentDetails, paymentAmount: total });
+    setPaymentDetails({ ...paymentDetails, paymentAmount: total, paymentDiscount: discount });
     setOrderedMedicine(orderedMedicine);
   };
 
@@ -83,6 +98,7 @@ const MedicineGrid = () => {
     if (discount >= 0 && discount <= 100) {
       setDiscount(discount);
       setDiscountedTotal(totalAmount - (totalAmount * discount) / 100);
+      setPaymentDetails({ ...paymentDetails, paymentDiscount: discount });
     } else {
       alert('Discount must be between 0 and 100');
       setDiscount(0);
@@ -90,92 +106,111 @@ const MedicineGrid = () => {
   };
 
   return (
-    <>
-      <div className='overflow-y-scroll flex min-h-[300px] max-h-[400px] flex-col'>
-        <table className='text-sm text-left text-gray-500 dark:text-gray-400 max-h-screen overflow-scroll'>
-          <thead className='text-xs uppercase bg-slate-300 sticky top-0'>
-            <tr>
-              <th scope='col' className='px-6 py-3'>
-                Medicine ID
-              </th>
-              <th scope='col' className='px-6 py-3'>
-                Medicine Name
-              </th>
-
-              <th scope='col' className='px-6 py-3'>
-                Unit Price
-              </th>
-              <th scope='col' className='px-6 py-3'>
-                Amount
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderedMedicine.map((cashier, index) => (
-              <tr className='bg-slate-50 border-b' key={cashier.id}>
-                <td className='px-6 py-4'>{cashier.id}</td>
-                <td className='px-6 py-4'>{cashier.name}</td>
-                <td className='px-6 py-4'>{cashier.unitPrice}</td>
-
-                <td>
-                  <div className='flex justify-center items-center gap-2'>
-                    <CountRoundButton
-                      icon={<IoIosAdd />}
-                      onClick={() => handleAddAmount(index)}
-                    />
+    <div className='flex flex-col h-full'>
+      {/* Order Items List - Scrollable */}
+      <div className='flex-1 overflow-y-auto mb-4'>
+        {orderedMedicine.length === 0 ? (
+          <div className='flex flex-col items-center justify-center h-64 text-gray-400'>
+            <svg className='w-20 h-20 mb-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' />
+            </svg>
+            <p className='text-lg font-medium'>No items added</p>
+            <p className='text-sm'>Scan or search to add items</p>
+          </div>
+        ) : (
+          <div className='space-y-2'>
+            {orderedMedicine.map((item, index) => (
+              <div
+                key={item.id}
+                className='bg-white rounded-lg border border-gray-200 p-3 hover:shadow-md transition-shadow'
+              >
+                <div className='flex justify-between items-start mb-2'>
+                  <div className='flex-1'>
+                    <h4 className='font-semibold text-gray-800 text-sm'>{item.name}</h4>
+                    <p className='text-xs text-gray-500'>ID: {item.id}</p>
+                  </div>
+                  <button
+                    onClick={() => handleRemoveItem(index)}
+                    className='text-red-500 hover:text-red-700 hover:bg-red-50 p-1 rounded transition-colors'
+                    title='Remove item'
+                  >
+                    <MdDelete size={18} />
+                  </button>
+                </div>
+                
+                <div className='flex justify-between items-center'>
+                  <div className='flex items-center gap-2'>
+                    <button
+                      onClick={() => handleSubtractAmount(index)}
+                      className='bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md p-1.5 transition-colors'
+                    >
+                      <IoIosRemove size={18} />
+                    </button>
                     <input
                       type='number'
-                      className='w-10'
-                      value={cashier.amount}
-                      onChange={(e) =>
-                        handleAmountChange(e.target.valueAsNumber, index)
-                      }
-                      readOnly={false}
+                      className='w-14 text-center border border-gray-300 rounded-md py-1 font-semibold text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-200 outline-none'
+                      value={item.amount}
+                      onChange={(e) => handleAmountChange(e.target.valueAsNumber, index)}
+                      min='0'
                     />
-                    <CountRoundButton
-                      icon={<IoIosRemove />}
-                      onClick={() => handleSubtractAmount(index)}
-                    />
+                    <button
+                      onClick={() => handleAddAmount(index)}
+                      className='bg-blue-600 hover:bg-blue-700 text-white rounded-md p-1.5 transition-colors'
+                    >
+                      <IoIosAdd size={18} />
+                    </button>
                   </div>
-                </td>
-              </tr>
+                  
+                  <div className='text-right'>
+                    <p className='text-xs text-gray-500'>Rs. {item.unitPrice.toFixed(2)} each</p>
+                    <p className='text-base font-bold text-blue-600'>
+                      Rs. {(item.unitPrice * item.amount).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className='mt-2 pt-2 border-t border-gray-100'>
+                  <p className='text-xs text-gray-500'>
+                    Available: {item.availableQuantity} units
+                  </p>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        )}
       </div>
-      <div className='flex flex-col items-center justify-start'>
-        <table>
-          <tbody>
-            <tr>
-              <td className='px-6 py-1'>Total Amount</td>
-              <td className='px-6 py-1 text-blueDarker font-bold total-amount'>
-                {totalAmount.toFixed(2)}
-              </td>
-            </tr>
-            <tr>
-              <td className='px-6 py-1'>Discount</td>
-              <td className='px-6 py-1'>
-                <input
-                  type='number'
-                  name='discount'
-                  value={discount}
-                  onChange={(e) =>
-                    calculateAfterDiscount(e.target.valueAsNumber)
-                  }
-                  className='border rounded-md p-2 w-32'
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className='px-6 py-1'>After Discount</td>
-              <td className='px-6 py-1 text-blueDarker font-bold'>
-                {discountedTotal.toFixed(2)}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </>
+
+      {/* Summary Section - Fixed at bottom */}
+      {orderedMedicine.length > 0 && (
+        <div className='bg-gray-50 rounded-lg p-3 space-y-2 border border-gray-200'>
+          <div className='flex justify-between items-center text-sm'>
+            <span className='text-gray-600'>Subtotal</span>
+            <span className='font-semibold text-gray-800'>Rs. {totalAmount.toFixed(2)}</span>
+          </div>
+          
+          <div className='flex justify-between items-center'>
+            <span className='text-sm text-gray-600'>Discount (%)</span>
+            <input
+              type='number'
+              value={discount}
+              onChange={(e) => calculateAfterDiscount(e.target.valueAsNumber)}
+              className='w-20 text-right border border-gray-300 rounded-md px-2 py-1 text-sm font-semibold focus:border-orange-500 focus:ring-1 focus:ring-orange-200 outline-none'
+              min='0'
+              max='100'
+            />
+          </div>
+          
+          {discount > 0 && (
+            <div className='flex justify-between items-center pt-2 border-t border-gray-200'>
+              <span className='text-sm font-medium text-gray-700'>After Discount</span>
+              <span className='text-lg font-bold text-green-600'>
+                Rs. {discountedTotal.toFixed(2)}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
