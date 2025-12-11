@@ -3,30 +3,68 @@ import { useWebSocket } from '../../context/WebSocketContext';
 import { IoCloseOutline } from 'react-icons/io5';
 import { FiWifi, FiWifiOff } from 'react-icons/fi';
 import LoadingSpinner from '../../../../shared/loader/LoadingSpinner';
+import usePrescriptionService, { ResponseStatus, MedicineResponse } from '../../services/PrescriptionService';
+import PrescriptionResponseForm from '../prescription-response/PrescriptionResponseForm';
+import useAxiosInstance from '../../../login/services/useAxiosInstance';
+import { useUserContext } from '../../../../context/UserContext';
+import { mapIItemsToIMedicine } from '../../utils/mapIItemsToIMedicine';
+import { IMedicine } from '../../../../interfaces/IMedicine';
 
 type Props = {
   onClose: () => void;
 };
 
 function OrderCardComponent({ onClose }: Props) {
-  const { prescriptions, connected, connecting, connectionFailed, connectWebSocket, disconnectWebSocket } = useWebSocket();
-  const [messages, setMessages] = useState<{ [key: string]: string }>({});
+  const { prescriptions, connected, connecting, connectionFailed, connectWebSocket, disconnectWebSocket, removePrescription } = useWebSocket();
+  const { respondToPrescription, submitting } = usePrescriptionService();
+  const axiosInstance = useAxiosInstance();
+  const user = useUserContext();
+  const [respondingTo, setRespondingTo] = useState<string | null>(null);
+  const [availableMedicines, setAvailableMedicines] = useState<IMedicine[]>([]);
 
-  const handleAccept = (prescriptionId: string) => {
-    // TODO: Handle accept logic - send to backend API
-    console.log(`Prescription ${prescriptionId} accepted with message: ${messages[prescriptionId]}`);
+  useEffect(() => {
+    const fetchMedicines = async () => {
+      try {
+        if (!user.user?.branchId) return;
+        const res = await axiosInstance.get(`/item/branched/get-item/${user.user.branchId}`);
+        const data = res.data.data;
+        if (data.length > 0) {
+          const mappedItems = data.map((item: any) => mapIItemsToIMedicine(item));
+          setAvailableMedicines(mappedItems);
+        }
+      } catch (error) {
+        console.error('Error fetching medicines:', error);
+      }
+    };
+
+    fetchMedicines();
+  }, []);
+
+  const handleSubmitResponse = async (
+    prescriptionId: string,
+    userId: string,
+    status: ResponseStatus,
+    medicines: MedicineResponse[],
+    totalAmount: number,
+    notes: string
+  ) => {
+    const success = await respondToPrescription(prescriptionId, {
+      branchId: 0, // Will be filled by service from user context
+      userId, // Prescription sender's userId
+      status,
+      totalAmount,
+      notes,
+      medicines
+    });
+
+    if (success) {
+      removePrescription(prescriptionId);
+      setRespondingTo(null);
+    }
   };
 
-  const handleReject = (prescriptionId: string) => {
-    // TODO: Handle reject logic - send to backend API
-    console.log(`Prescription ${prescriptionId} rejected with message: ${messages[prescriptionId]}`);
-  };
-
-  const handleMessageChange = (prescriptionId: string, message: string) => {
-    setMessages((prevMessages) => ({
-      ...prevMessages,
-      [prescriptionId]: message,
-    }));
+  const handleCancelResponse = () => {
+    setRespondingTo(null);
   };
 
   return (
@@ -166,34 +204,29 @@ function OrderCardComponent({ onClose }: Props) {
                       </div>
                     </div>
 
-                    {/* Response Message - Compact */}
-                    <div className='mt-3'>
-                      <textarea
-                        className='w-full p-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none'
-                        placeholder='Add response message (optional)...'
-                        rows={2}
-                        value={messages[prescription.prescriptionId] || ''}
-                        onChange={(e) =>
-                          handleMessageChange(prescription.prescriptionId, e.target.value)
-                        }
-                      />
-                    </div>
-
-                    {/* Action Buttons - Compact */}
-                    <div className='flex gap-2 mt-3'>
-                      <button
-                        onClick={() => handleAccept(prescription.prescriptionId)}
-                        className='flex-1 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors font-medium text-sm'
-                      >
-                        Accept
-                      </button>
-                      <button
-                        onClick={() => handleReject(prescription.prescriptionId)}
-                        className='flex-1 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium text-sm'
-                      >
-                        Reject
-                      </button>
-                    </div>
+                    {/* Response Form or Quick Actions */}
+                    {respondingTo === prescription.prescriptionId ? (
+                      <div className='mt-3'>
+                        <PrescriptionResponseForm
+                          prescriptionId={prescription.prescriptionId}
+                          onSubmit={(status, medicines, totalAmount, notes) =>
+                            handleSubmitResponse(prescription.prescriptionId, prescription.userId, status, medicines, totalAmount, notes)
+                          }
+                          onCancel={handleCancelResponse}
+                          isSubmitting={submitting}
+                          availableMedicines={availableMedicines}
+                        />
+                      </div>
+                    ) : (
+                      <div className='mt-3'>
+                        <button
+                          onClick={() => setRespondingTo(prescription.prescriptionId)}
+                          className='w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg transition-colors font-medium text-sm'
+                        >
+                          Respond to Prescription
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
