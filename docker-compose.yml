@@ -1,14 +1,54 @@
-version: '3.9'
+version: "3.9"
 
 services:
+  # Pharmacy POS Frontend Web Application
+  pharmacy-pos-frontend:
+    container_name: pharmacy-pos-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - pharmacy-network
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.pharmacy.description=Pharmacy POS Frontend Application"
+      - "com.pharmacy.service=frontend"
+
+  # SonarQube (Development/Testing)
   sonarqube:
-    container_name: 'sonarqube-container'
-    image: 'sonarqube:9.9.2-community'
+    container_name: sonarqube-container
+    image: sonarqube:9.9.2-community
     volumes:
       - ./sonarqube/extensions:/opt/sonarqube/extensions
       - ./sonarqube/logs:/opt/sonarqube/logs
       - ./sonarqube/data:/opt/sonarqube/data
     expose:
-      - '9000'
+      - "9000"
     ports:
-      - '9000:9000'
+      - "9000:9000"
+    networks:
+      - pharmacy-network
+    profiles:
+      - dev
+
+networks:
+  pharmacy-network:
+    driver: bridge
