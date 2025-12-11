@@ -10,6 +10,7 @@
   "dependencies": {
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@reduxjs/toolkit": "^2.2.1",
+    "@stomp/stompjs": "^7.2.1",
     "@tanstack/react-table": "^8.11.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/axios": "^0.14.0",
@@ -43,6 +44,7 @@
     "react-spring": "^9.7.3",
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.26.4",
+    "sockjs-client": "^1.6.1",
     "sonarqube-scanner": "^3.5.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
@@ -105,6 +107,7 @@
     "@testing-library/react": "^15.0.7",
     "@types/jest": "^29.5.12",
     "@types/js-cookie": "^3.0.6",
+    "@types/sockjs-client": "^1.5.4",
     "@types/testing-library__react": "^10.2.0",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Divider from '../../../shared/divider/Divider';
 import CashierNavBar from '../../../shared/navbar/CashierNavBar';
 import OrderDetailsSideBar from '../components/cashier_dashboard_order_details_sidebar/OrderDetailsSideBar';
@@ -15,6 +15,7 @@ import NutritionTable from '../components/nutrition-table/NutritionTable';
 import FirstAidTable from '../components/first-aid-table/FirstAidTable';
 import MedicalDeviceTable from '../components/medical-device-table/MedicalDeviceTable';
 import { IMedicine } from '../../../interfaces/IMedicine';
+import { WebSocketProvider } from '../context/WebSocketContext';
 
 export enum ComponentState {
   OrderDetails,
@@ -85,25 +86,27 @@ const MainCashierDashboard = () => {
   const [activeTable, setActiveTable] = useState('medicine');
 
   return (
-    <div className='flex flex-col h-screen'>
-      <div>
-        <CashierNavBar />
-      </div>
+    <WebSocketProvider>
+      <div className='flex flex-col h-screen'>
+        <div>
+          <CashierNavBar />
+        </div>
 
-      <div className='flex flex-row min-h-[90%]'>
-        <CashierSideBar setActiveTable={setActiveTable} />
-        <Divider />
-        <PaymentContext.Provider value={contextValue}>
-          {activeTable === 'medicine' && <Medicine />}
-          {activeTable === 'personal-care' && <PersonalCareTable />}
-          {activeTable === 'sports' && <SportsTable />}
-          {activeTable === 'nutrition' && <NutritionTable />}
-          {activeTable === 'first-aid' && <FirstAidTable />}
-          {activeTable === 'medical-devices' && <MedicalDeviceTable />}
-          {renderComponent()}
-        </PaymentContext.Provider>
+        <div className='flex flex-row min-h-[90%]'>
+          <CashierSideBar setActiveTable={setActiveTable} />
+          <Divider />
+          <PaymentContext.Provider value={contextValue}>
+            {activeTable === 'medicine' && <Medicine />}
+            {activeTable === 'personal-care' && <PersonalCareTable />}
+            {activeTable === 'sports' && <SportsTable />}
+            {activeTable === 'nutrition' && <NutritionTable />}
+            {activeTable === 'first-aid' && <FirstAidTable />}
+            {activeTable === 'medical-devices' && <MedicalDeviceTable />}
+            {renderComponent()}
+          </PaymentContext.Provider>
+        </div>
       </div>
-    </div>
+    </WebSocketProvider>
   );
 };
 

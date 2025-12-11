@@ -229,19 +229,24 @@ const useItemService = () => {
   const fetchItemImage = async (itemId: string) => {
     try {
       setFetchItemString(true);
-      const res = await http.get(`/item/view-item-image/${itemId}`, {
-        responseType: 'arraybuffer', // Ensure response type is set correctly
-      });
-      const base64String = btoa(
-        new Uint8Array(res.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ''
-        )
-      );
+      const res = await http.get(`/item/view-item-image/${itemId}`);
       console.log(res);
-      setItemString(`data:image/jpeg;base64,${base64String}`);
-    } catch (error) {
+      // New API returns { code, message, data: "image-url" }
+      if (res.data.code === 200 && res.data.data) {
+        setItemString(res.data.data);
+      } else if (res.data.code === 404) {
+        // Item not found - don't show toast, just log
+        console.log(res.data.message);
+        setItemString(null);
+      } else {
+        toast.error(res.data.message || 'Failed to fetch item image');
+      }
+    } catch (error: any) {
       console.log(error);
+      // Only show toast for non-404 errors
+      if (error?.response?.data?.code !== 404) {
+        toast.error('Could not fetch item image');
+      }
     } finally {
       setFetchItemString(false);
     }
