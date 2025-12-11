@@ -12,6 +12,9 @@ function createWindow() {
     // communicate between node-land and browser-land.
     webPreferences: {
       webSecurity: false,
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
@@ -29,6 +32,24 @@ function createWindow() {
       })
     : 'http://localhost:3000';
   mainWindow.loadURL(appURL);
+
+  // Fix for input focus issues in Electron
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.executeJavaScript(`
+      // Ensure inputs can receive focus
+      document.addEventListener('DOMContentLoaded', function() {
+        const style = document.createElement('style');
+        style.textContent = \`
+          input, textarea, select {
+            -webkit-user-select: text !important;
+            user-select: text !important;
+            pointer-events: auto !important;
+          }
+        \`;
+        document.head.appendChild(style);
+      });
+    `);
+  });
 
   // Automatically open Chrome's DevTools in development mode.
   if (!app.isPackaged) {
